@@ -7,11 +7,16 @@ James McCants, Julia Knight, Emma
 
 Overview:
 
-	The goal is to create a sort of Pinterest/Instagram/Reddit mashup where users can post photos with associated text, plain text or just a photo.
+	The goal is to create a sort of Pinterest/Instagram/Reddit mashup where 
+	users can post photos with associated text, plain text or just a photo.
 
 Driving Idea:
 
-	Based on client feedback, there was a clear emphasis placed upon the ability to easily share content with friends and a larger audience. The goal is to show off. With this idea in mind we want to create an experience that shows a clear link between content and the person posting it.
+	Based on client feedback, there was a clear emphasis placed upon the 
+	ability to easily share content with friends and a larger audience. The 
+	goal is to show off. With this idea in mind we want to create an 
+	experience that shows a clear link between content and the person posting 
+	it.
 
 Design Choices:
 
