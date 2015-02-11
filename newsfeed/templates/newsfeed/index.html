@@ -1,9 +1,14 @@
 {% if latest_post_list %}
     <ul>
-    {% for post in latest_post_list %}
+    {% for post, tag_group in zipped_lists %}
         <li><a href="{% url 'newsfeed:single_post' post.id %}"><h4>{{ post.post_title }}</h4></a>
             {{ post.post_text }}<br/>
-            Posted at: {{ post.timestamp }}</li>
+            Posted at: {{ post.timestamp }}<br/>
+            {% if tag_group %}
+                Tags: <ul>{% for tag in tag_group %}
+                <li>{{ tag.tag }}</li>
+                {% endfor %}</ul></li>
+            {% endif %} 
     {% endfor %}
     </ul>
 {% else %}

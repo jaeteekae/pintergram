@@ -2,4 +2,9 @@
 <p>{{ post.post_text }}</p>
 <!-- <p>{{ post.image_path }}</p> TODO FOR THIS LEG: Add the image-->
 <p>{{ post.timestamp }}</p>
-<!-- <p>{{ post.upvotes }}</p> TODO for later: Implement upvotes
+<!-- <p>{{ post.upvotes }}</p> TODO for later: Implement upvotes-->
+{% if tags %}
+    <p>Tags: <ul>{% for tag in tags %}
+    <li>{{ tag.tag }}</li>
+    {% endfor %}</ul></li></p>
+{% endif %} 
