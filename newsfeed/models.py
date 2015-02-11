@@ -11,8 +11,6 @@ class User(models.Model):
     def __str__(self):              # __unicode__ on Python 2
         return self.username
 
-
-
 class Post(models.Model):
     user_id = models.ForeignKey(User)
     post_title = models.CharField(max_length=100)
@@ -27,7 +25,6 @@ class Tag(models.Model):
     tag = models.CharField(max_length=100)
     def __str__(self):              # __unicode__ on Python 2
         return self.tag
-
 
 class Follower(models.Model):
     follower_id = models.ForeignKey(User, related_name='follower_set')
