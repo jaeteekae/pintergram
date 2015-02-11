@@ -1,24 +1,13 @@
 {% if latest_post_list %}
     <ul>
     {% for post in latest_post_list %}
-        <li>{{ post.post_text }}</a></li>
+        <li><a href="{% url 'newsfeed:single_post' post.id %}"><h4>{{ post.post_title }}</h4></a>
+            {{ post.post_text }}<br/>
+            Posted at: {{ post.timestamp }}</li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
 
-
-<h1>post something</h1>
-
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-<form action="/newsfeed/newsfeed" method="post">
-{% csrf_token %}
-
-    <input type="text" name="post_title" id="post_title"/>
-    <input type="text" name="post_text" id="post_text"/>
-
-
-<input type="submit" value="Vote" />
-</form>
+<a href="{% url 'newsfeed:create_post' %}">create a post</a>

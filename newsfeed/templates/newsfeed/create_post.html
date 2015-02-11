@@ -1,14 +1,3 @@
-{% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li>{{ post.post_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No posts are available.</p>
-{% endif %}
-
-
 <h1>post something</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
