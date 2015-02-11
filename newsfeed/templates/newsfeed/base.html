@@ -1,0 +1,268 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>DASHGUM - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/bootstrap.css' %}" />
+    <!--external css-->
+    <!-- <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/font-awesome/css/font-awesome.css' %}" />
+        
+    <!-- Custom styles for this template -->
+    <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style.css' %}" />
+
+    <!-- <link href="assets/css/style-responsive.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style-responsive.css' %}" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+
+
+
+  <section id="container" class="sidebar-closed">
+      <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+      <!--header start-->
+      <header class="header black-bg">
+            <!-- <div class="header transparent-header"></div> -->
+              <div class="sidebar-toggle-box">
+                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+              </div>
+            <!--logo start-->
+            <a href="{% url 'newsfeed:index' %}" class="logo">
+              <img class="nav-logo"src="{% static 'newsfeed/img/full-logo-white.png' %}">
+
+            </a>
+            <!--logo end-->
+            <a href="{% url 'newsfeed:new_post' %}">
+	          	<div class="create-button">
+	              create something
+	            </div>
+            </a>
+        
+            </div>
+            <div class="top-menu">
+
+            <div class="header transparent-header" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});"></div>
+        </header>
+      <!--header end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse " style="margin-left: -210px;">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+
+              	  <p class="centered"><a href="profile.html"><img src="{% static 'newsfeed/img/ui-sam.jpg' %}" class="img-circle" width="60"></a></p>
+              	  <h5 class="centered">Marcel Newman</h5>
+              	  	
+                  <li class="mt">
+                      <a href="index.html">
+                          <span>Followers:  100</span>
+
+                      </a>
+                  </li>
+                  <li class="mt">
+                      <a href="index.html">
+                          <span>Following:  100</span>
+
+                      </a>
+                  </li>
+                  <li class="mt">
+                      <a href="index.html">
+                          <span>Upvotes:  100</span>
+
+                      </a>
+                  </li>
+                  <li class="mt">
+                      <a href="index.html">
+                          <span>Posts:  100</span>
+
+                      </a>
+                  </li>
+
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+   
+      <section id="main-content">
+          <section class="wrapper site-min-height">
+          	<!-- <h3><i class="fa fa-angle-right"></i> Blank Page</h3> -->
+          	<div class="row mt">
+          		<div class="col-lg-12">
+              
+                {% block new-post %}{% endblock %}
+              
+<!--           		  <div class="post pn">
+                  <div class="credit" >
+                    <img class="post-avatar" src="http://lorempixel.com/200/200/">
+                    <div class="username">username</div>
+
+                  </div>
+                  <img class="post-image"src="https://placekitten.com/g/400/200">
+
+                  
+                  <div class="caption">
+                      Rumack: Captain, how soon can you land?
+                      Captain Oveur: I can't tell.
+                      Rumack: You can tell me. I'm a doctor.
+                      Captain Oveur: No. I mean I'm just not sure.
+                      Rumack: Well, can't you take a guess?
+                      Captain Oveur: Well, not for another two hours.
+                      Rumack: You can't take a guess for another two hours?
+                  </div>
+                  <div class="upvotes">
+                    
+                    10,000 votes
+                    <div class="upvote-button">&#9734</div>
+                  </div>
+                  
+                </div>
+                <div class="post pn">
+                  <div class="credit" >
+                    <img class="post-avatar" src="http://lorempixel.com/200/200/">
+                    <div class="username">username</div>
+
+                  </div>
+                  <img class="post-image"src="https://placekitten.com/g/400/200">
+
+                  
+                  <div class="caption">
+                      Rumack: Captain, how soon can you land?
+                      Captain Oveur: I can't tell.
+                      Rumack: You can tell me. I'm a doctor.
+                      Captain Oveur: No. I mean I'm just not sure.
+                      Rumack: Well, can't you take a guess?
+                      Captain Oveur: Well, not for another two hours.
+                      Rumack: You can't take a guess for another two hours?
+                  </div>
+                  <div class="upvotes">
+                    
+                    10,000 votes
+                    <div class="upvote-button">&#9734</div>
+                  </div>
+                  
+                </div>
+                <div class="post pn">
+                  <div class="credit" >
+                    <img class="post-avatar" src="http://lorempixel.com/200/200/">
+                    <div class="username">username</div>
+
+                  </div>
+                  <img class="post-image"src="https://placekitten.com/g/400/200">
+
+                  
+                  <div class="caption">
+                      Rumack: Captain, how soon can you land?
+                      Captain Oveur: I can't tell.
+                      Rumack: You can tell me. I'm a doctor.
+                      Captain Oveur: No. I mean I'm just not sure.
+                      Rumack: Well, can't you take a guess?
+                      Captain Oveur: Well, not for another two hours.
+                      Rumack: You can't take a guess for another two hours?
+                  </div>
+                  <div class="upvotes">
+                    
+                    10,000 votes
+                    <div class="upvote-button">&#9734</div>
+                  </div>
+                  
+                </div> -->
+                {% block newsfeed-content %}{% endblock %}
+
+
+
+
+          		</div> <!-- LAST DIV-->
+          	</div>
+			
+		</section><!--/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              2014 - Team 14
+              <a href="blank.html#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+
+<link rel="stylesheet" type="text/css" href="{% static 'newsfeed/js/jquery.js' %}" />
+
+
+    <script src="{% static 'newsfeed/js/jquery.js' %}"></script>
+    <!--<script src="assets/js/blur.js"></script>-->
+<script src="{% static 'newsfeed/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'newsfeed/js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+<script src="{% static 'newsfeed/js/jquery.ui.touch-punch.min.js' %}"></script>
+<script src="{% static 'newsfeed/js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'newsfeed/js/jquery.nicescroll.js' %}"></script>
+<script class="include" type="text/javascript" src="{% static 'newsfeed/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+
+
+    <!--common script for all pages-->
+    <script src="{% static 'newsfeed/js/common-scripts.js' %}"></script>
+    
+
+    <!--script for this page-->
+    
+  <script>
+$(document).ready(function() {
+    $(".fa-bars").trigger('click');
+    $('#sidebar > ul').hide();
+});
+
+      // custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+// console.log("IM HERE!");
+// $(document).ready( function() {
+//     $('.transparent-header').blurjs({
+//         source: 'body',
+//         radius: 30,
+//         overlay: 'rgba(0, 0, 0, .2)'
+//     });
+// });
+
+  </script>
+
+  </body>
+</html>

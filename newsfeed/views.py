@@ -13,6 +13,10 @@ def index(request):
 def new_post(request):
     return render(request, 'newsfeed/new_post.html')
 
+def base(request):
+    return render(request, 'newsfeed/base.html')
+
+
 def create_post(request):
     new_post = Post(post_text=request.POST['post_text'], post_title=request.POST['post_title'], timestamp=timezone.now(), user_id=User.objects.get(pk=1))
     new_post.save()

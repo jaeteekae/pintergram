@@ -1,13 +1,33 @@
+{% extends "base.html" %}
+
+{% block newsfeed-content %}
+
 {% if latest_post_list %}
-    <ul>
+
     {% for post in latest_post_list %}
-        <li><a href="{% url 'newsfeed:single_post' post.id %}"><h4>{{ post.post_title }}</h4></a>
-            {{ post.post_text }}<br/>
-            Posted at: {{ post.timestamp }}</li>
+    <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
+	    <div class="post pn">
+	    	
+			<div class="credit" >
+	            <img class="post-avatar" src="http://lorempixel.com/200/200/">
+	            <div class="username">{{ post.user_id }}</div>
+	            <div class="timestamp">{{ post.timestamp }}</div>
+	        </div>
+	        <img class="post-image"src="https://placekitten.com/g/400/200">
+	        <div class="caption">
+	        	{{ post.post_text }}
+	        </div>
+			<div class="upvotes">
+	            10,000 upvotes      
+	                    
+	            <div class="upvote-button">&#9734</div>
+	        </div>
+	        
+	    </div>
+    </a>
     {% endfor %}
-    </ul>
+    
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-
-<a href="{% url 'newsfeed:new_post' %}">create a post</a>
+{% endblock %}
