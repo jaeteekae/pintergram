@@ -146,6 +146,13 @@ height: 40px;
     
 }
 
+
+.post > .title {
+    padding: 10px;
+    font-weight: bold;
+    
+}
+
 .credit > .username {
     display: inline-block;
 }
