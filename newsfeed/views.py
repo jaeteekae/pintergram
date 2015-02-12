@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.utils.datastructures import MultiValueDictKeyError
+
 
 from newsfeed.models import Post, User, Tag
 
@@ -23,16 +25,22 @@ def base(request):
 
 
 def create_post(request):
+    try:
+        image = request.POST['post-image']
+    except MultiValueDictKeyError:
+        image = request.FILES['post-image']
+
     if not request.POST['post_title']:
         return HttpResponseRedirect('new_post')
-    elif not request.POST['post_text'] and not request.POST['post-image']:
+    elif not request.POST['post_text'] and not image:
         return HttpResponseRedirect('new_post')
     else:
         new_post = Post(post_text=request.POST['post_text'], 
                         post_title=request.POST['post_title'], 
                         timestamp=timezone.now(), 
-                        user_id=User.objects.get(pk=1), 
-                        image_path=request.FILES['post-image'])
+                        user_id=User.objects.get(pk=1))
+        if image:
+            new_post.image_path = request.FILES['post-image']
         new_post.save()
         tag_string = request.POST['tags']
         if tag_string:
