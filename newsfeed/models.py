@@ -15,7 +15,7 @@ class Post(models.Model):
     user_id = models.ForeignKey(User)
     post_title = models.CharField(max_length=100)
     post_text = models.TextField(max_length=5000)
-    image_path = models.FilePathField("/images/posts", blank=True)
+    image_path = models.ImageField(upload_to="images/", blank=True, null=True)
     timestamp = models.DateTimeField('date published')
     def __str__(self):              # __unicode__ on Python 2
         return self.post_title
