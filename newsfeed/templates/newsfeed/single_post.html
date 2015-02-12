@@ -13,7 +13,9 @@
 	            <div class="timestamp">{{ post.timestamp }}</div>
 	        </div>
 	        <!--<img class="post-image"src="https://placekitten.com/g/400/200">-->
+	        {% if post.image_path %}
 	        <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+	        {% endif %}
 	        <div class="title">
 	        	{{ post.post_title }}
 	        </div>
@@ -24,7 +26,7 @@
 	        {% if tags %}
 	        <div class="caption">
 			   Tags: {% for tag in tags %}
-			    {{ tag.tag }}&nbsp;&nbsp;
+			    &#35;{{ tag.tag }}&nbsp;
 			    {% endfor %}
 			</div>
 			{% endif %} 
@@ -35,7 +37,7 @@
 	        </div>
 	    </div>
 
-<p>{{ post.image_path }}</p>
+<!-- <p>{{ post.image_path }}</p> -->
 
 <!-- <p>{{ post.image_path }}</p> TODO FOR THIS LEG: Add the image-->
 
