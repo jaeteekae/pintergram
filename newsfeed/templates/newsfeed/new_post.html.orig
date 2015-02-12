@@ -13,8 +13,7 @@
 		<div></div>
 		<input type="file" name="post-image" id="post-image" accept="image/*">
 	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
-	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
-		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
+	    <input type="text" name="post_text" id="post_text" placeholder="Caption" class="new-post-input text"/>
 
 	    <div class="new-post-button-background" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});">
 			<input type="submit" value="create post" class="new-post-button"/>
@@ -27,7 +26,13 @@ $("#post-image").change(function(e) {
 
     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
+<<<<<<< HEAD
         var file = e.originalEvent.srcElement.files[i];
+=======
+    <input type="text" name="post_title" id="post_title"/>
+    <input type="text" name="post_text" id="post_text"/>
+    <input type="text" name="tags" id="tags"/> <!-- tags separated by commas -->
+>>>>>>> tags
 
         var img = document.createElement("img");
         var reader = new FileReader();
