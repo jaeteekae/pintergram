@@ -12,7 +12,8 @@
 	            <div class="username">{{ post.user_id }}</div>
 	            <div class="timestamp">{{ post.timestamp }}</div>
 	        </div>
-	        <img class="post-image"src="https://placekitten.com/g/400/200">
+	        <!--<img class="post-image"src="https://placekitten.com/g/400/200">-->
+	        <img class="post-image"src="/static/{{ post.image_path }}" width="400" height="200"/>
 	        <div class="title">
 	        	{{ post.post_title }}
 	        </div>

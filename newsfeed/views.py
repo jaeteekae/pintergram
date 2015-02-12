@@ -28,7 +28,7 @@ def create_post(request):
     elif not request.POST['post_text']:
         return HttpResponseRedirect('new_post')
     else:
-        new_post = Post(post_text=request.POST['post_text'], post_title=request.POST['post_title'], timestamp=timezone.now(), user_id=User.objects.get(pk=1))
+        new_post = Post(post_text=request.POST['post_text'], post_title=request.POST['post_title'], timestamp=timezone.now(), user_id=User.objects.get(pk=1), image_path=request.FILES['post-image'])
         new_post.save()
         tag_string = request.POST['tags']
         tag_list = tag_string.split(',')
