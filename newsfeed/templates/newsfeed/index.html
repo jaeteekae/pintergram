@@ -4,33 +4,42 @@
 
 {% if latest_post_list %}
 
-    {% for post in latest_post_list %}
-    
-	    <div class="post pn">
-	    	
-			<div class="credit" >
-	            <img class="post-avatar" src="http://lorempixel.com/200/200/">
-	            <div class="username">{{ post.user_id }}</div>
-	            <div class="timestamp">{{ post.timestamp }}</div>
-	        </div>
-	        <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
-	        <img class="post-image"src="https://placekitten.com/g/400/200">
-	        </a>
-	        <div class="title">
-	        	{{ post.post_title }}
-	        </div>
-	        
-	        <div class="caption">
-	        	{{ post.post_text }}
-	        </div>
-			<div class="upvotes">
-	            10,000 upvotes      
-	                    
-	            <div class="upvote-button">&#9734</div>
-	        </div>
-	        
-	    </div>
-    
+
+    {% for post, tag_group in zipped_lists %}
+    <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
+        <div class="post pn">
+            
+            <div class="credit" >
+                <img class="post-avatar" src="http://lorempixel.com/200/200/">
+                <div class="username">{{ post.user_id }}</div>
+                <div class="timestamp">{{ post.timestamp }}</div>
+            </div>
+            <img class="post-image"src="https://placekitten.com/g/400/200">
+            <div class="title">
+                {{ post.post_title }}
+            </div>
+            
+            <div class="caption">
+                {{ post.post_text }}
+            </div>
+
+            {% if tag_group %}
+            <div class="caption">
+                Tags: {% for tag in tag_group %}
+                {{ tag.tag }}&nbsp;&nbsp;
+                {% endfor %}
+            </div>
+            {% endif %} 
+
+            <div class="upvotes">
+                10,000 upvotes      
+                        
+                <div class="upvote-button">&#9734</div>
+            </div>
+            
+        </div>
+    </a>
+
     {% endfor %}
     
 {% else %}
