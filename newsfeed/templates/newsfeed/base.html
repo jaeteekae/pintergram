@@ -60,7 +60,16 @@
             </a>
         
             </div>
-            <div class="top-menu">
+
+<div class="onoffswitch" id="view-switch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner" style="background: url({% static 'newsfeed/img/grid-icon.png' %})">
+          
+        </span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
 
             <div class="header transparent-header" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});"></div>
         </header>
@@ -76,7 +85,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
 
               	  <p class="centered"><a href="profile.html"><img src="{% static 'newsfeed/img/ui-sam.jpg' %}" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Marcel Newman</h5>
+              	  <h5 class="centered">Test User</h5>
               	  	
                   <li class="mt">
                       <a href="index.html">
@@ -118,7 +127,7 @@
           <section class="wrapper site-min-height">
           	<!-- <h3><i class="fa fa-angle-right"></i> Blank Page</h3> -->
           	<div class="row mt">
-          		<div class="col-lg-12">
+          		<div class="col-lg-12" id="main-content-stream">
               
                 {% block new-post %}{% endblock %}
               
@@ -233,26 +242,52 @@
 <script src="{% static 'newsfeed/js/jquery.ui.touch-punch.min.js' %}"></script>
 <script src="{% static 'newsfeed/js/jquery.scrollTo.min.js' %}"></script>
 <script src="{% static 'newsfeed/js/jquery.nicescroll.js' %}"></script>
+<script src="{% static 'newsfeed/js/masonry.pkgd.min.js' %}"></script>
 <script class="include" type="text/javascript" src="{% static 'newsfeed/js/jquery.dcjqaccordion.2.7.js' %}"></script>
 
 
     <!--common script for all pages-->
-    <script src="{% static 'newsfeed/js/common-scripts.js' %}"></script>
+<script src="{% static 'newsfeed/js/common-scripts.js' %}"></script>
     
 
     <!--script for this page-->
     
-  <script>
-$(document).ready(function() {
-    $(".fa-bars").trigger('click');
-    $('#sidebar > ul').hide();
-});
 
+<script type="text/javascript">
       // custom select box
 
-      $(function(){
-          $('select.styled').customSelect();
-      });
+
+
+$('#view-switch').change(function() {
+
+            
+            $("#main-content-stream").addClass("grid");
+            $("#main-content-stream").addClass("grid2");
+
+            console.log("HITTING THIS FUNCTION. stream --> grid");
+            var $container = $('#main-content-stream');
+            // initialize
+  
+            $container.masonry({
+              columnWidth: 350,
+              itemSelector: '.post',
+            });
+            
+            $("#main-content-stream").removeClass("grid");
+
+     if ($('#myonoffswitch').is(":checked") === true) {
+    //        var $container = $('#main-content-stream');
+            // $('#main-content-stream').data('masonry')
+    $container.masonry('destroy')
+    $("#main-content-stream").removeClass("grid2");
+
+}
+
+    
+});
+
+
+
 // console.log("IM HERE!");
 // $(document).ready( function() {
 //     $('.transparent-header').blurjs({
@@ -262,6 +297,13 @@ $(document).ready(function() {
 //     });
 // });
 
+
+
+// $(document).ready(function() {
+
+//     $(".fa-bars").trigger('click');
+//     $('#sidebar > ul').hide();
+// });
   </script>
 
   </body>
