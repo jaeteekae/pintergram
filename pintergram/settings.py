@@ -1,3 +1,8 @@
+try:
+    from secret import *
+except ImportError:
+    raise ImportError("COULD NOT IMPORT SECRET SETTINGS")
+
 """
 Django settings for pintergram project.
 
