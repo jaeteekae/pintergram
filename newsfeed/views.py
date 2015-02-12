@@ -25,7 +25,7 @@ def base(request):
 def create_post(request):
     if not request.POST['post_title']:
         return HttpResponseRedirect('new_post')
-    elif not request.POST['post_text']:
+    elif not request.POST['post_text'] and not request.POST['post-image']:
         return HttpResponseRedirect('new_post')
     else:
         new_post = Post(post_text=request.POST['post_text'], 
@@ -35,10 +35,11 @@ def create_post(request):
                         image_path=request.FILES['post-image'])
         new_post.save()
         tag_string = request.POST['tags']
-        tag_list = tag_string.split(',')
-        for x in tag_list:
-            new_tag = Tag(tag=x, post_id=new_post)
-            new_tag.save()
+        if tag_string:
+            tag_list = tag_string.split(',')
+            for x in tag_list:
+                new_tag = Tag(tag=x, post_id=new_post)
+                new_tag.save()
         return HttpResponseRedirect('/newsfeed')
 
 def single_post(request, post_id):
