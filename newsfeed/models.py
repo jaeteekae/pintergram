@@ -7,6 +7,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=50)
     password = models.CharField(max_length=30)
     email = models.EmailField()
+    #outdated but cool for MVP
     avatar_path = models.FilePathField("/images/avatars", blank=True)
     def __str__(self):              # __unicode__ on Python 2
         return self.username

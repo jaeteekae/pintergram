@@ -7,7 +7,7 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <div class="new-post pn">
-	<form action="create_post" method="post">
+	<form action="create_post" method="post" enctype="multipart/form-data">
 	
 	{% csrf_token %}
 		<div></div>
