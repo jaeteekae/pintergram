@@ -6,7 +6,7 @@
 
 
     {% for post, tag_group in zipped_lists %}
-    <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
+    
         <div class="post pn">
             
             <div class="credit" >
@@ -14,7 +14,9 @@
                 <div class="username">{{ post.user_id }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
-            <img class="post-image"src="https://placekitten.com/g/400/200">
+            <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
+	            <img class="post-image"src="https://placekitten.com/g/400/200">
+	        </a>
             <div class="title">
                 {{ post.post_title }}
             </div>
@@ -23,22 +25,23 @@
                 {{ post.post_text }}
             </div>
 
-            {% if tag_group %}
-            <div class="caption">
-                Tags: {% for tag in tag_group %}
-                {{ tag.tag }}&nbsp;&nbsp;
-                {% endfor %}
-            </div>
-            {% endif %} 
+
 
             <div class="upvotes">
-                10,000 upvotes      
+                10,000 upvotes &nbsp;&nbsp;  &nbsp;&nbsp;
+            {% if tag_group %}
+            
+                tags: {% for tag in tag_group %}
+                {{ tag.tag }},
+                {% endfor %}
+            
+            {% endif %} 
                         
                 <div class="upvote-button">&#9734</div>
             </div>
             
         </div>
-    </a>
+    
 
     {% endfor %}
     
