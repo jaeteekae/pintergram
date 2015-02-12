@@ -15,7 +15,10 @@
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
             <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
+                <!--
 	            <img class="post-image"src="https://placekitten.com/g/400/200">
+                -->
+                <img class="post-image"src="/static/{{ post.image_path }}" width="400" height="200"/>
 	        </a>
             <div class="title">
                 {{ post.post_title }}

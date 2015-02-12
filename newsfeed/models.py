@@ -1,5 +1,5 @@
+from time import time
 from django.db import models
-
 
 class User(models.Model):
     username = models.CharField(max_length=30)
@@ -12,11 +12,17 @@ class User(models.Model):
     def __str__(self):              # __unicode__ on Python 2
         return self.username
 
+#http://code.techandstartup.com/django/images/#images-templates
+def generate_filename(instance, filename):
+    ext = filename.split('.')[-1]
+    return 'images/' + str(int(time())) + '.' + ext
+
 class Post(models.Model):
     user_id = models.ForeignKey(User)
     post_title = models.CharField(max_length=100)
     post_text = models.TextField(max_length=5000)
-    image_path = models.ImageField(upload_to="images/", blank=True, null=True)
+
+    image_path = models.ImageField(upload_to=generate_filename, blank=True, null=True)
     timestamp = models.DateTimeField('date published')
     def __str__(self):              # __unicode__ on Python 2
         return self.post_title
