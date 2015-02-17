@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block newsfeed-content %}
 
 {% if latest_post_list %}
@@ -53,4 +53,47 @@
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
+{% endblock %}
+
+
+
+
+{% block new-post-mod %}
+
+
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+<!-- <div class="new-post pn"> -->
+	<form action="create_post" method="post" enctype="multipart/form-data">
+	
+	{% csrf_token %}
+		<div></div>
+		<input type="file" name="post-image" id="post-image" accept="image/*">
+	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
+	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
+		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
+		<input type="submit" value="create post" class="new-post-button"/>
+	</form>
+<!-- </div> -->
+
+<script type="text/javascript">
+$("#post-image").change(function(e) {
+
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+        var file = e.originalEvent.srcElement.files[i];
+
+        var img = document.createElement("img");
+        var reader = new FileReader();
+        reader.onloadend = function() {
+             img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+        $("#post-image").after(img);
+    }
+});​
+</script>
+
 {% endblock %}

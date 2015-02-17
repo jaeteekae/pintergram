@@ -31,9 +31,11 @@ def create_post(request):
         image = request.FILES['post-image']
 
     if not request.POST['post_title']:
-        return HttpResponseRedirect('new_post')
+        return HttpResponseRedirect('/newsfeed')
+        # return HttpResponseRedirect('new_post')
     elif not request.POST['post_text'] and not image:
-        return HttpResponseRedirect('new_post')
+        return HttpResponseRedirect('/newsfeed')
+        # return HttpResponseRedirect('new_post')
     else:
         new_post = Post(post_text=request.POST['post_text'], 
                         post_title=request.POST['post_title'], 

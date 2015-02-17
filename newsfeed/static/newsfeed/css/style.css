@@ -63,6 +63,45 @@ Premium: http://www.gridgum.com
 
 /*    SWITCH STYLING DONE   */
 
+.doodle-left {
+    height: 180px;
+position: absolute;
+bottom: 0;
+left: 0;
+}
+
+.doodle-right {
+    height: 180px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+
+.new-post-mod {
+    width: -moz-calc(100% + 30px);
+    width: -webkit-calc(100% + 30px);
+    width: -o-calc(100% + 30px);
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    padding: 10px;
+    margin-top: 70px;
+    display: none;
+    background-color: rgba(0, 0, 0, .4);
+    border-top: 2px solid #fff;
+}
+
+
+
+.new-post-mod > form {
+    width: 50%;
+    margin: 10px;
+    display: inline-block;
+    margin-left: 25%;
+    margin-right: 25%;
+
+}
 
 
 .grid > .pn {
@@ -103,9 +142,31 @@ Premium: http://www.gridgum.com
     display: block;
     margin-top: 5px;
     margin-bottom: 5px;
+    background: none;
+    border: none;
+    border: 3px solid #fff;
+    color: #fff;
+    border-radius: 5px;
 }
 
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #fff;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #fff;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #fff;
+}
+
+
 .new-post-input.text {
+
     width: 100%;
 }
 
