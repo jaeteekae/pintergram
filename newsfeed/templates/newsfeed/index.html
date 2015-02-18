@@ -10,10 +10,12 @@
         <div class="post pn">
             
             <div class="credit" >
+                
                 <img class="post-avatar" src="http://lorempixel.com/200/200/">
-                <div class="username">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.user_id }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
+
             <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
                 <!--
 	            <img class="post-image"src="https://placekitten.com/g/400/200">
@@ -22,15 +24,24 @@
                 <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
 	        </a>
-            <div class="title">
+
+
+            <div class="title monofur-font">
                 <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
                     {{ post.post_title }}
                 </a>
+    
             </div>
-            
+
             <div class="caption">
                 {{ post.post_text }}
             </div>
+<div class="divider" style="background-image: url(/static/newsfeed/img/navbar2.png);">
+	        	<!-- <img src="{% static 'newsfeed/img/navbar2.png' %}" class="divider"> -->
+	        	<div class="gradient">test</div>
+
+	        	<!-- <div class="divider" style="background-image: url(/static/newsfeed/img/navbar2.png);"></div> -->
+	        </div>
 
 
 
@@ -68,13 +79,19 @@
 <!-- <div class="new-post pn"> -->
 	<form action="create_post" method="post" enctype="multipart/form-data">
 	
-	{% csrf_token %}
-		<div></div>
-		<input type="file" name="post-image" id="post-image" accept="image/*">
-	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
-	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
-		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
-		<input type="submit" value="create post" class="new-post-button"/>
+	
+		<div class="quarter" >
+			<img class="crossed" src="{% static 'newsfeed/img/cross-blank.png' %}">
+		</div>
+		<div class="threequarter all-inputs">
+		{% csrf_token %}
+			<input type="file" name="post-image" id="post-image" accept="image/*">
+		    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
+		    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
+			<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
+			<input type="submit" value="create post" class="new-post-button"/>
+		</div>
+
 	</form>
 <!-- </div> -->
 

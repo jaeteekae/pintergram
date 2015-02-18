@@ -9,7 +9,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DASHGUM - Bootstrap Admin Template</title>
+    <title>pintergram</title>
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
@@ -21,6 +21,8 @@
     <!-- Custom styles for this template -->
     <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/fonts.css' %}" />
+
 
     <!-- <link href="assets/css/style-responsive.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style-responsive.css' %}" />
@@ -54,14 +56,14 @@
             </a>
             <!--logo end-->
             <!-- <a href="{% url 'newsfeed:new_post' %}"> -->
-	          	<div class="create-button" id="create-button" onclick="open_create()">
+	          	<div class="create-button monofur-font" id="create-button" onclick="open_create()">
 	              create something
 	            </div>
             <!-- </a> -->
         
             </div>
 
-<div class="onoffswitch" id="view-switch">
+<div class="onoffswitch monofur-font" id="view-switch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
     <label class="onoffswitch-label" for="myonoffswitch">
         <span class="onoffswitch-inner" style="background: url({% static 'newsfeed/img/grid-icon.png' %})">
@@ -71,11 +73,12 @@
     </label>
 </div>
 
-            <div class="header transparent-header gradient" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});">
-              <div class="new-post-mod" id="new-post-mod">
+            <div class="header transparent-header" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});">
+              <div class="new-post-mod slide-close" id="new-post-mod">
                 <img class="doodle-left" src="{% static 'newsfeed/img/doodle-left.png' %}">
+                 <img class="doodle-right" src="{% static 'newsfeed/img/doodle-right.png' %}">
                 {% block new-post-mod %}{% endblock %}
-                <img class="doodle-right" src="{% static 'newsfeed/img/doodle-right.png' %}">
+               
               </div>
             </div>
 
@@ -296,12 +299,29 @@ $('#view-switch').change(function() {
 });
 
 function open_create() {
-    var mod = document.getElementById("new-post-mod");
-    if (mod.style.display == "inline-block") {
-      document.getElementById("new-post-mod").style.display = "none";
-    } else {
-      document.getElementById("new-post-mod").style.display = "inline-block";
-    }
+console.log("in open_create");
+  if ($("#new-post-mod").hasClass("slide-close")) {
+    $("#new-post-mod").removeClass("slide-close");
+    $("#new-post-mod").addClass("slide-open");
+  } else {
+    $("#new-post-mod").removeClass("slide-open");
+    $("#new-post-mod").addClass("slide-close");
+
+  }
+
+
+    // var mod = document.getElementById("new-post-mod");
+    // if (mod.style.display == "inline-block") {
+
+
+    //   // document.getElementById("new-post-mod").style.display = "none";
+    //   document.getElementById("new-post-mod").removeClass("slide-open");
+    //   document.getElementById("new-post-mod").addClass("slide-close");
+    // } else {
+    //   document.getElementById("new-post-mod").removeClass("slide-close");
+    //   document.getElementById("new-post-mod").addClass("slide-open");
+    //   // document.getElementById("new-post-mod").style.display = "inline-block";
+    // }
     
 }
 
