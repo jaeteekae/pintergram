@@ -1,0 +1,15 @@
+15,000 unique visits per day
+$3000
+
+Performance Concerns:
+    -SQL db transactions
+    -Amazon S3 bucket transactions
+    -maintenance
+    -metrics?
+    -marketing?
+    -domain name
+
+http://aws.amazon.com/s3/pricing/
+https://cloud.google.com/sql/pricing
+https://cloud.google.com/appengine/pricing
+http://www.executionists.com/blog/cost-to-build-websites-2014/

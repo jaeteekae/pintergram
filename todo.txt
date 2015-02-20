@@ -1,0 +1,2 @@
+-add image preview when uploading a picture
+-image.image_path->image.url

@@ -46,7 +46,8 @@ def create_post(request):
         new_post.save()
         tag_string = request.POST['tags']
         if tag_string:
-            tag_list = tag_string.split(',')
+            tag_list = [x.strip() for x in tag_string.split(',')]
+            # tag_list = tag_string.split(',')
             for x in tag_list:
                 new_tag = Tag(tag=x, post_id=new_post)
                 new_tag.save()
