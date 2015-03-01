@@ -79,24 +79,61 @@
 <!-- <div class="new-post pn"> -->
 	<form action="create_post" method="post" enctype="multipart/form-data">
 	
-	
+<!-- 	
 		<div class="quarter" >
-			<img class="crossed" src="{% static 'newsfeed/img/cross-blank.png' %}">
-		</div>
-		<div class="threequarter all-inputs">
+			<img class="crossed" id="img-preview-spot" src="{% static 'newsfeed/img/cross-blank.png' %}">
+		</div> -->
+		
 		{% csrf_token %}
-			<input type="file" name="post-image" id="post-image" accept="image/*">
-		    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
-		    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
-			<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
-			<input type="submit" value="create post" class="new-post-button"/>
-		</div>
+        <div class="quarter" >
+			<input type="file" name="post-image" id="post-image" accept="image/*" >
+        </div>
+        <div class="threequarter all-inputs">
+	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
+	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
+		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
+		<input type="submit" value="create post" class="new-post-button"/>
+        </div>
+		
 
 	</form>
 <!-- </div> -->
+<!-- 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="{% static 'newsfeed/js/jquery.js' %}"></script> -->
 
 <script type="text/javascript">
+
+// $("#post-image").fileinput();
+
+// $("#post-image").fileinput({
+//     initialPreview: [
+//         '<img class="crossed" id="img-preview-spot" src="/newsfeed/img/cross-blank.png">'
+//     ],
+//     overwriteInitial: true,
+//     maxFileSize: 100,
+//     initialCaption: "The Moon and the Earth"
+// });
+
+
+
+
+$( ".btn" ).change(function() {
+	console.log("CLICK btn");
+	if ( $( ".file-preview-image" ).length ) {
+	 	var src = $('.file-preview-image').attr('src');
+	 	$('.img-preview-spot').attr('src') = src;
+	} else {
+		$('.img-preview-spot').attr('src') = {% static 'newsfeed/img/cross-blank.png' %};
+	}
+});
+
+
+
 $("#post-image").change(function(e) {
+
+	var src = $('.file-preview-image').attr('src');
+	$('.img-preview-spot').attr('src') = src;
 
     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
@@ -110,7 +147,11 @@ $("#post-image").change(function(e) {
         reader.readAsDataURL(file);
         $("#post-image").after(img);
     }
-});​
+
+
+
+});
+
 </script>
 
 {% endblock %}
