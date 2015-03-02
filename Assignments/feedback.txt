@@ -1,0 +1,8 @@
+? Why is domain name a performance concern?
+- You presented solutions but no reasoning behind each of them. Edit: nevermind
+- You presented solutions without any reference to co$t. Remember, you only have $3000.00. Edit: nevermind
++ You are the first team to even consider using Google Analytics which is very valuable to measure traffic and popular pages => has effect on performance
+? Why only 10 GB for Cloud SQL?
+"With $3000 the site can run for ~2.5 months"  Interesting. I see. Is there a cheaper alternative?
+
+9 / 10
