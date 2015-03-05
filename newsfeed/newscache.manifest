@@ -4,8 +4,9 @@ CACHE MANIFEST
 #Cached entries.
 CACHE:
 templates/newsfeed/index.html
-templates/newsfeed/new_post.html
 templates/newsfeed/single_post.html
+static/newsfeed/css/all-style.min.css
+static/newsfeed/js/all-js.min.js
 
 #Resources that require user to be online.
 NETWORK:
