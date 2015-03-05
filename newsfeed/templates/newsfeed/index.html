@@ -11,7 +11,7 @@
             
             <div class="credit" >
                 
-                <img class="post-avatar" src="http://lorempixel.com/200/200/">
+                <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
                 <div class="username monofur-font">{{ post.user_id }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
@@ -24,7 +24,6 @@
                 <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
 	        </a>
-
 
             <div class="title monofur-font">
                 <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">

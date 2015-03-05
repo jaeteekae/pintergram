@@ -111,6 +111,22 @@ Premium: http://www.gridgum.com
 }
 
 
+.offline-warning {
+    text-align: center;
+    font-size: 20px;
+    color: #737373;
+    /*position: absolute;*/
+
+}
+
+.offline-warning-header {
+    font-size: 40px;
+    background-color: #bdbdbd;
+    color:#fff;
+
+}
+
+
 .monofur-font {
     font-family: 'Conv_monof55' !important;
 }
