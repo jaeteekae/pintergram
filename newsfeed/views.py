@@ -3,10 +3,13 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.cache import cache_page
+
 
 
 from newsfeed.models import Post, User, Tag
 
+# @cache_page(60 * 15)
 def index(request):
     latest_post_list = Post.objects.order_by('-timestamp')
     tag_list = []
@@ -17,6 +20,7 @@ def index(request):
     context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list}
     return render(request, 'newsfeed/index.html', context)
 
+@cache_page(60 * 15)
 def new_post(request):
     return render(request, 'newsfeed/new_post.html')
 
