@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# 2015-03-05:v1
+
+#Cached entries.
+CACHE:
+templates/newsfeed/index.html
+templates/newsfeed/single_post.html
+static/newsfeed/css/all-style.min.css
+static/newsfeed/js/all-js.min.js
+
+#Resources that require user to be online.
+NETWORK:
+*
+
+FALLBACK:
+#not done yet..

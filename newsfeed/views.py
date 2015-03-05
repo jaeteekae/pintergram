@@ -28,6 +28,10 @@ def base(request):
     return render(request, 'newsfeed/base.html')
 
 
+def offline(request):
+    return render(request, 'newsfeed/offline.html')
+
+
 def create_post(request):
     try:
         image = request.POST['post-image']

@@ -11,7 +11,7 @@
             
             <div class="credit" >
                 
-                <img class="post-avatar" src="http://lorempixel.com/200/200/">
+                <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
                 <div class="username monofur-font">{{ post.user_id }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
@@ -24,7 +24,6 @@
                 <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
 	        </a>
-
 
             <div class="title monofur-font">
                 <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
@@ -104,32 +103,10 @@
 
 <script type="text/javascript">
 
-// $("#post-image").fileinput();
-
-// $("#post-image").fileinput({
-//     initialPreview: [
-//         '<img class="crossed" id="img-preview-spot" src="/newsfeed/img/cross-blank.png">'
-//     ],
-//     overwriteInitial: true,
-//     maxFileSize: 100,
-//     initialCaption: "The Moon and the Earth"
-// });
 
 
 
-
-$( ".btn" ).change(function() {
-	console.log("CLICK btn");
-	if ( $( ".file-preview-image" ).length ) {
-	 	var src = $('.file-preview-image').attr('src');
-	 	$('.img-preview-spot').attr('src') = src;
-	} else {
-		$('.img-preview-spot').attr('src') = {% static 'newsfeed/img/cross-blank.png' %};
-	}
-});
-
-
-
+// uploads images
 $("#post-image").change(function(e) {
 
 	var src = $('.file-preview-image').attr('src');
@@ -147,9 +124,6 @@ $("#post-image").change(function(e) {
         reader.readAsDataURL(file);
         $("#post-image").after(img);
     }
-
-
-
 });
 
 </script>
