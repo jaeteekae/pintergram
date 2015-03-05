@@ -3,42 +3,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Dashboard">
+	<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>pintergram</title>
+	<title>pintergram</title>
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/bootstrap.css' %}" />
-    <!--external css-->
-    <!-- <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" /> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/font-awesome/css/font-awesome.css' %}" />
-        
-    <!-- Custom styles for this template -->
-    <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/fonts.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/all-style.min.css' %}" />
+
+	<!-- Bootstrap core CSS -->
+	
+	<!-- REAL -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/bootstrap.css' %}" /> -->
+	<!--external css-->
+		
+	<!-- Custom styles for this template -->
+	<!-- <link href="assets/css/style.css" rel="stylesheet"> -->
+
+	<!-- REAL -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style.css' %}" /> -->
+
+	<!-- REAL -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/fonts.css' %}" /> -->
 
 
-    <!-- <link href="assets/css/style-responsive.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style-responsive.css' %}" />
+	<!-- <link href="assets/css/style-responsive.css" rel="stylesheet"> -->
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <link rel="shortcut icon" href="{% static 'newsfeed/img/favicon.ico' %}">
+	<!-- REAL -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'newsfeed/css/style-responsive.css' %}" /> -->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	
+	<link rel="shortcut icon" href="{% static 'newsfeed/img/favicon.ico' %}">
 
 
 <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
 
-<link href="{% static '/newsfeed/css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+<!-- REAL -->
+<!-- <link href="{% static '/newsfeed/css/fileinput.css' %}" media="all" rel="stylesheet" type="text/css" /> -->
 
 
 
@@ -50,255 +60,204 @@
 
 
   <section id="container" class="sidebar-closed">
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header black-bg">
-            <!-- <div class="header transparent-header"></div> -->
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="{% url 'newsfeed:index' %}" class="logo">
-              <img class="nav-logo"src="{% static 'newsfeed/img/full-logo-white.png' %}">
+	  <!-- **********************************************************************************************************************************************************
+	  TOP BAR CONTENT & NOTIFICATIONS
+	  *********************************************************************************************************************************************************** -->
+	  <!--header start-->
+	  <header class="header black-bg">
+			<!-- <div class="header transparent-header"></div> -->
+			  <div class="sidebar-toggle-box">
+				  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+			  </div>
+			<!--logo start-->
+			<a href="{% url 'newsfeed:index' %}" class="logo">
+			  <img class="nav-logo"src="{% static 'newsfeed/img/full-logo-white.png' %}">
 
-            </a>
-            <!--logo end-->
-            <!-- <a href="{% url 'newsfeed:new_post' %}"> -->
-	          	<div class="create-button monofur-font" id="create-button" onclick="open_create()">
-	              create something
-	            </div>
-            <!-- </a> -->
-        
-            </div>
+			</a>
+			<!--logo end-->
+			<!-- <a href="{% url 'newsfeed:new_post' %}"> -->
+				<div class="create-button monofur-font" id="create-button" onclick="open_create()">
+				  create something
+				</div>
+			<!-- </a> -->
+		
+			</div>
 
 <div class="onoffswitch monofur-font" id="view-switch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-    <label class="onoffswitch-label" for="myonoffswitch">
-        <span class="onoffswitch-inner" style="background: url({% static 'newsfeed/img/grid-icon.png' %})">
-          
-        </span>
-        <span class="onoffswitch-switch"></span>
-    </label>
+	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+	<label class="onoffswitch-label" for="myonoffswitch">
+		<span class="onoffswitch-inner" style="background: url({% static 'newsfeed/img/grid-icon.png' %})">
+		  
+		</span>
+		<span class="onoffswitch-switch"></span>
+	</label>
 </div>
 
-            <div class="header transparent-header" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});">
-              <div class="new-post-mod slide-close" id="new-post-mod">
-                <img class="doodle-left" src="{% static 'newsfeed/img/doodle-left.png' %}">
-                 <img class="doodle-right" src="{% static 'newsfeed/img/doodle-right.png' %}">
-                {% block new-post-mod %}{% endblock %}
-               
-              </div>
-            </div>
+			<div class="header transparent-header" style="background-image: url({% static 'newsfeed/img/navbar2.png' %});">
+			  <div class="new-post-mod slide-close" id="new-post-mod">
+				<img class="doodle-left" src="{% static 'newsfeed/img/doodle-left.png' %}">
+				 <img class="doodle-right" src="{% static 'newsfeed/img/doodle-right.png' %}">
+				{% block new-post-mod %}{% endblock %}
+			   
+			  </div>
+			</div>
 
-        </header>
-      <!--header end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse " style="margin-left: -210px;">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
+		</header>
+	  <!--header end-->
+	  
+	  <!-- **********************************************************************************************************************************************************
+	  MAIN SIDEBAR MENU
+	  *********************************************************************************************************************************************************** -->
+	  <!--sidebar start-->
+	  <aside>
+		  <div id="sidebar"  class="nav-collapse " style="margin-left: -210px;">
+			  <!-- sidebar menu start-->
+			  <ul class="sidebar-menu" id="nav-accordion">
 
-              	  <p class="centered"><a href="profile.html"><img src="{% static 'newsfeed/img/ui-sam.jpg' %}" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Test User</h5>
-              	  	
-                  <li class="mt">
-                      <a href="index.html">
-                          <span>Followers:  100</span>
+				  <p class="centered"><a href="profile.html"><img src="{% static 'newsfeed/img/ui-sam.jpg' %}" class="img-circle" width="60"></a></p>
+				  <h5 class="centered">Test User</h5>
+					
+				  <li class="mt">
+					  <a href="index.html">
+						  <span>Followers:  100</span>
 
-                      </a>
-                  </li>
-                  <li class="mt">
-                      <a href="index.html">
-                          <span>Following:  100</span>
+					  </a>
+				  </li>
+				  <li class="mt">
+					  <a href="index.html">
+						  <span>Following:  100</span>
 
-                      </a>
-                  </li>
-                  <li class="mt">
-                      <a href="index.html">
-                          <span>Upvotes:  100</span>
+					  </a>
+				  </li>
+				  <li class="mt">
+					  <a href="index.html">
+						  <span>Upvotes:  100</span>
 
-                      </a>
-                  </li>
-                  <li class="mt">
-                      <a href="index.html">
-                          <span>Posts:  100</span>
+					  </a>
+				  </li>
+				  <li class="mt">
+					  <a href="index.html">
+						  <span>Posts:  100</span>
 
-                      </a>
-                  </li>
+					  </a>
+				  </li>
 
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!--main content start-->
+			  </ul>
+			  <!-- sidebar menu end-->
+		  </div>
+	  </aside>
+	  <!--sidebar end-->
+	  
+	  <!-- **********************************************************************************************************************************************************
+	  MAIN CONTENT
+	  *********************************************************************************************************************************************************** -->
+	  <!--main content start-->
    
 
 
-      <section id="main-content">
-          <section class="wrapper site-min-height">
-          	<!-- <h3><i class="fa fa-angle-right"></i> Blank Page</h3> -->
-          	<div class="row mt">
-          		<div class="col-lg-12" id="main-content-stream">
-              
-                {% block new-post %}{% endblock %}
-                {% block newsfeed-content %}{% endblock %}
-          		</div> <!-- LAST DIV-->
-          	</div>
+	  <section id="main-content">
+		  <section class="wrapper site-min-height">
+			<!-- <h3><i class="fa fa-angle-right"></i> Blank Page</h3> -->
+			<div class="row mt">
+				<div class="col-lg-12" id="main-content-stream">
+			  
+				{% block new-post %}{% endblock %}
+				{% block newsfeed-content %}{% endblock %}
+				</div> <!-- LAST DIV-->
+			</div>
 			
 		</section><!--/wrapper -->
-      </section><!-- /MAIN CONTENT -->
+	  </section><!-- /MAIN CONTENT -->
 
-      <!--main content end-->
-      <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              2014 - Team 14
-              <a href="blank.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-      <!--footer end-->
+	  <!--main content end-->
+	  <!--footer start-->
+	  <footer class="site-footer">
+		  <div class="text-center">
+			  2014 - Team 14
+			  <a href="blank.html#" class="go-top">
+				  <i class="fa fa-angle-up"></i>
+			  </a>
+		  </div>
+	  </footer>
+	  <!--footer end-->
   </section>
 
-    <!-- js placed at the end of the document so the pages load faster -->
+	<!-- js placed at the end of the document so the pages load faster -->
 
-<link rel="stylesheet" type="text/css" href="{% static 'newsfeed/js/jquery.js' %}" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="{% static 'newsfeed/js/jquery.js' %}"></script>
-<script src="{% static 'newsfeed/js/fileinput.js' %}" type="text/javascript"></script>
+<script src="{% static 'newsfeed/js/all-js.min.js' %}" type="text/javascript"></script> 
+<!-- <script src="{% static 'newsfeed/js/jquery.js' %}" type="text/javascript"></script> -->
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
+	
+<!-- <script src="{% static 'newsfeed/js/fileinput.js' %}" type="text/javascript"></script> -->
 
 
 
-    <!--<script src="assets/js/blur.js"></script>-->
-<script src="{% static 'newsfeed/js/bootstrap.min.js' %}"></script>
+	<!--<script src="assets/js/blur.js"></script>-->
+<!-- <script src="{% static 'newsfeed/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'newsfeed/js/jquery-ui-1.9.2.custom.min.js' %}"></script>
 <script src="{% static 'newsfeed/js/jquery.ui.touch-punch.min.js' %}"></script>
 <script src="{% static 'newsfeed/js/jquery.scrollTo.min.js' %}"></script>
 <script src="{% static 'newsfeed/js/jquery.nicescroll.js' %}"></script>
 <script src="{% static 'newsfeed/js/masonry.pkgd.min.js' %}"></script>
-<script class="include" type="text/javascript" src="{% static 'newsfeed/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+<script class="include" type="text/javascript" src="{% static 'newsfeed/js/jquery.dcjqaccordion.2.7.js' %}"></script> -->
 
 
-    <!--common script for all pages-->
-<script src="{% static 'newsfeed/js/common-scripts.js' %}"></script>
-    
+	<!--common script for all pages-->
+<!-- <script src="{% static 'newsfeed/js/common-scripts.js' %}"></script> -->
+	
 
-    <!--script for this page-->
-    
+	<!--script for this page-->
+	
 
-<script type="text/javascript">
-      // custom select box
+<!--<script type="text/javascript">
 
 
-// $("#post-image").fileinput();
+// // sets up image- preview
 // $("#post-image").fileinput({
-//     initialPreview: [
-//         '<img class="crossed" id="img-preview-spot" src="/newsfeed/img/cross-blank.png">'
-//     ],
-//     overwriteInitial: true,
+// 	initialPreview: [
+// 		'<img class="crossed" id="img-preview-spot" src=\"\">',
+		
+// 	],
+// 	showCaption: false,
+// 	showRemove: false,
+// 	showUpload: false,
+	
 // });
 
-$("#post-image").fileinput({
-    initialPreview: [
-        '<img class="crossed" id="img-preview-spot" src=\"{% static "newsfeed/img/cross-blank.png" %}\">',
-        
-    ],
-    overwriteInitial: true,
-    showCaption: false,
-    showRemove: false,
-    showUpload: false,
-    
-});
+// // switches from stream view to masonry view
 
-$('#view-switch').change(function() {
-
-            
-            $("#main-content-stream").addClass("grid");
-            $("#main-content-stream").addClass("grid2");
-
-            console.log("HITTING THIS FUNCTION. stream --> grid");
-            var $container = $('#main-content-stream');
-            // initialize
-  
-            $container.masonry({
-              columnWidth: 350,
-              itemSelector: '.post',
-            });
-            
-            $("#main-content-stream").removeClass("grid");
-
-     if ($('#myonoffswitch').is(":checked") === true) {
-    //        var $container = $('#main-content-stream');
-            // $('#main-content-stream').data('masonry')
-    $container.masonry('destroy')
-    $("#main-content-stream").removeClass("grid2");
-
-}
-
-    
-});
-
-function open_create() {
-console.log("in open_create");
-  if ($("#new-post-mod").hasClass("slide-close")) {
-    $("#new-post-mod").removeClass("slide-close");
-    $("#new-post-mod").addClass("slide-open");
-  } else {
-    $("#new-post-mod").removeClass("slide-open");
-    $("#new-post-mod").addClass("slide-close");
-
-  }
-
-
-    // var mod = document.getElementById("new-post-mod");
-    // if (mod.style.display == "inline-block") {
-
-
-    //   // document.getElementById("new-post-mod").style.display = "none";
-    //   document.getElementById("new-post-mod").removeClass("slide-open");
-    //   document.getElementById("new-post-mod").addClass("slide-close");
-    // } else {
-    //   document.getElementById("new-post-mod").removeClass("slide-close");
-    //   document.getElementById("new-post-mod").addClass("slide-open");
-    //   // document.getElementById("new-post-mod").style.display = "inline-block";
-    // }
-    
-}
-
-// console.log("IM HERE!");
-// $(document).ready( function() {
-//     $('.transparent-header').blurjs({
-//         source: 'body',
-//         radius: 30,
-//         overlay: 'rgba(0, 0, 0, .2)'
-//     });
+// $('#view-switch').change(function() {
+// 	$("#main-content-stream").addClass("grid");
+// 	$("#main-content-stream").addClass("grid2");
+	
+// 	var $container = $('#main-content-stream');
+// 	$container.masonry({
+// 	  columnWidth: 350,
+// 	  itemSelector: '.post',
+// 	});
+// 	$("#main-content-stream").removeClass("grid");
+// 	if ($('#myonoffswitch').is(":checked") === true) {
+// 		$container.masonry('destroy')
+// 		$("#main-content-stream").removeClass("grid2");
+// 	}
 // });
 
+// // open and close create mod
+// function open_create() {
+// 	console.log("in open_create");
+// 	if ($("#new-post-mod").hasClass("slide-close")) {
+// 		$("#new-post-mod").removeClass("slide-close");
+// 		$("#new-post-mod").addClass("slide-open");
+// 	} else {
+// 		$("#new-post-mod").removeClass("slide-open");
+// 		$("#new-post-mod").addClass("slide-close");
+// 	}
+// }
 
 
-// $(document).ready(function() {
-
-//     $(".fa-bars").trigger('click');
-//     $('#sidebar > ul').hide();
-// });
 
 
-
-
-
-  </script>
+  </script>-->
 
   </body>
 </html>
