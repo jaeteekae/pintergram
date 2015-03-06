@@ -3,10 +3,12 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.cache import cache_page
 
 
 from newsfeed.models import Post, User, Tag
 
+@cache_page(60 * 1)
 def index(request):
     latest_post_list = Post.objects.order_by('-timestamp')
     tag_list = []
@@ -57,6 +59,8 @@ def create_post(request):
                 new_tag.save()
         return HttpResponseRedirect('/newsfeed')
 
+
+@cache_page(60 * 10)
 def single_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     tags = Tag.objects.filter(post_id=post)
