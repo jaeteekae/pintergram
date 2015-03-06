@@ -15,17 +15,17 @@ Emma, Julia, James
 
 3. Performance Changes
 
-Some highlights of the performance changes from the JS and CSS:
+	Some highlights of the performance changes from the JS and CSS:
 
-combining css - increased performance score by 2 points
-combining js - increased performance score by 7 points
-minifying js - increased performance score by 0 points
-minifying css - increased performance score by 0 points
+	combining css - increased performance score by 2 points
+	combining js - increased performance score by 7 points
+	minifying js - increased performance score by 0 points
+	minifying css - increased performance score by 0 points
 
-And changes in page load times by using redis:
+	And changes in page load times by using redis:
 
-single_post: .35 to .25 ms
-index: .65 to .33 ms
+	single_post: .35 to .25 ms
+	index: .65 to .33 ms
 
 4. Lingering Issues
 
