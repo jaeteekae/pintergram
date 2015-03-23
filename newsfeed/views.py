@@ -6,7 +6,11 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.cache import cache_page
 
 
-from newsfeed.models import Post, User, Tag
+from rest_framework import viewsets
+from newsfeed.serializers import UserSerializer, PostSerializer, TagSerializer, FollowerSerializer, UpvoteSerializer
+
+
+from newsfeed.models import User, Post, Tag, Follower, Upvote
 
 @cache_page(60 * 1)
 def index(request):
@@ -70,3 +74,46 @@ def tag(request, tag_id):
     tagged_post_list = Post.objects.order_by('-timestamp')
     context = {'tagged_post_list': tagged_post_list}
     return render(request, 'newsfeed/tag.html', context)
+
+
+
+
+# API ENDPOINTS
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Posts to be viewed or edited.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Tags to be viewed or edited.
+    """
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+
+class FollowerViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Followers to be viewed or edited.
+    """
+    queryset = Follower.objects.all()
+    serializer_class = FollowerSerializer
+
+class UpvoteViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Upvotes to be viewed or edited.
+    """
+    queryset = Upvote.objects.all()
+    serializer_class = UpvoteSerializer

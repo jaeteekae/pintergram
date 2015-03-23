@@ -4,7 +4,7 @@ CACHE MANIFEST
 #Cached entries.
 CACHE:
 templates/newsfeed/index.html
-templates/newsfeed/single_post.html
+templates/newsfeed/single_post.html #wrong
 static/newsfeed/css/all-style.min.css
 static/newsfeed/js/all-js.min.js
 
@@ -14,3 +14,5 @@ NETWORK:
 
 FALLBACK:
 #not done yet..
+
+#needs what browser sees
