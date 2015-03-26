@@ -7,7 +7,129 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <div class="new-post pn">
-    Text goes here
+    <h1>PINTERGRAM API</h1>
+	<HR>
+
+	<h3>Overview</h3>
+
+	<p>The purpose of this RESTful API is to allow access to Pintergram's core features. It allows for users to create, read, update and delete specific posts, users, and tags. Authentication is not yet implemented.</p>
+
+
+	<br>
+
+	<h3>Getting Started</h3>
+
+	<p>The base URI for all HTTP requests will be:</p>
+
+	<BLOCKQUOTE>https://pintergram.herokuapp.com/newsfeed</BLOCKQUOTE>
+
+	<p>For the purpose of these docs any data served will be JSON so the following header will be appended to any requests with data:</p>
+
+	<BLOCKQUOTE>-H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<br>
+	<p>NOTE: Heroku may not be working at this stage of development in which case use '127.0.0.1:8000' in the URI instead of 'pintergram.herokuapp.com'</p>
+	<br>
+
+	<h3>Users</h3>
+
+	<p>To view all current users, add on '/users' to the end of the base URI. For example:</p>
+
+	<BLOCKQUOTE>curl https://pintergram.herokuapp.com/newsfeed/users/</BLOCKQUOTE>
+
+	<p>The above HTTP GET request returns all current users in JSON format.</p>
+	<br>
+	<p>To create a new user all of a user's fields have to be satisfied for a request to go through. A field can be left blank by setting it's value to "". These are the required fields for a user:</p>
+
+	<BLOCKQUOTE>'username', 'first_name', 'last_name', 'password', 'email', 'avatar_path'</BLOCKQUOTE>
+
+	<p>An example HTTP POST request to create a new user:</p>
+
+	<BLOCKQUOTE>curl -X POST https://pintergram.herokuapp.com/newsfeed/users/ -d '{"username":"newuser", "first_name":"John", "last_name":"Smith", "email":"hello@example.com", "avatar_path":""}' -H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<p>Don't forget to include the header specifying the Content-Type as JSON.</p>
+	<br>
+	<p>To update a field use an HTTP PUT request. Here is an example that updates the username for the user with the ID of 3:</p>
+
+	<BLOCKQUOTE>curl -X PUT https://pintergram.herokuapp.com/newsfeed/users/3/ -d '{"username":"updated_username"}' -H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<p>To delete an existing user use an HTTP DELETE request. This example will delete the user with the ID of 3:</p>
+
+	<BLOCKQUOTE>curl -X DELETE https://pintergram.herokuapp.com/newsfeed/users/3/</BLOCKQUOTE>
+
+	<p>Notice how when dealing with a specific user the ID is appended to the URI.</p>
+
+
+	<br>
+
+	<h3>Posts</h3>
+
+	<p>To view all current posts, add on '/posts' to the end of the base URI. For example:</p>
+
+	<BLOCKQUOTE>curl https://pintergram.herokuapp.com/newsfeed/posts/</BLOCKQUOTE>
+
+	<p>The above HTTP GET request returns all current posts in JSON format.</p>
+	<br>
+	<p>To create a new post all of the post's fields have to be satisfied for a request to go through. A field can be left blank by setting it's value to "". These are the required fields for a post:</p>
+
+	<BLOCKQUOTE>'user_id', 'post_title', 'post_text', 'image_path', 'timestamp'</BLOCKQUOTE>
+
+	<p>An example HTTP POST request to create a new post:</p>
+
+	<BLOCKQUOTE>curl -X POST https://pintergram.herokuapp.com/newsfeed/posts/ -d '{"user_id":"3", "post_title":"new_post", "post_text":"awesome_text", "image_path":"", "timestamp":""}' -H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<p>Don't forget to include the header specifying the Content-Type as JSON.</p>
+	<br>
+	<p>To update a field use an HTTP PUT request. Here is an example that updates the post_title for the post with the ID of 3:</p>
+
+	<BLOCKQUOTE>curl -X PUT https://pintergram.herokuapp.com/newsfeed/posts/3/ -d '{"post_title":"updated_title"}' -H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<p>To delete an existing post use an HTTP DELETE request. This example will delete the post with the ID of 3:</p>
+
+	<BLOCKQUOTE>curl -X DELETE https://pintergram.herokuapp.com/newsfeed/posts/3/</BLOCKQUOTE>
+
+
+	<br>
+
+	<h3>Tags</h3>
+
+	<p>To view all current tags, add on '/tags' to the end of the base URI. For example:</p>
+
+	<BLOCKQUOTE>curl https://pintergram.herokuapp.com/newsfeed/tags/</BLOCKQUOTE>
+
+	<p>The above HTTP GET request returns all current tags in JSON format.</p>
+	<br>
+	<p>To create a new tag all of a tag's fields have to be satisfied for a request to go through. A field can be left blank by setting it's value to "". These are the required fields for a tag:</p>
+
+	<BLOCKQUOTE>'post_id', 'tag'</BLOCKQUOTE>
+
+	<p>An example HTTP POST request to create a new tag:</p>
+
+	<BLOCKQUOTE>curl -X POST https://pintergram.herokuapp.com/newsfeed/tags/ -d '{"post_id":"3", "tag";"text"}' -H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<p>Don't forget to include the header specifying the Content-Type as JSON.</p>
+	<br>
+	<p>To update a field use an HTTP PUT request. Here is an example that updates the tag (text) for the tag with the ID of 3:</p>
+
+	<BLOCKQUOTE>curl -X PUT https://pintergram.herokuapp.com/newsfeed/tags/3/ -d '{"tag":"updated_tag"}' -H "Content-Type: application/json"</BLOCKQUOTE>
+
+	<p>To delete an existing tag use an HTTP DELETE request. This example will delete the tag with the ID of 3:</p>
+
+	<BLOCKQUOTE>curl -X DELETE https://pintergram.herokuapp.com/newsfeed/tags/3/</BLOCKQUOTE>
+
+
+	<br>
+
+	<h3>References</h3>
+
+	<p>To get a clearer picture of what's going on these links will allow you to use the API with a nice GUI.</p>
+
+	<a href="https://pintergram.herokuapp.com/newsfeed/users/">users</a><br>
+	<a href="https://pintergram.herokuapp.com/newsfeed/posts/">posts</a><br>
+	<a href="https://pintergram.herokuapp.com/newsfeed/tags/">tags</a>
+
+
+	<br>
 </div>
 
 
