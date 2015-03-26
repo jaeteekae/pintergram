@@ -1,0 +1,1 @@
+web: gunicorn pintergram.wsgi --log-file -

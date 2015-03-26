@@ -1,0 +1,1 @@
+SECRET_KEY = 'dfydr)$c2mgje%_%h_k=x&p%u&ncep&@4516b=02^v(m*t2dph'

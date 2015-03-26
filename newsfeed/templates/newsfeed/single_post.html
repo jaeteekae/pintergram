@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block newsfeed-content %}
+
+
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+	    <div class="post pn">
+			<div class="credit" >
+	            <img class="post-avatar" src="http://lorempixel.com/200/200/">
+	            <div class="username">{{ post.user_id }}</div>
+	            <div class="timestamp">{{ post.timestamp }}</div>
+	        </div>
+	        <!--<img class="post-image"src="https://placekitten.com/g/400/200">-->
+	        {% if post.image_path %}
+	        <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+	        {% endif %}
+	        <div class="title">
+	        	{{ post.post_title }}
+	        </div>
+	        
+	        <div class="caption">
+	        	{{ post.post_text }}
+	        </div>
+	        {% if tags %}
+	        <div class="caption">
+			   Tags: {% for tag in tags %}
+			    &#35;{{ tag.tag }}&nbsp;
+			    {% endfor %}
+			</div>
+			{% endif %} 
+			<div class="upvotes">
+	            10,000 upvotes      
+	                    
+	            <div class="upvote-button">&#9734</div>
+	        </div>
+	    </div>
+
+<!-- <p>{{ post.image_path }}</p> -->
+
+<!-- <p>{{ post.image_path }}</p> TODO FOR THIS LEG: Add the image-->
+
+
+
+{% endblock %}
