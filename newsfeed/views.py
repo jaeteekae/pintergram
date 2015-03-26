@@ -89,6 +89,9 @@ def tag(request, tag_id):
     context = {'tagged_post_list': tagged_post_list}
     return render(request, 'newsfeed/tag.html', context)
 
+def documentation(request):
+    return render(request, 'newsfeed/documentation.html')
+
 
 
 

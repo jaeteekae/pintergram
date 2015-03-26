@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 	
     url(r'^$', views.index, name='index'),
     url(r'^$', views.base, name='base'),
+    url(r'^documentation$', views.documentation, name='documentation'),
     url(r'^new_post$', views.new_post, name='new_post'),
     url(r'^offline$', views.offline, name='offline'),
     url(r'^create_post$', views.create_post, name='create_post'),
