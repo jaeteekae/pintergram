@@ -99,15 +99,30 @@ USE_TZ = True
 # When using unix domain sockets
 # Note: ``LOCATION`` needs to be the same as the ``unixsocket`` setting
 # in your redis.conf
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'redis_cache.RedisCache',
+#         'LOCATION': '/var/run/redis/redis.sock',
+#         'OPTIONS': {
+#             'DB': 1,
+#             'PARSER_CLASS': 'redis.connection.HiredisParser'
+#         },
+#     },
+# }
+
+import urlparse
+
+redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
+
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '/var/run/redis/redis.sock',
+        'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
         'OPTIONS': {
-            'DB': 1,
-            'PARSER_CLASS': 'redis.connection.HiredisParser'
-        },
-    },
+            'DB': 0,
+            'PASSWORD': redis_url.password,
+        }
+    }
 }
 
 
