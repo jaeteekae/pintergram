@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block newsfeed-content %}
+
+
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="post pn" style="padding:30px;">
+    <h1>PLAN FOR AUTHENTICATION</h1>
+    <HR>
+    <p>Since we used the Django REST Framework to implement the API, we will also use it for authentication purposes.</p>
+
+<p>In the case of users, user creation will not need to be authenticated. Creation will be limited by the validity of email addresses and the pre-exsistence of email addresses in the database, not authentication. When a user is successfully created and their email is validated, that user will be assigned a Token. The GET, PUT, and DELETE methods will all be authenticated with BasicAuthentication. A user will only be able to view, modify, and delete their account if their request.user matches the User instance that they are trying to view, modify, or delete. This will require us to stop using our own user model and move over to the Django User model.</p>
+
+<p>In the case of posts, no GET requests need to be authenticated. We decided that all posts should be visible to anyone, users or not. In order to post, edit, or delete a post, a user will need pass BasicAuthentication and TokenAuthentication. This is to prevent anyone from curling user POST requests with nonsense emails and then using those accounts to create posts. A POST just checks for the validity of the User instance and the Token in order to attach the correct User to the post. An edit or deletion also compares the given User and Token to that of the post to make sure users can only change their own posts.</p>
+
+<p>In the case of tags, no GET requests need to be authenticated. Like with posts, tags are not private. Tag creation requires a valid User and Token to go through. The User and Token also need to match that of the given post_id so users cannot change the tags of posts that don't belong to them. The same goes for editing and deleting tags.</p>
+</div>
+
+
+{% endblock %}

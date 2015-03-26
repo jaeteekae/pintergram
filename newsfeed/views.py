@@ -92,6 +92,9 @@ def tag(request, tag_id):
 def documentation(request):
     return render(request, 'newsfeed/documentation.html')
 
+def auth(request):
+    return render(request, 'newsfeed/auth.html')
+
 
 
 
