@@ -168,7 +168,7 @@ class TagList(generics.ListCreateAPIView):
 class TagDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Tag.objects.all()
-
+    
     def get_serializer_class(self):
         if self.request.method == 'PUT':
             serializer_class = TagSerializerPut
