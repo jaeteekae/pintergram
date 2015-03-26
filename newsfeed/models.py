@@ -1,5 +1,7 @@
 from time import time
 from django.db import models
+from pygments.lexers import get_all_lexers
+from pygments.styles import get_all_styles
 
 class User(models.Model):
     username = models.CharField(max_length=30)
@@ -11,6 +13,7 @@ class User(models.Model):
     avatar_path = models.FilePathField("/images/avatars", blank=True)
     def __str__(self):              # __unicode__ on Python 2
         return self.username
+    
 
 #http://code.techandstartup.com/django/images/#images-templates
 def generate_filename(instance, filename):
@@ -45,3 +48,4 @@ class Upvote(models.Model):
     voter_set       = models.ForeignKey(User, related_name='voter_set')
     def __str__(self):              # __unicode__ on Python 2
         return "upvote"
+

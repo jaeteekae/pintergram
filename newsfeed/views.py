@@ -4,13 +4,27 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.cache import cache_page
-
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets
-from newsfeed.serializers import UserSerializer, PostSerializer, TagSerializer, FollowerSerializer, UpvoteSerializer
+
+# from django.views.decorators.csrf import csrf_exempt
+# from rest_framework.renderers import JSONRenderer
+# from rest_framework.parsers import JSONParser
 
 
+from newsfeed.serializers import UserSerializer, UserSerializerPut, PostSerializer, PostSerializerPut, TagSerializer, TagSerializerPut
 from newsfeed.models import User, Post, Tag, Follower, Upvote
+
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from newsfeed.models import User
+from newsfeed.serializers import UserSerializer
+from rest_framework import generics
 
 @cache_page(60 * 1)
 def index(request):
@@ -80,40 +94,94 @@ def tag(request, tag_id):
 
 # API ENDPOINTS
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+# For POST for all of these, every field must be provided in the curl command. 
+# If you don't want to fill out a field, put "" 
+
+
+
+# Users POST, GET endpoint
+# Retrieve all users
+# Create a new user
+# Cannot leave any fields blank
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+# User GET, PUT, DELETE endpoint
+# Retrieve a user by id
+# Update an existing user
+# Delete an existing user
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
-class PostViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Posts to be viewed or edited.
-    """
+    queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            serializer_class = UserSerializerPut
+        elif self.request.method != 'PUT':
+            serializer_class = UserSerializer
+        return serializer_class
+    
+
+
+
+# Posts POST, GET endpoint
+# Retrieve all posts
+# Create a new post
+# Cannot leave any fields blank
+class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+# User GET, PUT, DELETE endpoint
+# Retrieve a post by id
+# Update an existing post
+# Delete an existing post
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
-class TagViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Tags to be viewed or edited.
-    """
+    queryset = Post.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            serializer_class = PostSerializerPut
+        elif self.request.method != 'PUT':
+            serializer_class = PostSerializer
+        return serializer_class
+    
+
+
+# Posts POST, GET endpoint
+# Retrieve all posts
+# Create a new post
+# Cannot leave any fields blank
+class TagList(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+# User GET, PUT, DELETE endpoint
+# Retrieve a Tag by id
+# Update an existing Tag
+# Delete an existing Tag
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
 
-class FollowerViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Followers to be viewed or edited.
-    """
-    queryset = Follower.objects.all()
-    serializer_class = FollowerSerializer
+    queryset = Tag.objects.all()
 
-class UpvoteViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Upvotes to be viewed or edited.
-    """
-    queryset = Upvote.objects.all()
-    serializer_class = UpvoteSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            serializer_class = TagSerializerPut
+        elif self.request.method != 'PUT':
+            serializer_class = TagSerializer
+        return serializer_class
+    
+
+
+
+
+
+
+
+
+
+
+
+

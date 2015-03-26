@@ -1,60 +1,58 @@
-from newsfeed.models import User, Post, Tag, Follower, Upvote
+from django.forms import widgets
 from rest_framework import serializers
+from newsfeed.models import User, Post, Tag, Follower, Upvote
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'password', 'email', 'avatar_path')
+        fields = ('id','username', 'first_name', 'last_name', 'password', 'email', 'avatar_path')
 
 
-class PostSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializerPut(serializers.ModelSerializer):
+    pk = serializers.IntegerField(read_only=True)
+    username = serializers.CharField(required=False, allow_blank=True, max_length=30)
+    first_name = serializers.CharField(required=False, allow_blank=True, max_length=30)
+    last_name = serializers.CharField(required=False, allow_blank=True, max_length=50)
+    password = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
+    email = serializers.EmailField(required=False)
+    avatar_path = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
+    
+    class Meta:
+        model = User
+        
+
+class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('user_id', 'post_title', 'post_text', 'image_path', 'timestamp')
+        fields = ('id', 'user_id', 'post_title', 'post_text', 'image_path', 'timestamp')
 
-class TagSerializer(serializers.HyperlinkedModelSerializer):
+
+class PostSerializerPut(serializers.ModelSerializer):
+    pk = serializers.IntegerField(read_only=True)
+    
+    user_id = serializers.IntegerField(read_only=True)
+    post_title = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    post_text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
+    image_path = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
+    
+    class Meta:
+        model = Post
+       
+
+class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ('post_id', 'tag')
 
-class FollowerSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Follower
-        fields = ('follower_id', 'followee_id')
-
-class UpvoteSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Upvote
-        fields = ('post_id', 'original_poster', 'voter_set')
 
 
-
-# class UserSerializer(serializers.Serializer):
-#     pk = serializers.IntegerField(read_only=True)
-#     username = serializers.CharField(required=True, allow_blank=False, max_length=30)
-#     first_name = serializers.CharField(required=True, allow_blank=False, max_length=30)
-#     last_name = serializers.CharField(required=True, allow_blank=False, max_length=50)
-#     password = serializers.CharField(required=True, allow_blank=False, max_length=30, default='1234')
-#     email = serializers.EmailField(required=True)
+class TagSerializerPut(serializers.ModelSerializer):
+    pk = serializers.IntegerField(read_only=True)
+    post_id = serializers.IntegerField(read_only=True)
+    tag = serializers.CharField(required=True, allow_blank=True, max_length=100)
     
+    class Meta:
+        model = Tag
     
-
-#     def create(self, validated_data):
-#         """
-#         Create and return a new `User` instance, given the validated data.
-#         """
-#         return User.objects.create(**validated_data)
-
-#     def update(self, instance, validated_data):
-#         """
-#         Update and return an existing `User` instance, given the validated data.
-#         """
-#         instance.username = validated_data.get('username', instance.username)
-#         instance.first_name = validated_data.get('first_name', instance.first_name)
-#         instance.last_name = validated_data.get('last_name', instance.last_name)
-#         instance.password = validated_data.get('password', instance.password)
-#         instance.email = validated_data.get('email', instance.email)
-
-#         instance.save()
-#         return instance
