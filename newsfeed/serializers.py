@@ -7,7 +7,7 @@ from newsfeed.models import User, Post, Tag, Follower, Upvote
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','username', 'first_name', 'last_name', 'password', 'email', 'avatar_path')
+        fields = ('id','username', 'first_name', 'last_name', 'email', 'avatar_path')
 
 
 class UserSerializerPut(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class UserSerializerPut(serializers.ModelSerializer):
     username = serializers.CharField(required=False, allow_blank=True, max_length=30)
     first_name = serializers.CharField(required=False, allow_blank=True, max_length=30)
     last_name = serializers.CharField(required=False, allow_blank=True, max_length=50)
-    password = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
+    
     email = serializers.EmailField(required=False)
     avatar_path = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
     

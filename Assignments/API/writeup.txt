@@ -1,0 +1,10 @@
+Decisions
+=========
+
+	To make our API, we decided to use Django-Rest-Framework. This decision was
+made because it was the first approach we tried, and their tutorials were 
+thorough enough that we were able to set it up and understand it. 
+	For both Users and Posts, two serializers each were used. This was to 
+ensure that, when updating a post or a user, the API does not require 
+all fields be provided. However, when creating a new user or post, all 
+fields will still be required. 
