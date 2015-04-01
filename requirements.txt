@@ -13,3 +13,11 @@ gunicorn==19.1.1
 psycopg2==2.6
 static==0.4
 wsgiref==0.1.2
+Tornado==4.1
+backports.ssl-match-hostname==3.4.0.2
+certifi==14.5.14
+python-dateutil==2.4.2
+sockjs-tornado==1.0.1
+swampdragon==0.4.1.2
+tornado-redis==2.4.18
+
