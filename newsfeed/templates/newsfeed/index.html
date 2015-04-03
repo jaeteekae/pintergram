@@ -122,41 +122,111 @@
 //     }
 // });
 
+// var saveHere = 'RED';
+// doAjax();
+// function doAjax() {
+
+//     $.ajax({
+//         type: 'GET',
+//         url: 'database.php',
+//         data: data,
+//         success: function (sample) {
+//             if (sample != 'RED') {
+//                 saveHere = sample;
+//             } else {
+//                 console.log('load again');
+//                 doAjax();
+//             }
+//         }
+//     });
+
+// }
+
+// var saveHere = 'RED';
+
+// function doAjax() {
+//     $.ajax({ url: "posts", success: function(data) {
+//         console.log("ajax success");
+//             // if (sample != 'RED') {
+//             //     saveHere = sample;
+//             // } else {
+//             //     console.log('load again');
+//             //     doAjax();
+//             // }
+
+//         // console.log(data);
+//         // console.log($("#main-content-stream").first());
+//         var currentId = $("#main-content-stream div").first().data("postid").id;
+//         // console.log(currentId);
+//         if (data) {
+//             for (var i = 0; i < data.length; i++) {
+//                 var post = data[i];
+//                 console.log(post);
+//                 if (Number(post["id"]) > Number(currentId)) {
+//                     // console.log("in addPostIndex with id = "+post["id"]);
+//                 }
+//             }
+//         }
+
+//         doAjax();
+
+
+//         }
+//     , dataType: "json"});
+// }
+
+// doAjax();
+
+var executeInt = true;
+var wait = true;
 
 setInterval(function(){
-    $.ajax({ url: "posts", success: function(data){
-        
-        console.log(data);
-        console.log($("#main-content-stream").first());
+    if (executeInt) {
+        doAjax();
+        executeInt = false;
+    }
+    wait = true;
+    // if (wait) {
+        doAjax();
+    // }
+}, 1000);
+
+function doAjax() {
+    $.ajax({ url: "posts", success: function(data) {
         var currentId = $("#main-content-stream div").first().data("postid").id;
-        console.log(currentId);
-            
+        // console.log("Current id: " + currentId);
         if (data) {
-            
             for (var i = 0; i < data.length; i++) {
                 var post = data[i];
-                console.log(post);
+                // console.log(post);
                 if (Number(post["id"]) > Number(currentId)) {
-                    console.log("in addPostIndex with id = "+post["id"]);
+                    // console.log(post["id"]);
+                    // console.log("in addPostIndex with id = "+post["id"]);
+                    addPostIndex(post);
                 }
-
             }
         }
 
-    }, dataType: "json"});
-}, 5000);
+        wait = false;
+
+        // doAjax();
+
+
+        },
+    cache: false, dataType: "json"});
+}
 
 
 
 function addPostIndex(data) {
-    console.log("in addPostIndex with id = "+data.id);
+    // console.log("in addPostIndex with id = "+data.id);
     if (data) {
         var stream = document.getElementById("main-content-stream");
-        var recentChild = stream.firstChild();
+        var recentChild = stream.firstChild;
 
         var newPost = document.createElement("div");
-        newPost.className = 
-        newPost.setAttribute("data-postid", '{"id":'+data.id+'"}');
+        newPost.className = "post pn";
+        newPost.setAttribute("data-postid", '{"id":"'+data.id+'"}');
 //////
         var credit = document.createElement("div");
         credit.className = "credit";
@@ -166,15 +236,32 @@ function addPostIndex(data) {
         postAvatar.src = "{% static 'newsfeed/img/ui-danro.jpg' %}"
         postAvatar.className = "post-avatar";
 
+        //TODO: CHANGE THIS WHEN USERNAMES ARE ACTUALLY A THING
         var username = document.createElement("div");
-        var usernameText = document.createTextNode(data.username);
+        //var usernameText = document.createTextNode(data.username);
+        var usernameText = document.createTextNode("testuser");
         username.appendChild(usernameText);
         username.className = "username monofur-font"
 
         var timestamp = document.createElement("div");
-        var timestampText = document.createTextNode(data.timestamp);
+        var d = new Date(data.timestamp);
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var h = d.getHours();
+        var day = d.getDate();
+        var year = d.getFullYear();
+        var mins = d.getMinutes();
+        var a_p = " a.m."
+        if (h > 12) {h = h - 12; a_p = " p.m.";}
+        h = h.toString();
+        day = day.toString();
+        year = year.toString();
+        mins = mins.toString();
+        var fdate = months[d.getMonth()] + " " + day + ", " + year + ", " + h + ":" + mins + a_p;
+        // var fdate = months[d.getMonth()] + " " + day + ", " + year + ", " + h ":" + mins + a_p;
+        // console.log(fdate);
+        var timestampText = document.createTextNode(fdate);
         timestamp.appendChild(timestampText);
-        timestamp.className = timestamp;
+        timestamp.className = "timestamp";
 
         credit.appendChild(postAvatar);
         credit.appendChild(username);
@@ -227,18 +314,22 @@ function addPostIndex(data) {
         if (data.tags) {
 
         }
-        var upvotesText = document.createTextNode("10,000 upvotes &nbsp;&nbsp;  &nbsp;&nbsp;");
+        var upvotesText = document.createTextNode("10,000 upvotes      ");
         upvotes.appendChild(upvotesText);
 
         var upvoteButton = document.createElement("div");
         upvoteButton.className = "upvote-button";
 
-        var upvoteButtonText = document.createTextNode("&#9734");
+        var upvoteButtonText = document.createTextNode("\u2606");
         upvoteButton.appendChild(upvoteButtonText);
         upvotes.appendChild(upvoteButton);
         newPost.appendChild(upvotes);
 
-        newPost.insertBefore(recentChild);
+        // newPost.insertBefore(recentChild, newPost);
+        // recentChild.insertBefore(newPost, null);
+        // console.log(recentChild);
+
+        stream.insertBefore(newPost, recentChild);
 
     }
 

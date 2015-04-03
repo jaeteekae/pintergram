@@ -26,7 +26,7 @@ from newsfeed.models import User
 from newsfeed.serializers import UserSerializer
 from rest_framework import generics
 
-@cache_page(60 * 1)
+# @cache_page(60 * 1)
 def index(request):
     latest_post_list = Post.objects.order_by('-timestamp')
     tag_list = []
@@ -77,8 +77,7 @@ def create_post(request):
                 new_tag.save()
         return HttpResponseRedirect('/newsfeed')
 
-
-@cache_page(60 * 10)
+# @cache_page(60 * 10)
 def single_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     tags = Tag.objects.filter(post_id=post)
