@@ -148,9 +148,9 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
 
     def get_serializer_class(self):
-        if self.request.method == 'PUT':
+        if self.request.method != 'GET':
             serializer_class = PostSerializerPut
-        elif self.request.method != 'PUT':
+        else:
             serializer_class = PostSerializer
         return serializer_class
     
@@ -173,9 +173,9 @@ class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     
     def get_serializer_class(self):
-        if self.request.method == 'PUT':
+        if self.request.method != 'GET':
             serializer_class = TagSerializerPut
-        elif self.request.method != 'PUT':
+        else:
             serializer_class = TagSerializer
         return serializer_class
     

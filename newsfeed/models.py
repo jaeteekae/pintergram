@@ -1,4 +1,4 @@
-from time import time
+from datetime import datetime
 from django.db import models
 # from pygments.lexers import get_all_lexers
 # from pygments.styles import get_all_styles
@@ -20,13 +20,17 @@ def generate_filename(instance, filename):
     ext = filename.split('.')[-1]
     return 'images/' + str(int(time())) + '.' + ext
 
+
+
 class Post(models.Model):
     user_id = models.ForeignKey(User)
     post_title = models.CharField(max_length=100)
     post_text = models.TextField(max_length=5000)
 
     image_path = models.ImageField(upload_to=generate_filename, blank=True, null=True)
-    timestamp = models.DateTimeField('date published')
+
+    timestamp = models.DateTimeField(default=datetime.now)
+
     def __str__(self):              # __unicode__ on Python 2
         return self.post_title
 

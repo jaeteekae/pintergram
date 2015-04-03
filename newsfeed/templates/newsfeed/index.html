@@ -3,11 +3,9 @@
 {% block newsfeed-content %}
 
 {% if latest_post_list %}
-
-
     {% for post, tag_group in zipped_lists %}
     
-        <div class="post pn">
+        <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
             
             <div class="credit" >
                 
@@ -35,13 +33,11 @@
             <div class="caption">
                 {{ post.post_text }}
             </div>
-<div class="divider" style="background-image: url(/static/newsfeed/img/navbar2.png);">
+            <div class="divider" >
 	        	<!-- <img src="{% static 'newsfeed/img/navbar2.png' %}" class="divider"> -->
 	        	<div class="gradient">test</div>
-
 	        	<!-- <div class="divider" style="background-image: url(/static/newsfeed/img/navbar2.png);"></div> -->
 	        </div>
-
 
 
             <div class="upvotes">
@@ -107,24 +103,147 @@
 
 
 // uploads images
-$("#post-image").change(function(e) {
+// $("#post-image").change(function(e) {
 
-	var src = $('.file-preview-image').attr('src');
-	$('.img-preview-spot').attr('src') = src;
+// 	var src = $('.file-preview-image').attr('src');
+// 	$('.img-preview-spot').attr('src') = src;
 
-    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+//     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
-        var file = e.originalEvent.srcElement.files[i];
+//         var file = e.originalEvent.srcElement.files[i];
 
-        var img = document.createElement("img");
-        var reader = new FileReader();
-        reader.onloadend = function() {
-             img.src = reader.result;
+//         var img = document.createElement("img");
+//         var reader = new FileReader();
+//         reader.onloadend = function() {
+//              img.src = reader.result;
+//         }
+//         reader.readAsDataURL(file);
+//         $("#post-image").after(img);
+//     }
+// });
+
+
+setInterval(function(){
+    $.ajax({ url: "posts", success: function(data){
+        
+        console.log(data);
+        console.log($("#main-content-stream").first());
+        var currentId = $("#main-content-stream div").first().data("postid").id;
+        console.log(currentId);
+            
+        if (data) {
+            
+            for (var i = 0; i < data.length; i++) {
+                var post = data[i];
+                console.log(post);
+                if (Number(post["id"]) > Number(currentId)) {
+                    console.log("in addPostIndex with id = "+post["id"]);
+                }
+
+            }
         }
-        reader.readAsDataURL(file);
-        $("#post-image").after(img);
+
+    }, dataType: "json"});
+}, 5000);
+
+
+
+function addPostIndex(data) {
+    console.log("in addPostIndex with id = "+data.id);
+    if (data) {
+        var stream = document.getElementById("main-content-stream");
+        var recentChild = stream.firstChild();
+
+        var newPost = document.createElement("div");
+        newPost.className = 
+        newPost.setAttribute("data-postid", '{"id":'+data.id+'"}');
+//////
+        var credit = document.createElement("div");
+        credit.className = "credit";
+
+
+        var postAvatar = document.createElement("img");
+        postAvatar.src = "{% static 'newsfeed/img/ui-danro.jpg' %}"
+        postAvatar.className = "post-avatar";
+
+        var username = document.createElement("div");
+        var usernameText = document.createTextNode(data.username);
+        username.appendChild(usernameText);
+        username.className = "username monofur-font"
+
+        var timestamp = document.createElement("div");
+        var timestampText = document.createTextNode(data.timestamp);
+        timestamp.appendChild(timestampText);
+        timestamp.className = timestamp;
+
+        credit.appendChild(postAvatar);
+        credit.appendChild(username);
+        credit.appendChild(timestamp);
+        newPost.appendChild(credit);
+
+//////
+
+        var link = document.createElement("a");
+        link.className = "post-link";
+        
+        if (data.image_path) {
+            var img = document.createElement("img");
+            img.className = "post-image";
+            img.src = "/media/"+data.image_path;
+            img.style.height = "100";
+            img.style.width = "100";
+            link.appendChild(img);
+
+        }
+        newPost.appendChild(link);
+
+///////
+        var title = document.createElement("div");
+        title.className = "title monofur-font";
+        var titleLink = document.createElement("a");
+        titleLink.className = "post-link";
+        
+        var titleLinkText = document.createTextNode(data.post_title);
+        titleLink.appendChild(titleLinkText);
+        title.appendChild(titleLink);
+        newPost.appendChild(title);
+
+///////
+
+        var caption = document.createElement("div");
+        caption.className = "caption";
+        var captionText = document.createTextNode(data.post_text);
+        caption.appendChild(captionText);
+        newPost.appendChild(caption);
+
+/////
+        var divider = document.createElement("div");
+        divider.className = "divider";
+        newPost.appendChild(divider);
+
+//////
+        var upvotes = document.createElement("div");
+        upvotes.className = "upvotes";
+        if (data.tags) {
+
+        }
+        var upvotesText = document.createTextNode("10,000 upvotes &nbsp;&nbsp;  &nbsp;&nbsp;");
+        upvotes.appendChild(upvotesText);
+
+        var upvoteButton = document.createElement("div");
+        upvoteButton.className = "upvote-button";
+
+        var upvoteButtonText = document.createTextNode("&#9734");
+        upvoteButton.appendChild(upvoteButtonText);
+        upvotes.appendChild(upvoteButton);
+        newPost.appendChild(upvotes);
+
+        newPost.insertBefore(recentChild);
+
     }
-});
+
+}
+
 
 </script>
 

@@ -1,4 +1,5 @@
 from django.forms import widgets
+from datetime import datetime
 from rest_framework import serializers
 from newsfeed.models import User, Post, Tag, Follower, Upvote
 
@@ -26,7 +27,7 @@ class UserSerializerPut(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'user_id', 'post_title', 'post_text', 'image_path', 'timestamp')
+        fields = ('id', 'user_id', 'post_title', 'post_text', 'image_path')
 
 
 class PostSerializerPut(serializers.ModelSerializer):
@@ -35,8 +36,9 @@ class PostSerializerPut(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
     post_title = serializers.CharField(required=False, allow_blank=True, max_length=100)
     post_text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
-    image_path = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
-    
+    image_path = serializers.ImageField(required=False)
+    timestamp = serializers.DateTimeField(default=datetime.now)
+   
     class Meta:
         model = Post
        
