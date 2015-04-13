@@ -47,6 +47,9 @@ def base(request):
 def offline(request):
     return render(request, 'newsfeed/offline.html')
 
+def login(request):
+    return render(request, 'newsfeed/login.html')
+
 
 def create_post(request):
     try:

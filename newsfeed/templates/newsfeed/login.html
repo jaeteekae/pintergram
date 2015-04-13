@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block newsfeed-content %}
+
+<style type="text/css">
+	header {
+		display: none !important;
+	}
+	.main-content {
+		background-image: url(/static/newsfeed/img/navbar2.png) !important;
+	}
+</style>
+
+<div class="new-post pn">
+	<div class="monofur-font">let's get crea</div>
+	<form>
+		<input type="text" name="username">
+		<input type="text" name="password">
+	</form>
+</div>
+
+{% endblock %}
