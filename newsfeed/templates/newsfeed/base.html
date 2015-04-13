@@ -18,7 +18,7 @@
 	<body>
 
 
-
+	{% block login-content %}
 
 	<section id="container" class="sidebar-closed">
 	  <!-- **********************************************************************************************************************************************************
@@ -101,7 +101,8 @@
 	<!-- js placed at the end of the document so the pages load faster -->
 
 		<script src="{% static 'newsfeed/js/all-js.min.js' %}" type="text/javascript"></script> 
+		
 
-
+{% endblock %}
 	</body>
 </html>
