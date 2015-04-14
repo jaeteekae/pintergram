@@ -10,9 +10,3 @@ one that's linked to it we can catch it and they will only have read-only access
 
 We also added some object level permissions to allow for viewing of posts and post info even if not
 logged in.
-
-User creation is now handled by the auth.User model from Django and there is a page for that which also isn't up yet.
-
-Implementation Issues:
-
-Currently our db wont migrate so we haven't been able to test if these permissions work.

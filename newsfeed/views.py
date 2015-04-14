@@ -32,6 +32,7 @@ from rest_framework import generics
 # for auth
 
 from rest_framework import permissions
+from django.contrib.auth import authenticate, login as auth_login
 
 # @cache_page(60 * 1)
 def index(request):
@@ -58,6 +59,21 @@ def login(request):
     if request.method == 'GET':
         return render(request, 'newsfeed/login.html')
 
+def login_user(request):
+    if not request.POST['username']:
+        return HttpResponseRedirect('/newsfeed/login')
+    elif not request.POST['password']:
+        return HttpResponseRedirect('/newsfeed/login')
+    else:
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return HttpResponseRedirect('/newsfeed')
+            else:
+                return HttpResponseRedirect('/newsfeed/login')
+        else:
+            return HttpResponseRedirect('/newsfeed/login')
 
 def create_post(request):
     try:
