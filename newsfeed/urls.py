@@ -25,3 +25,10 @@ urlpatterns = patterns('',
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+
+#urls for login not sure if needed
+
+#urlpatterns += [
+#    url(r'^api-auth/', include('rest_framework.urls',
+#                               namespace='rest_framework')),
+#]
