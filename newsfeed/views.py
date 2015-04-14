@@ -14,7 +14,8 @@ from rest_framework import viewsets
 
 
 from newsfeed.serializers import UserSerializer, UserSerializerPut, PostSerializer, PostSerializerPut, TagSerializer, TagSerializerPut
-from newsfeed.models import User, Post, Tag, Follower, Upvote
+from newsfeed.models import Post, Tag, Follower, Upvote
+from django.contrib.auth.models import User
 
 
 from rest_framework import status
@@ -22,9 +23,15 @@ from rest_framework.decorators import api_view
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from newsfeed.models import User
+
+from django.contrib.auth.models import User
+
 from newsfeed.serializers import UserSerializer
 from rest_framework import generics
+
+# for auth
+
+from rest_framework import permissions
 
 # @cache_page(60 * 1)
 def index(request):
