@@ -7,9 +7,11 @@ from newsfeed.models import Post, Tag, Follower, Upvote
 
 
 class UserSerializer(serializers.ModelSerializer):
+    posts = serializers.PrimaryKeyRelatedField(many=True, queryset=Post.objects.all())
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email')
+        fields = ('id', 'username', 'posts')
 
 
 class UserSerializerPut(serializers.ModelSerializer):

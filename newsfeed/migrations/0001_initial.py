@@ -2,23 +2,38 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import datetime
+from django.conf import settings
+import newsfeed.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
+            name='Follower',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('followee_id', models.ForeignKey(related_name='followee_set', to=settings.AUTH_USER_MODEL)),
+                ('follower_id', models.ForeignKey(related_name='follower_set', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Post',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=100)),
-                ('text', models.CharField(max_length=5000)),
-                ('image_path', models.CharField(max_length=100)),
-                ('timestamp', models.DateTimeField(verbose_name=b'date published')),
-                ('upvotes', models.IntegerField()),
+                ('post_title', models.CharField(max_length=100)),
+                ('post_text', models.TextField(max_length=5000)),
+                ('image_path', models.ImageField(null=True, upload_to=newsfeed.models.generate_filename, blank=True)),
+                ('timestamp', models.DateTimeField(default=datetime.datetime.now)),
+                ('owner', models.ForeignKey(related_name='posts', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -36,24 +51,15 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='User',
+            name='Upvote',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('username', models.CharField(max_length=30)),
-                ('first_name', models.CharField(max_length=30)),
-                ('last_name', models.CharField(max_length=30)),
-                ('email', models.CharField(max_length=100)),
-                ('upvotes', models.IntegerField()),
-                ('avatar_path', models.CharField(max_length=100)),
+                ('original_poster', models.ForeignKey(related_name='op_set', to=settings.AUTH_USER_MODEL)),
+                ('post_id', models.ForeignKey(to='newsfeed.Post')),
+                ('voter_set', models.ForeignKey(related_name='voter_set', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='post',
-            name='user_id',
-            field=models.ForeignKey(to='newsfeed.User'),
-            preserve_default=True,
         ),
     ]
