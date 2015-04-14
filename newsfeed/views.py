@@ -148,6 +148,9 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    def perform_create(self, serializer):
+    serializer.save(owner=self.request.user)
+
 # User GET, PUT, DELETE endpoint
 # Retrieve a post by id
 # Update an existing post
