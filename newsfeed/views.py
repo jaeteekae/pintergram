@@ -35,14 +35,14 @@ from rest_framework import permissions
 
 # @cache_page(60 * 1)
 def index(request):
-    latest_post_list = Post.objects.order_by('-timestamp')
-    tag_list = []
-    for post in latest_post_list:
-        tag_group = Tag.objects.filter(post_id=post)
-        tag_list.append(tag_group)
-    zipped_lists = zip(latest_post_list, tag_list)
-    context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list}
-    return render(request, 'newsfeed/index.html', context)
+    # latest_post_list = Post.objects.order_by('-timestamp')
+    # tag_list = []
+    # for post in latest_post_list:
+    #     tag_group = Tag.objects.filter(post_id=post)
+    #     tag_list.append(tag_group)
+    # zipped_lists = zip(latest_post_list, tag_list)
+    # context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list, 'test_user': request.owner.username}
+    return render(request, 'newsfeed/index.html', {'self_un': request.user})
 
 def new_post(request):
     return render(request, 'newsfeed/new_post.html')
@@ -55,7 +55,8 @@ def offline(request):
     return render(request, 'newsfeed/offline.html')
 
 def login(request):
-    return render(request, 'newsfeed/login.html')
+    if request.method == 'GET':
+        return render(request, 'newsfeed/login.html')
 
 
 def create_post(request):
@@ -91,7 +92,7 @@ def create_post(request):
 def single_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     tags = Tag.objects.filter(post_id=post)
-    return render(request, 'newsfeed/single_post.html', {'post': post, 'tags': tags})
+    return render(request, 'newsfeed/single_post.html', {'post': post, 'tags': tags, 'self_un': request.user})
 
 def tag(request, tag_id):
     tagged_post_list = Post.objects.order_by('-timestamp')
@@ -119,6 +120,7 @@ def auth(request):
 # Create a new user
 # Cannot leave any fields blank
 class UserList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAdminUser,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
