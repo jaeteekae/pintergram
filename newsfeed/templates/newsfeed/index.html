@@ -10,7 +10,7 @@
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -72,7 +72,7 @@
 
 
 <!-- <div class="new-post pn"> -->
-	<form action="posts/" method="post" enctype="multipart/form-data">
+	<form enctype="multipart/form-data" id="post_form">
 	
 <!-- 	
 		<div class="quarter" >
@@ -88,7 +88,7 @@
 	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
 		<!-- <input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/>  -->
         <!-- tags separated by commas -->
-		<input type="submit" value="create post" class="new-post-button"/>
+		<button onclick="SubForm()" class="new-post-button">create post</button>
         </div>
 		
 
@@ -100,7 +100,17 @@
 
 <script type="text/javascript">
 
-
+function SubForm (){
+            $.ajax({
+                url:'posts/',
+                type:'post',
+                enctype: "multipart/form-data",
+                data:$('#post_form').serialize(),
+                // success:function(){
+                //     alert("worked");
+                // }
+            });
+        }
 
 
 // uploads images
@@ -240,7 +250,7 @@ function addPostIndex(data) {
         //TODO: CHANGE THIS WHEN USERNAMES ARE ACTUALLY A THING
         var username = document.createElement("div");
         //var usernameText = document.createTextNode(data.username);
-        var usernameText = document.createTextNode("testuser");
+        var usernameText = document.createTextNode(data.owner);
         username.appendChild(usernameText);
         username.className = "username monofur-font"
 

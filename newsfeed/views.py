@@ -154,6 +154,7 @@ class PostList(generics.ListCreateAPIView):
     # Associates this post with an owner
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        return HttpResponseRedirect('/newsfeed')
 
 # User GET, PUT, DELETE endpoint
 # Retrieve a post by id
@@ -168,9 +169,12 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_serializer_class(self):
         if self.request.method != 'GET':
             serializer_class = PostSerializerPut
+            return HttpResponseRedirect('/newsfeed')
         else:
             serializer_class = PostSerializer
-        return serializer_class
+            return HttpResponseRedirect('/newsfeed')
+        return HttpResponseRedirect('/newsfeed')
+        # return serializer_class
     
 
 
