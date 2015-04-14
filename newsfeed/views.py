@@ -55,6 +55,21 @@ def offline(request):
     return render(request, 'newsfeed/offline.html')
 
 def login(request):
+
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return HttpResponseRedirect('/newsfeed')
+        else:
+            return HttpResponse("Your Rango account is disabled.")
+    else:
+        return HttpResponse("Invalid login details supplied.")
+
     return render(request, 'newsfeed/login.html')
 
 
