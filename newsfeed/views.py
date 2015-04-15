@@ -32,6 +32,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.hashers import make_password
 
 # @cache_page(60 * 1)
 def index(request):
@@ -77,6 +78,21 @@ def login_user(request):
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/newsfeed/login')
+
+def create_user(request):
+    if request.method == 'GET':
+        return render(request, 'newsfeed/create_user.html')
+    elif request.method == 'POST':
+        new_user = User(username=request.POST['username'],
+                        first_name=request.POST['first_name'],
+                        last_name=request.POST['last_name'],
+                        email=request.POST['email'],
+                        password=make_password(request.POST['password']),
+                        is_staff=False,
+                        is_active=True,
+                        is_superuser=False)
+        new_user.save()
+        return HttpResponseRedirect('/newsfeed/login')
 
 def create_post(request):
     try:
