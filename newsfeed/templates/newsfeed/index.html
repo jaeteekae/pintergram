@@ -172,6 +172,7 @@ function addPostIndex(data) {
         
         var titleLinkText = document.createTextNode(data.post_title);
         titleLink.appendChild(titleLinkText);
+        titleLink.href = "post/" + data.id
         title.appendChild(titleLink);
         newPost.appendChild(title);
 
