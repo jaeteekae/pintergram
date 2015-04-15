@@ -15,8 +15,6 @@ from rest_framework import viewsets
 
 from newsfeed.serializers import UserSerializer, UserSerializerPut, PostSerializer, PostSerializerPut, TagSerializer, TagSerializerPut
 from newsfeed.models import Post, Tag, Follower, Upvote
-from django.contrib.auth.models import User
-
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -33,6 +31,7 @@ from rest_framework import generics
 
 from rest_framework import permissions
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout as auth_logout
 
 # @cache_page(60 * 1)
 def index(request):
@@ -74,6 +73,10 @@ def login_user(request):
                 return HttpResponseRedirect('/newsfeed/login')
         else:
             return HttpResponseRedirect('/newsfeed/login')
+
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect('/newsfeed/login')
 
 def create_post(request):
     try:
