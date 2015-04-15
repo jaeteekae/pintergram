@@ -3,7 +3,7 @@
 ##ADDRESS OF WEBSITE##
 https://pintergram.herokuapp.com/
 
-NOTE: heroku is not accepting the migrations, so this version only works on localhost
+NOTE: auth README.md can be found in Assignments/Auth
 
 No Python packages were used.
 

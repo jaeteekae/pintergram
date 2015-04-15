@@ -9,4 +9,4 @@ with a user. This way if a request is coming to a update or delete a post from a
 one that's linked to it we can catch it and they will only have read-only access.
 
 We also added some object level permissions to allow for viewing of posts and post info even if not
-logged in.
+logged in. If the user is not a superuser, they can only read posts from the using the API. Also, only superusers can view the user API.
