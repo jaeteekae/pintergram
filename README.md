@@ -1,7 +1,9 @@
 ##Team 14##
 
 ##ADDRESS OF WEBSITE##
-https://pintergram.herokuapp.com/newsfeed/
+https://pintergram.herokuapp.com/
+
+NOTE: heroku is not accepting the migrations, so this version only works on localhost
 
 No Python packages were used.
 
