@@ -14,28 +14,36 @@ from rest_framework import viewsets
 
 
 from newsfeed.serializers import UserSerializer, UserSerializerPut, PostSerializer, PostSerializerPut, TagSerializer, TagSerializerPut
-from newsfeed.models import User, Post, Tag, Follower, Upvote
-
+from newsfeed.models import Post, Tag, Follower, Upvote
 
 from rest_framework import status
 from rest_framework.decorators import api_view
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from newsfeed.models import User
+
+from django.contrib.auth.models import User
+
 from newsfeed.serializers import UserSerializer
 from rest_framework import generics
 
+# for auth
+
+from rest_framework import permissions
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.hashers import make_password
+
 # @cache_page(60 * 1)
 def index(request):
-    latest_post_list = Post.objects.order_by('-timestamp')
-    tag_list = []
-    for post in latest_post_list:
-        tag_group = Tag.objects.filter(post_id=post)
-        tag_list.append(tag_group)
-    zipped_lists = zip(latest_post_list, tag_list)
-    context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list}
-    return render(request, 'newsfeed/index.html', context)
+    # latest_post_list = Post.objects.order_by('-timestamp')
+    # tag_list = []
+    # for post in latest_post_list:
+    #     tag_group = Tag.objects.filter(post_id=post)
+    #     tag_list.append(tag_group)
+    # zipped_lists = zip(latest_post_list, tag_list)
+    # context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list, 'test_user': request.owner.username}
+    return render(request, 'newsfeed/index.html', {'self_un': request.user})
 
 def new_post(request):
     return render(request, 'newsfeed/new_post.html')
@@ -48,8 +56,43 @@ def offline(request):
     return render(request, 'newsfeed/offline.html')
 
 def login(request):
-    return render(request, 'newsfeed/login.html')
+    if request.method == 'GET':
+        return render(request, 'newsfeed/login.html')
 
+def login_user(request):
+    if not request.POST['username']:
+        return HttpResponseRedirect('/newsfeed/login')
+    elif not request.POST['password']:
+        return HttpResponseRedirect('/newsfeed/login')
+    else:
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return HttpResponseRedirect('/newsfeed')
+            else:
+                return HttpResponseRedirect('/newsfeed/login')
+        else:
+            return HttpResponseRedirect('/newsfeed/login')
+
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect('/newsfeed/login')
+
+def create_user(request):
+    if request.method == 'GET':
+        return render(request, 'newsfeed/create_user.html')
+    elif request.method == 'POST':
+        new_user = User(username=request.POST['username'],
+                        first_name=request.POST['first_name'],
+                        last_name=request.POST['last_name'],
+                        email=request.POST['email'],
+                        password=make_password(request.POST['password']),
+                        is_staff=False,
+                        is_active=True,
+                        is_superuser=False)
+        new_user.save()
+        return HttpResponseRedirect('/newsfeed/login')
 
 def create_post(request):
     try:
@@ -84,7 +127,7 @@ def create_post(request):
 def single_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     tags = Tag.objects.filter(post_id=post)
-    return render(request, 'newsfeed/single_post.html', {'post': post, 'tags': tags})
+    return render(request, 'newsfeed/single_post.html', {'post': post, 'tags': tags, 'self_un': request.user})
 
 def tag(request, tag_id):
     tagged_post_list = Post.objects.order_by('-timestamp')
@@ -112,6 +155,7 @@ def auth(request):
 # Create a new user
 # Cannot leave any fields blank
 class UserList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAdminUser,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -141,6 +185,14 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    # Associates this post with an owner
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+        return HttpResponseRedirect('/newsfeed')
+
 # User GET, PUT, DELETE endpoint
 # Retrieve a post by id
 # Update an existing post
@@ -149,12 +201,17 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Post.objects.all()
 
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
     def get_serializer_class(self):
         if self.request.method != 'GET':
             serializer_class = PostSerializerPut
+            return HttpResponseRedirect('/newsfeed')
         else:
             serializer_class = PostSerializer
-        return serializer_class
+            return HttpResponseRedirect('/newsfeed')
+        return HttpResponseRedirect('/newsfeed')
+        # return serializer_class
     
 
 

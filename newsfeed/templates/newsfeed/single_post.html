@@ -9,7 +9,7 @@
 	    <div class="post pn">
 			<div class="credit" >
 	            <img class="post-avatar" src="http://lorempixel.com/200/200/">
-	            <div class="username">{{ post.user_id }}</div>
+	            <div class="username">{{ post.owner }}</div>
 	            <div class="timestamp">{{ post.timestamp }}</div>
 	        </div>
 	        <!--<img class="post-image"src="https://placekitten.com/g/400/200">-->
@@ -42,5 +42,8 @@
 <!-- <p>{{ post.image_path }}</p> TODO FOR THIS LEG: Add the image-->
 
 
+<script>
+document.getElementById("current_user").innerText = "Currently logged in as: {{ self_un }}";
+</script>
 
 {% endblock %}
