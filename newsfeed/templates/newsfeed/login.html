@@ -34,16 +34,20 @@ footer {
 	<div class="login-window ">
 
 		<h3 class="login-title">let's get creative</h3>
-		<form id="login-form">
+
+		<form action="login_user" method="post" enctype="multipart/form-data" id="login-form">
+			{% csrf_token %}
 			<input class="login-input" type="text" name="username" placeholder="username">
 			<br>
-			<input class="login-input" type="text" name="password" placeholder="password">
+			<input class="login-input" type="password" name="password" placeholder="password">
 		</form>
 		
 	</div>
 	<div class="transparent-button">
 		<button class="login-button" type="submit" form="login-form" value="login">log in</button>
 	</div>
+
+	<a href="create_user">create user</a>
 	
 </div>
 

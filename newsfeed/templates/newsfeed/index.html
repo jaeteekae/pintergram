@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block newsfeed-content %}
 
+
 {% if latest_post_list %}
     {% for post, tag_group in zipped_lists %}
     
@@ -57,8 +58,14 @@
     {% endfor %}
     
 {% else %}
-    <p>No posts are available.</p>
+    <div class="post pn text-align-center monofur-font">
+        <p>No posts are available.</p>
+    </div>
+    
 {% endif %}
+
+<!-- PUT IT BACK HERE -->
+
 {% endblock %}
 
 
@@ -72,7 +79,7 @@
 
 
 <!-- <div class="new-post pn"> -->
-	<form action="create_post" method="post" enctype="multipart/form-data">
+	<form enctype="multipart/form-data" id="post_form">
 	
 <!-- 	
 		<div class="quarter" >
@@ -80,6 +87,7 @@
 		</div> -->
 		
 		{% csrf_token %}
+
    
 	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
 	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
@@ -87,6 +95,7 @@
         <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
 		<input type="submit" value="create post" class="new-post-button floating-mod-input"/>
         
+
 		
 
 	</form>
@@ -98,6 +107,18 @@
 <script type="text/javascript">
 
 
+function SubForm (){
+            $.ajax({
+                url:'posts/',
+                type:'post',
+                enctype: "multipart/form-data",
+                data:$('#post_form').serialize(),
+                // success:function(){
+                //     alert("worked");
+                // }
+            });
+        }
+
 
 var executeInt = true;
 var wait = true;
@@ -108,14 +129,15 @@ setInterval(function(){
         executeInt = false;
     }
     wait = true;
-    // if (wait) {
-        doAjax();
-    // }
+    doAjax();
 }, 1000);
 
 function doAjax() {
     $.ajax({ url: "posts", success: function(data) {
-        var currentId = $("#main-content-stream div").first().data("postid").id;
+        var currentId = -1;
+        if ($("#main-content-stream div").first().data("postid")) {
+            currentId = $("#main-content-stream div").first().data("postid").id
+        }
         // console.log("Current id: " + currentId);
         if (data) {
             for (var i = 0; i < data.length; i++) {
@@ -161,7 +183,7 @@ function addPostIndex(data) {
         //TODO: CHANGE THIS WHEN USERNAMES ARE ACTUALLY A THING
         var username = document.createElement("div");
         //var usernameText = document.createTextNode(data.username);
-        var usernameText = document.createTextNode("testuser");
+        var usernameText = document.createTextNode(data.owner);
         username.appendChild(usernameText);
         username.className = "username monofur-font"
 
@@ -214,6 +236,7 @@ function addPostIndex(data) {
         
         var titleLinkText = document.createTextNode(data.post_title);
         titleLink.appendChild(titleLinkText);
+        titleLink.href = "post/" + data.id
         title.appendChild(titleLink);
         newPost.appendChild(title);
 
@@ -256,6 +279,17 @@ function addPostIndex(data) {
     }
 
 }
+
+// $(document).ready(function() {
+    document.getElementById("current_user").innerText = "{{ self_un }}";
+
+    // var header_username = docment.getElementById(current_user);
+    // header_username.innerHtml
+    // console.log("here");
+    // $("#current_user").html = {{ test_user }};
+// });
+
+
 
 
 </script>

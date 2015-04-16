@@ -179,6 +179,7 @@
 			  create something
 			</div> -->
 			<!-- </a> -->
+
 		
 			<!-- <div class="create-icon" id="create-button" onclick="open_create()"> -->
 			<div class="create-icon" id="create-button">
@@ -187,6 +188,9 @@
 				
 				
 			</div>
+
+	
+
 			
 
 <!-- 
@@ -199,7 +203,6 @@
 					<span class="onoffswitch-switch"></span>
 				</label>
 			</div> -->
-
 
 		</header>
 	  <!--header end-->
@@ -224,7 +227,7 @@
 									<h3>fullname</h3>
 								</div>
 								<div class="curr-user-username text-align-center">
-									<h4>username</h4>
+									<h4 id="current_user"></h4>
 								</div>
 							</div>
 
@@ -246,7 +249,7 @@
 	  <!--main content end-->
 	  <!--footer start-->
 		<footer class="site-footer">
-		  	<div class="text-center">
+		  	<div class="text-center" id="site_footer">
 			  2014 - Team 14 - 
 			  <a href="{% url 'newsfeed:documentation' %}">Documentation</a>
 			  	<a href="blank.html#" class="go-top">
@@ -280,5 +283,7 @@ $("#create-button").on("click", function() {
 </script>
 
 {% endblock %}
+<a href="logout">logout</a>
 	</body>
+
 </html>

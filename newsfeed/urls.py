@@ -12,9 +12,12 @@ urlpatterns = patterns('',
     url(r'^auth$', views.auth, name='auth'),
     url(r'^login$', views.login, name='login'),
     url(r'^signup$', views.signup, name='signup'),
+    url(r'^logout$', views.logout, name='logout'),
     url(r'^new_post$', views.new_post, name='new_post'),
     url(r'^offline$', views.offline, name='offline'),
     url(r'^create_post$', views.create_post, name='create_post'),
+    url(r'^login_user$', views.login_user, name='login_user'),
+    url(r'^create_user$', views.create_user, name='create_user'),
     url(r'^post/(?P<post_id>\d+)/$', views.single_post, name='single_post'),
     url(r'^(?P<tag_id>\d+)/$', views.tag, name='tag'),
     url(r'^users/$', views.UserList.as_view()),
@@ -26,3 +29,10 @@ urlpatterns = patterns('',
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+
+#urls for login not sure if needed
+
+#urlpatterns += [
+#    url(r'^api-auth/', include('rest_framework.urls',
+#                               namespace='rest_framework')),
+#]

@@ -1,14 +1,17 @@
 from django.forms import widgets
 from datetime import datetime
 from rest_framework import serializers
-from newsfeed.models import User, Post, Tag, Follower, Upvote
+from django.contrib.auth.models import User
+from newsfeed.models import Post, Tag, Follower, Upvote
 
 
 
 class UserSerializer(serializers.ModelSerializer):
+    posts = serializers.PrimaryKeyRelatedField(many=True, queryset=Post.objects.all())
+
     class Meta:
         model = User
-        fields = ('id','username', 'first_name', 'last_name', 'email', 'avatar_path')
+        fields = ('id', 'username', 'posts')
 
 
 class UserSerializerPut(serializers.ModelSerializer):
@@ -18,22 +21,24 @@ class UserSerializerPut(serializers.ModelSerializer):
     last_name = serializers.CharField(required=False, allow_blank=True, max_length=50)
     
     email = serializers.EmailField(required=False)
-    avatar_path = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
+    #avatar_path = serializers.CharField(required=False, allow_blank=True, max_length=30, default='1234')
     
     class Meta:
         model = User
         
 
 class PostSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Post
-        fields = ('id', 'user_id', 'post_title', 'post_text', 'image_path', 'timestamp')
+        fields = ('id', 'owner', 'post_title', 'post_text', 'image_path', 'timestamp')
 
 
 class PostSerializerPut(serializers.ModelSerializer):
     pk = serializers.IntegerField(read_only=True)
     
-    user_id = serializers.IntegerField(read_only=True)
+    owner = serializers.IntegerField(read_only=True)
     post_title = serializers.CharField(required=False, allow_blank=True, max_length=100)
     post_text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     image_path = serializers.ImageField(required=False)

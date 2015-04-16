@@ -1,7 +1,9 @@
 ##Team 14##
 
 ##ADDRESS OF WEBSITE##
-https://pintergram.herokuapp.com/newsfeed/
+https://pintergram.herokuapp.com/
+
+NOTE: auth README.md can be found in Assignments/Auth
 
 No Python packages were used.
 
