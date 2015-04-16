@@ -35,7 +35,7 @@
             </div>
             <div class="divider" >
 	        	<!-- <img src="{% static 'newsfeed/img/navbar2.png' %}" class="divider"> -->
-	        	<div class="gradient">test</div>
+	        	<div class="gradient"></div>
 	        	<!-- <div class="divider" style="background-image: url(/static/newsfeed/img/navbar2.png);"></div> -->
 	        </div>
 
@@ -45,9 +45,9 @@
             {% if tag_group %}
             
                 tags: {% for tag in tag_group %}&#35;{{ tag.tag }}&nbsp;&nbsp;{% endfor %}
-            
+
             {% endif %} 
-                        
+
                 <div class="upvote-button">&#9734</div>
             </div>
             
@@ -80,15 +80,13 @@
 		</div> -->
 		
 		{% csrf_token %}
-        <div class="quarter" >
-			<input type="file" name="post-image" id="post-image" accept="image/*" >
-        </div>
-        <div class="threequarter all-inputs">
-	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title"/>
-	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text"/>
-		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text"/> <!-- tags separated by commas -->
-		<input type="submit" value="create post" class="new-post-button"/>
-        </div>
+   
+	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
+	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
+		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
+        <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
+		<input type="submit" value="create post" class="new-post-button floating-mod-input"/>
+        
 		
 
 	</form>
@@ -100,82 +98,6 @@
 <script type="text/javascript">
 
 
-
-
-// uploads images
-// $("#post-image").change(function(e) {
-
-// 	var src = $('.file-preview-image').attr('src');
-// 	$('.img-preview-spot').attr('src') = src;
-
-//     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-
-//         var file = e.originalEvent.srcElement.files[i];
-
-//         var img = document.createElement("img");
-//         var reader = new FileReader();
-//         reader.onloadend = function() {
-//              img.src = reader.result;
-//         }
-//         reader.readAsDataURL(file);
-//         $("#post-image").after(img);
-//     }
-// });
-
-// var saveHere = 'RED';
-// doAjax();
-// function doAjax() {
-
-//     $.ajax({
-//         type: 'GET',
-//         url: 'database.php',
-//         data: data,
-//         success: function (sample) {
-//             if (sample != 'RED') {
-//                 saveHere = sample;
-//             } else {
-//                 console.log('load again');
-//                 doAjax();
-//             }
-//         }
-//     });
-
-// }
-
-// var saveHere = 'RED';
-
-// function doAjax() {
-//     $.ajax({ url: "posts", success: function(data) {
-//         console.log("ajax success");
-//             // if (sample != 'RED') {
-//             //     saveHere = sample;
-//             // } else {
-//             //     console.log('load again');
-//             //     doAjax();
-//             // }
-
-//         // console.log(data);
-//         // console.log($("#main-content-stream").first());
-//         var currentId = $("#main-content-stream div").first().data("postid").id;
-//         // console.log(currentId);
-//         if (data) {
-//             for (var i = 0; i < data.length; i++) {
-//                 var post = data[i];
-//                 console.log(post);
-//                 if (Number(post["id"]) > Number(currentId)) {
-//                     // console.log("in addPostIndex with id = "+post["id"]);
-//                 }
-//             }
-//         }
-
-//         doAjax();
-
-
-//         }
-//     , dataType: "json"});
-// }
-
-// doAjax();
 
 var executeInt = true;
 var wait = true;

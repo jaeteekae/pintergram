@@ -50,6 +50,9 @@ def offline(request):
 def login(request):
     return render(request, 'newsfeed/login.html')
 
+def signup(request):
+    return render(request, 'newsfeed/signup.html')
+
 
 def create_post(request):
     try:
