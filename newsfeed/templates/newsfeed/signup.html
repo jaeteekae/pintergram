@@ -16,26 +16,32 @@
 
 <div class="signup-column monofur-font">
 
-	<div class="login-window ">
 
-		<h3 class="login-title">Sign Up</h3>
-		<form id="signup-form">
-			
-			<input class="login-input" type="text" name="firstname" placeholder="First Name">
-			<br>
-			<input class="login-input" type="text" name="lastname" placeholder="Last Name">
-			<br>
-			<input class="login-input" type="text" name="username" placeholder="Username">
-			<br>
-			<input class="login-input" type="text" name="email" placeholder="Email">
-			<br>
-			<input class="login-input" type="text" name="password" placeholder="Password">
-		</form>
-		
-	</div>
-	<div class="transparent-button">
-		<button class="signup-button" type="submit" form="login-form" value="login">sign up</button>
-	</div>
+    <div class="login-window ">
+
+        <h3 class="login-title">let's get creative</h3>
+        <form action="create_user" method="post" enctype="multipart/form-data" id="login-form">
+            {% csrf_token %}
+            first name:<br/>
+            <input class="login-input" type="text" name="first_name" placeholder="first name">
+            <br>
+            last name:<br/>
+            <input class="login-input" type="text" name="last_name" placeholder="last name">
+            <br>
+            username:<br/>
+            <input class="login-input" type="text" name="username" placeholder="username">
+            <br>
+            password:<br/>
+            <input class="login-input" type="password" name="password" placeholder="password">
+            <br/>
+            email:<br/>
+            <input class="login-input" type="text" name="email" placeholder="email">
+        </form>
+        
+    </div>
+    <div class="transparent-button">
+        <button class="login-button" type="submit" form="login-form" value="login">create user</button>
+    </div>
 	
 </div>
 

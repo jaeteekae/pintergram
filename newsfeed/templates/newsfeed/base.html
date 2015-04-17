@@ -69,6 +69,22 @@
 		opacity: 1;
 	}
 
+	#logout-button:hover  #create-icon-txt {
+		width: 90px;
+		opacity: 1.0;
+	    transition: all .5s ease-in-out;
+	    -moz-transition: all .5s ease-in-out;
+	    -webkit-transition: all .5s ease-in-out;
+	    
+	}
+	#logout-button:hover #create-icon-img {
+		opacity: 1;
+	}
+	#logout-button {
+		margin-right: -10px;
+	}
+
+
 
 #modal {
   background: black;
@@ -90,7 +106,7 @@
 .createIsOpen #main-content {
 
   /* Blur and de-color */
-  -webkit-filter: blur(5px) grayscale(50%) sepia(100%) hue-rotate(90deg);
+  -webkit-filter: blur(5px) grayscale(50%);
 
   /* Recede */
   /*-webkit-transform: scale(0.9);*/
@@ -188,6 +204,12 @@
 				
 				
 			</div>
+			<div class="create-icon" id="logout-button">
+				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/logout-icon.png' %}">
+				<p class="monofur-font" id="create-icon-txt">log out</p>
+				
+				
+			</div>
 
 	
 
@@ -217,6 +239,14 @@
 	  	<section id="main-content">
 		  	<section class="wrapper site-min-height">
 				<!-- <div class="row mt"> -->
+
+					<div class="col-lg-10" id="main-content-stream">
+				  
+						{% block new-post %}{% endblock %}
+						{% block signup %}{% endblock %}
+						{% block newsfeed-content %}{% endblock %}
+						{% block offline %}{% endblock %}
+					</div> <!-- LAST DIV-->
 					<div class="col-lg-2">
 						<div class="new-sidebar monofur-font">
 							<div class="margin-60px-sides">
@@ -235,13 +265,6 @@
 					
 						</div>
 					</div>
-					<div class="col-lg-10" id="main-content-stream">
-				  
-						{% block new-post %}{% endblock %}
-						{% block signup %}{% endblock %}
-						{% block newsfeed-content %}{% endblock %}
-						{% block offline %}{% endblock %}
-					</div> <!-- LAST DIV-->
 				<!-- </div> -->
 			</section><!--/wrapper -->
 		</section><!-- /MAIN CONTENT -->
@@ -279,6 +302,15 @@ $("#create-button").on("click", function() {
   $("body").toggleClass("createIsOpen");
 
 });
+
+$("#logout-button").on("click", function() {
+	location.href = "{% url 'newsfeed:logout' %}";
+  	
+  
+
+});
+
+document.getElementById("current_user").innerText = "{{ self_un }}";
 
 </script>
 

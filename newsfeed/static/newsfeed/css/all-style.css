@@ -8,13 +8,28 @@ Website: http://blacktie.co
 Premium: http://www.gridgum.com
 */
 
+.bg-light-mint {
+  background-color: #7bd9c6 !important;
+}
+
+.mint-button {
+  background-color: #7bd9c6;
+    border-radius: 5px;
+  color: #fff;
+  height: 165px;
+  width: 100%;
+  
+  border: none;
+  height: 100%;
+}
+
 
 .new-sidebar {
   background-color: #dfdfdf;
   min-height: 100vh;
   position: fixed;
   width: 18%;
-  left: 0;
+  right: 0;
   
 }
 
@@ -92,6 +107,16 @@ input.floating-mod-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding-top: 200px;
 }
 
+.login-window > #create-user-at-login {
+  text-decoration: none !important;
+  color: #fff !important;
+  float: right;
+  width: auto;
+  height: auto;
+  margin-right: -45px;
+
+}
+
 .login-window {
   width: 100%;
   background-color: #FEFEFE;
@@ -137,9 +162,9 @@ input.floating-mod-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 .login-button {
   width: 100%;
-  background-color: rgba(1,1,1,0);
+  color:#fff;
   border: none;
-  height: 100%;
+  height: 45px;
 
 }
 
