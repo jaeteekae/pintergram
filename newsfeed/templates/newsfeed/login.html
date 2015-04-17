@@ -17,37 +17,29 @@ footer {
 
 
 </style>
-<div class="fadein">
-    <img src="http://farm9.staticflickr.com/8359/8450229021_9d660578b4_n.jpg">
-    <img src="http://farm9.staticflickr.com/8510/8452880627_0e673b24d8_n.jpg">
-    <img src="http://farm9.staticflickr.com/8108/8456552856_a843b7a5e1_n.jpg">
-    <img src="http://farm9.staticflickr.com/8230/8457936603_f2c8f48691_n.jpg">
-    <img src="http://farm9.staticflickr.com/8329/8447290659_02c4765928_n.jpg">
-</div>
-
 
 
 <div class="login-column monofur-font">
-	<a href="{% url 'newsfeed:index' %}" class="login-logo">
-		<img class="nav-logo"src="{% static 'newsfeed/img/full-logo-white.png' %}">
-	</a>
+	
 	<div class="login-window ">
-
-		<h3 class="login-title">let's get creative</h3>
+	<a class="login-button bg-light-mint mint-button login-input" href="create_user" id="create-user-at-login">create user</a>
+		<!-- <h3 class="login-title">let's get creative</h3> -->
+		<a href="{% url 'newsfeed:index' %}" class="login-logo">
+			<img class="nav-logo"src="{% static 'newsfeed/img/full-logo-mint.png' %}">
+		</a>
 
 		<form action="login_user" method="post" enctype="multipart/form-data" id="login-form">
 			{% csrf_token %}
 			<input class="login-input" type="text" name="username" placeholder="username">
 			<br>
 			<input class="login-input" type="password" name="password" placeholder="password">
+			<button class="login-button bg-light-mint mint-button login-input" type="submit" form="login-form" value="login">log in</button>
 		</form>
 		
 	</div>
-	<div class="transparent-button">
-		<button class="login-button" type="submit" form="login-form" value="login">log in</button>
-	</div>
+	
 
-	<a href="create_user">create user</a>
+	
 	
 </div>
 
