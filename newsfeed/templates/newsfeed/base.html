@@ -198,15 +198,15 @@
 
 		
 			<!-- <div class="create-icon" id="create-button" onclick="open_create()"> -->
-			<div class="create-icon" id="create-button">
-				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/create-icon.png' %}">
-				<p class="monofur-font" id="create-icon-txt">create somthing</p>
-				
-				
-			</div>
 			<div class="create-icon" id="logout-button">
 				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/logout-icon.png' %}">
 				<p class="monofur-font" id="create-icon-txt">log out</p>
+				
+				
+			</div>
+			<div class="create-icon" id="create-button">
+				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/create-icon.png' %}">
+				<p class="monofur-font" id="create-icon-txt">create somthing</p>
 				
 				
 			</div>
@@ -254,13 +254,10 @@
 									<img class="width-100" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
 								</div>
 								<div class="curr-user-fullname text-align-center">
-									<h3>fullname</h3>
+									<h3 id="fullname"></h3>
 								</div>
 								<div class="curr-user-username text-align-center">
 									<h4 id="current_user"></h4>
-								</div>
-								<div class="curr-user-username text-align-center">
-									<h4 ><a href="logout">logout</a></h4>
 								</div>
 							</div>
 
@@ -313,8 +310,8 @@ $("#logout-button").on("click", function() {
 
 });
 
-document.getElementById("current_user").innerText = "{{ self_un }}";
-
+document.getElementById("current_user").innerText = "{{ self_un.username }}";
+document.getElementById("fullname").innerText = "{{ self_un.first_name }}";
 </script>
 
 {% endblock %}

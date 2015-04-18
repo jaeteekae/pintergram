@@ -29,10 +29,11 @@ class UserSerializerPut(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    # tags = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'owner', 'post_title', 'post_text', 'image_path', 'timestamp')
+        fields = ('id', 'owner', 'post_title', 'post_text', 'image_path', 'timestamp')#, 'tags')
 
 
 class PostSerializerPut(serializers.ModelSerializer):

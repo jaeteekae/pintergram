@@ -106,7 +106,7 @@ def create_post(request):
     try:
         image = request.POST['post-image']
     except MultiValueDictKeyError:
-        image = request.FILES['post-image']
+        image = None
 
     if not request.POST['post_title']:
         return HttpResponseRedirect('/newsfeed')
@@ -118,9 +118,11 @@ def create_post(request):
         new_post = Post(post_text=request.POST['post_text'], 
                         post_title=request.POST['post_title'], 
                         timestamp=timezone.now(), 
-                        user_id=User.objects.get(pk=1))
+                        owner=request.user)
         if image:
             new_post.image_path = request.FILES['post-image']
+        else:
+            new_post.image_path = image
         new_post.save()
         tag_string = request.POST['tags']
         if tag_string:
@@ -138,9 +140,19 @@ def single_post(request, post_id):
     return render(request, 'newsfeed/single_post.html', {'post': post, 'tags': tags, 'self_un': request.user})
 
 def tag(request, tag_id):
-    tagged_post_list = Post.objects.order_by('-timestamp')
-    context = {'tagged_post_list': tagged_post_list}
-    return render(request, 'newsfeed/tag.html', context)
+    if request.method == 'POST':
+        new_post = Posts.objects.order_by('timestamp')[0]
+        tag_string = request.POST.get['tags', None]
+        if tag_string:
+            tag_list = [x.strip() for x in tag_string.split(',')]
+            # tag_list = tag_string.split(',')
+            for x in tag_list:
+                new_tag = Tag(tag=x, post_id=new_post)
+                new_tag.save()
+    else:
+        tagged_post_list = Post.objects.order_by('-timestamp')
+        context = {'tagged_post_list': tagged_post_list}
+        return render(request, 'newsfeed/tag.html', context)
 
 def documentation(request):
     return render(request, 'newsfeed/documentation.html')
