@@ -154,14 +154,28 @@ def post_tag(request):
                 new_tag.save()
         return HttpResponseRedirect('/newsfeed')
 
+def index(request):
+    # latest_post_list = Post.objects.order_by('-timestamp')
+    # tag_list = []
+    # for post in latest_post_list:
+    #     tag_group = Tag.objects.filter(post_id=post)
+    #     tag_list.append(tag_group)
+    # zipped_lists = zip(latest_post_list, tag_list)
+    # context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list, 'test_user': request.owner.username}
+    return render(request, 'newsfeed/index.html', {'self_un': request.user})
+
 def single_tag(request, tag_id):
     tag_name = Tag.objects.get(pk=tag_id)
-    tag_list = Tag.objects.filter(tag=tag_name.tag)
+    used_tag_list = Tag.objects.filter(tag=tag_name.tag)
     tagged_post_list = []
-    for tag in tag_list:
+    tag_list = []
+    for tag in used_tag_list:
         tagged_post_list.append(tag.post_id)
-    # tagged_post_list = Post.objects.order_by('-timestamp')
-    context = {'tagged_post_list': tagged_post_list}
+    for post in tagged_post_list:
+        tag_group = Tag.objects.filter(post_id=post)
+        tag_list.append(tag_group)
+    zipped_lists = zip(tagged_post_list, tag_list)
+    context = {'zipped_lists': zipped_lists, 'tagged_post_list': tagged_post_list, 'self_un': request.user}
     return render(request, 'newsfeed/tag.html', context)
 
 def documentation(request):
