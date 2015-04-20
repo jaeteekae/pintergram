@@ -20,11 +20,6 @@ LOCALH = (sys.argv[1] == 'runserver')
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-#http://www.kelvinwong.ca/tag/media_root/
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-MEDIA_URL = '/media/'
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -114,6 +109,16 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
         'Cache-Control': 'max-age=94608000',
     }
 
+AWS_STORAGE_BUCKET_NAME = 'pintergram-static-media-content'
+AWS_ACCESS_KEY_ID = 'AKIAJ2CTDT5L6GWWLPZA'
+AWS_SECRET_ACCESS_KEY = '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'
+
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
+# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
+# We also use it in the next setting.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
 # When using unix domain sockets
 # Note: ``LOCATION`` needs to be the same as the ``unixsocket`` setting
 # in your redis.conf
@@ -146,11 +151,6 @@ else:
     }
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
-STATIC_URL = '/static/'
-
 # REST_FRAMEWORK = {
 #     # Use Django's standard `django.contrib.auth` permissions,
 #     # or allow read-only access for unauthenticated users.
@@ -170,15 +170,26 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+# Media configuration
+#http://www.kelvinwong.ca/tag/media_root/
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'newsfeed.custom_storages.MediaStorage'
+
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'newsfeed.custom_storages.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 # SwampDragon settings
 SWAMP_DRAGON_CONNECTION = ('swampdragon.connections.sockjs_connection.DjangoSubscriberConnection', '/data')
