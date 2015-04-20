@@ -26,7 +26,11 @@
 	        {% if tags %}
 	        <div class="caption">
 			   Tags: {% for tag in tags %}
-			    &#35;{{ tag.tag }}&nbsp;
+			    &#35;
+			    <a href="{% url 'newsfeed:single_tag' tag.id %}" class="post-link">
+                    {{ tag.tag }}
+                </a>
+                &nbsp;
 			    {% endfor %}
 			</div>
 			{% endif %} 

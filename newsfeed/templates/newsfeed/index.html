@@ -177,9 +177,16 @@ function doAjax() {
                 var post = data[i];
                 // console.log(post);
                 if (Number(post["id"]) > Number(currentId)) {
-                    // console.log(post["id"]);
-                    // console.log("in addPostIndex with id = "+post["id"]);
-                    addPostIndex(post);
+                    $.ajax({ url: "tags_of_a_post/" + post["id"], success: function(tags) {
+                        if (jQuery.isEmptyObject(tags)) {
+                            addPostIndex(post, null);
+                        } else {
+                            addPostIndex(post, tags);
+                        }
+                    },
+                    cache: false, dataType: "json"});
+
+                    // addPostIndex(post);
                 }
             }
         }
@@ -195,7 +202,7 @@ function doAjax() {
 
 
 
-function addPostIndex(data) {
+function addPostIndex(data, tags) {
     // console.log("in addPostIndex with id = "+data.id);
     if (data) {
         var stream = document.getElementById("main-content-stream");
@@ -283,6 +290,21 @@ function addPostIndex(data) {
         var captionText = document.createTextNode(data.post_text);
         caption.appendChild(captionText);
         newPost.appendChild(caption);
+///////
+        var post_tags = document.createElement("div");
+        post_tags.className = "tags";
+        if (tags) {
+            var tag_string = "";
+            for (i = 0; tags[i]; i++) {
+                tag_string += "#" + tags[i].fields.tag + " ";
+            }
+            // console.log(tag_string);
+        }
+        var tagsText = document.createTextNode("Tags: " + tag_string);
+        if (tags) {
+            post_tags.appendChild(tagsText);
+            newPost.appendChild(post_tags);
+        }
 
 /////
         var divider = document.createElement("div");
@@ -292,9 +314,6 @@ function addPostIndex(data) {
 //////
         var upvotes = document.createElement("div");
         upvotes.className = "upvotes";
-        if (data.tags) {
-
-        }
         var upvotesText = document.createTextNode("9,000 upvotes      ");
         upvotes.appendChild(upvotesText);
 

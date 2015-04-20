@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
@@ -177,6 +178,16 @@ def single_tag(request, tag_id):
     zipped_lists = zip(tagged_post_list, tag_list)
     context = {'zipped_lists': zipped_lists, 'tagged_post_list': tagged_post_list, 'self_un': request.user}
     return render(request, 'newsfeed/tag.html', context)
+
+def tags_of_a_post(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    tag_group = Tag.objects.filter(post_id=post)
+    JSONSerializer = serializers.get_serializer("json")
+    json_serializer = JSONSerializer()
+    json_serializer.serialize(tag_group)
+    tags = json_serializer.getvalue()
+    # tags = serializers.serializer("json", tag_group)
+    return HttpResponse(tags, content_type='application/json')
 
 def documentation(request):
     return render(request, 'newsfeed/documentation.html')
