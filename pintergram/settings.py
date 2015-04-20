@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'rest_framework',
     'newsfeed',
     
@@ -107,6 +108,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'Cache-Control': 'max-age=94608000',
+    }
 
 # When using unix domain sockets
 # Note: ``LOCATION`` needs to be the same as the ``unixsocket`` setting

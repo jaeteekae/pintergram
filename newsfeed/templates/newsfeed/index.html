@@ -59,7 +59,7 @@
     
 {% else %}
     <div class="post pn text-align-center monofur-font">
-        <p>No posts are available.</p>
+        <p>No more posts are available.</p>
     </div>
     
 {% endif %}
@@ -79,7 +79,7 @@
 
 
 <!-- <div class="new-post pn"> -->
-	<form enctype="multipart/form-data" id="post_form">
+	<form enctype="multipart/form-data" id="post_form"> <!-- action="create_post"> -->
 	
 <!-- 	
 		<div class="quarter" >
@@ -88,12 +88,15 @@
 		
 		{% csrf_token %}
 
-   
+        <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
 	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
 	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
+    </form>
+    <form enctype="multipart/form-data" id="post_tags"> <!-- action="post_tag" method="post"> -->
+        {% csrf_token %}
 		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
-        <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
-		<input type="submit" value="create post" class="new-post-button floating-mod-input"/>
+        <!-- <input type="submit" value="create post" class="new-post-button"/> -->
+        <button onclick="SubForm()" class="new-post-button">create post</button>
         
 
 		
@@ -108,16 +111,40 @@
 
 
 function SubForm (){
+$(function() {
+    $('#post_tags').on('submit', function(e) {
+        $.post('posts/', $('#post_form').serialize(), function (data) {
+            // console.log("success");
             $.ajax({
-                url:'posts/',
+                url:'post_tag',
                 type:'post',
                 enctype: "multipart/form-data",
-                data:$('#post_form').serialize(),
-                // success:function(){
-                //     alert("worked");
-                // }
+                data:$('#post_tags').serialize(),
+                success:function(){
+                    // alert("worked");
+                }
             });
-        }
+            // This is executed when the call to mail.php was succesful.
+            // 'data' contains the response from the request
+        }).error(function() {
+            // This is executed when the call to mail.php failed.
+        });
+        e.preventDefault();
+    });
+});
+    // console.log("here");
+    // console.log(document.getElementById("post_form"));
+    // $.ajax({
+    //     url:'posts/',
+    //     type:'post',
+    //     enctype: "multipart/form-data",
+    //     data:$('#post_form').serialize(),
+    //     success:function(){
+    //         // console.log("success");
+
+    //     }
+    // });
+}
 
 
 var executeInt = true;
@@ -196,13 +223,16 @@ function addPostIndex(data) {
         var mins = d.getMinutes();
         var a_p = " a.m."
         if (h > 12) {h = h - 12; a_p = " p.m.";}
+        if (h == 0) {h = 12;}
         h = h.toString();
         day = day.toString();
         year = year.toString();
-        mins = mins.toString();
+        if (mins < 10) {
+            mins = "0" + mins.toString();
+        } else {
+            mins = mins.toString();
+        }
         var fdate = months[d.getMonth()] + " " + day + ", " + year + ", " + h + ":" + mins + a_p;
-        // var fdate = months[d.getMonth()] + " " + day + ", " + year + ", " + h ":" + mins + a_p;
-        // console.log(fdate);
         var timestampText = document.createTextNode(fdate);
         timestamp.appendChild(timestampText);
         timestamp.className = "timestamp";

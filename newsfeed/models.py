@@ -35,7 +35,7 @@ class Post(models.Model):
         return self.post_title
 
 class Tag(models.Model):
-    post_id = models.ForeignKey(Post)
+    post_id = models.ForeignKey(Post, related_name="tags")
     tag = models.CharField(max_length=100)
     def __str__(self):              # __unicode__ on Python 2
         return self.tag

@@ -106,7 +106,7 @@ def create_post(request):
     try:
         image = request.POST['post-image']
     except MultiValueDictKeyError:
-        image = request.FILES['post-image']
+        image = None
 
     if not request.POST['post_title']:
         return HttpResponseRedirect('/newsfeed')
@@ -118,9 +118,11 @@ def create_post(request):
         new_post = Post(post_text=request.POST['post_text'], 
                         post_title=request.POST['post_title'], 
                         timestamp=timezone.now(), 
-                        user_id=User.objects.get(pk=1))
+                        owner=request.user)
         if image:
             new_post.image_path = request.FILES['post-image']
+        else:
+            new_post.image_path = image
         new_post.save()
         tag_string = request.POST['tags']
         if tag_string:
@@ -137,8 +139,28 @@ def single_post(request, post_id):
     tags = Tag.objects.filter(post_id=post)
     return render(request, 'newsfeed/single_post.html', {'post': post, 'tags': tags, 'self_un': request.user})
 
-def tag(request, tag_id):
-    tagged_post_list = Post.objects.order_by('-timestamp')
+def post_tag(request):
+    if request.method == 'POST':
+        new_post = Post.objects.order_by('-timestamp')[0]
+        # try:
+        tag_string = request.POST['tags']
+        # except MultiValueDictKeyError:
+            # tag_string = None
+        if tag_string:
+            tag_list = [x.strip() for x in tag_string.split(',')]
+            # tag_list = tag_string.split(',')
+            for x in tag_list:
+                new_tag = Tag(tag=x, post_id=new_post)
+                new_tag.save()
+        return HttpResponseRedirect('/newsfeed')
+
+def single_tag(request, tag_id):
+    tag_name = Tag.objects.get(pk=tag_id)
+    tag_list = Tag.objects.filter(tag=tag_name.tag)
+    tagged_post_list = []
+    for tag in tag_list:
+        tagged_post_list.append(tag.post_id)
+    # tagged_post_list = Post.objects.order_by('-timestamp')
     context = {'tagged_post_list': tagged_post_list}
     return render(request, 'newsfeed/tag.html', context)
 
@@ -193,13 +215,13 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     # Associates this post with an owner
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-        return HttpResponseRedirect('/newsfeed')
+        # return HttpResponse('')
+        return HttpResponseRedirect('/login')
 
 # User GET, PUT, DELETE endpoint
 # Retrieve a post by id
@@ -214,11 +236,11 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_serializer_class(self):
         if self.request.method != 'GET':
             serializer_class = PostSerializerPut
-            return HttpResponseRedirect('/newsfeed')
+            return HttpResponseRedirect('/login')
         else:
             serializer_class = PostSerializer
-            return HttpResponseRedirect('/newsfeed')
-        return HttpResponseRedirect('/newsfeed')
+            return HttpResponseRedirect('/login')
+        return HttpResponseRedirect('/login')
         # return serializer_class
     
 
