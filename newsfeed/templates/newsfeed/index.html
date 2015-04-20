@@ -177,16 +177,16 @@ function doAjax() {
                 var post = data[i];
                 // console.log(post);
                 if (Number(post["id"]) > Number(currentId)) {
-                    $.ajax({ url: "tags_of_a_post/" + post["id"], success: function(tags) {
-                        if (jQuery.isEmptyObject(tags)) {
-                            addPostIndex(post, null);
-                        } else {
-                            addPostIndex(post, tags);
-                        }
-                    },
-                    cache: false, dataType: "json"});
+                    // $.ajax({ url: "tags_of_a_post/" + post["id"], success: function(tags) {
+                    //     if (jQuery.isEmptyObject(tags)) {
+                    //         addPostIndex(post, null);
+                    //     } else {
+                    //         addPostIndex(post, tags);
+                    //     }
+                    // },
+                    // cache: false, dataType: "json"});
 
-                    // addPostIndex(post);
+                    addPostIndex(post, null);
                 }
             }
         }
