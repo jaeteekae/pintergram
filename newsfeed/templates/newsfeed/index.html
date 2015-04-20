@@ -6,6 +6,9 @@
 {% if latest_post_list %}
     {% for post, tag_group in zipped_lists %}
     
+    
+
+
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
             
             <div class="credit" >
@@ -25,10 +28,10 @@
 	        </a>
 
             <div class="title monofur-font">
+
                 <a href="{% url 'newsfeed:single_post' post.id %}" class="post-link">
                     {{ post.post_title }}
                 </a>
-    
             </div>
 
             <div class="caption">
@@ -42,12 +45,15 @@
 
 
             <div class="upvotes">
-                10,000 upvotes &nbsp;&nbsp;  &nbsp;&nbsp;
+                9,000 upvotes &nbsp;&nbsp;  &nbsp;&nbsp;
             {% if tag_group %}
             
                 tags: {% for tag in tag_group %}&#35;{{ tag.tag }}&nbsp;&nbsp;{% endfor %}
+            
+
 
             {% endif %} 
+
 
                 <div class="upvote-button">&#9734</div>
             </div>
@@ -289,7 +295,7 @@ function addPostIndex(data) {
         if (data.tags) {
 
         }
-        var upvotesText = document.createTextNode("10,000 upvotes      ");
+        var upvotesText = document.createTextNode("9,000 upvotes      ");
         upvotes.appendChild(upvotesText);
 
         var upvoteButton = document.createElement("div");
