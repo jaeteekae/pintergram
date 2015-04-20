@@ -92,7 +92,8 @@
 	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
 	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
     </form>
-    <form enctype="multipart/form-data" id="post_tags">
+    <form enctype="multipart/form-data" id="post_tags"> <!-- action="post_tag" method="post"> -->
+        {% csrf_token %}
 		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
         <!-- <input type="submit" value="create post" class="new-post-button"/> -->
         <button onclick="SubForm()" class="new-post-button">create post</button>
@@ -110,26 +111,39 @@
 
 
 function SubForm (){
-    // console.log("here");
-    // console.log(document.getElementById("post_form"));
-    $.ajax({
-        url:'posts/',
-        type:'post',
-        enctype: "multipart/form-data",
-        data:$('#post_form').serialize(),
-        success:function(){
-            console.log("success");
+$(function() {
+    $('#post_tags').on('submit', function(e) {
+        $.post('posts/', $('#post_form').serialize(), function (data) {
+            // console.log("success");
             $.ajax({
-                url:'tag',
+                url:'post_tag',
                 type:'post',
                 enctype: "multipart/form-data",
                 data:$('#post_tags').serialize(),
                 success:function(){
-                    alert("worked");
+                    // alert("worked");
                 }
             });
-        }
+            // This is executed when the call to mail.php was succesful.
+            // 'data' contains the response from the request
+        }).error(function() {
+            // This is executed when the call to mail.php failed.
+        });
+        e.preventDefault();
     });
+});
+    // console.log("here");
+    // console.log(document.getElementById("post_form"));
+    // $.ajax({
+    //     url:'posts/',
+    //     type:'post',
+    //     enctype: "multipart/form-data",
+    //     data:$('#post_form').serialize(),
+    //     success:function(){
+    //         // console.log("success");
+
+    //     }
+    // });
 }
 
 
