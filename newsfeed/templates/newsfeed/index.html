@@ -103,7 +103,7 @@
     </form>
     <form enctype="multipart/form-data" id="post_tags"> <!-- action="post_tag" method="post"> -->
         {% csrf_token %}
-		<input type="text" name="tags"       id="tags"    onfocus="if(this.value == 'Tags (separate by commas)') { this.value = ''; }" value="Tags (separate by commas)"     placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
+		<input type="text" name="tags"       id="tags"    onfocus="if(this.value == 'Tags (separate by commas)') { this.value = ''; }" placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
         <!-- <input type="submit" value="create post" class="new-post-button"/> -->
         <button onclick="SubForm()" class="new-post-button" id="new-post-button">create post</button>
         
@@ -130,7 +130,14 @@ $(function() {
                 enctype: "multipart/form-data",
                 data:$('#post_tags').serialize(),
                 success:function(){
-                    // alert("worked");
+                    // alert
+                    // $('#post_form').trigger("reset");
+                    // $('#post_tags').trigger("reset");
+                    setTimeout(
+                      function() 
+                      {
+                         location.reload();
+                      }, 0001);
                 }
             });
             // This is executed when the call to mail.php was succesful.
@@ -208,6 +215,7 @@ function doAjax() {
 function addPostIndex(data) {
     // console.log("in addPostIndex with id = "+data.id);
     if (data) {
+        // var tags = null;
         $.ajax({ url: "tags_of_a_post/" + data.id, success: function(returned_tags) {
             // console.log(returned_tags);
             var tags;

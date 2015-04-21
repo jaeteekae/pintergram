@@ -15,7 +15,7 @@ from rest_framework import viewsets
 
 
 from newsfeed.serializers import UserSerializer, UserSerializerPut, PostSerializer, PostSerializerPut, TagSerializer, TagSerializerPut
-from newsfeed.models import Post, Tag, Follower, Upvote
+from newsfeed.models import Post, Tag, Follower, Upvote, Preferences
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -143,27 +143,24 @@ def single_post(request, post_id):
 def post_tag(request):
     if request.method == 'POST':
         new_post = Post.objects.order_by('-timestamp')[0]
-        # try:
-        tag_string = request.POST['tags']
-        # except MultiValueDictKeyError:
-            # tag_string = None
+        try:
+            tag_string = request.POST['tags']
+        except MultiValueDictKeyError:
+            tag_string = None
         if tag_string:
             tag_list = [x.strip() for x in tag_string.split(',')]
             # tag_list = tag_string.split(',')
             for x in tag_list:
                 new_tag = Tag(tag=x, post_id=new_post)
                 new_tag.save()
+                old_pref = Preferences.objects.filter(owner=request.user).get(tag=x)
+                if old_pref:
+                    old_pref.num = old_pref.num + 1
+                    old_pref.save()
+                else:
+                    new_pref = Preferences(owner=request.user, tag=x, num=1)
+                    new_pref.save()
         return HttpResponseRedirect('/newsfeed')
-
-def index(request):
-    # latest_post_list = Post.objects.order_by('-timestamp')
-    # tag_list = []
-    # for post in latest_post_list:
-    #     tag_group = Tag.objects.filter(post_id=post)
-    #     tag_list.append(tag_group)
-    # zipped_lists = zip(latest_post_list, tag_list)
-    # context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list, 'test_user': request.owner.username}
-    return render(request, 'newsfeed/index.html', {'self_un': request.user})
 
 def single_tag(request, tag_id):
     tag_name = Tag.objects.get(pk=tag_id)
@@ -188,6 +185,27 @@ def tags_of_a_post(request, post_id):
     tags = json_serializer.getvalue()
     # tags = serializers.serializer("json", tag_group)
     return HttpResponse(tags, content_type='application/json')
+
+def suggested(request):
+    top_tags = Preferences.objects.filter(owner=request.user).order_by('num')
+    post_groups = []
+
+    i = 0
+    for top_tag in top_tags:
+        if (i < 5):
+            used_tags = Tag.objects.filter(tag=top_tag)
+            tagged_post_list = []
+            tag_list = []
+            for tag in used_tags:
+                tagged_post_list.insert(0, tag.post_id)
+            for post in tagged_post_list:
+                tag_group = Tag.objects.filter(post_id=post)
+                tag_list.append(tag_group)
+            zipped_post = zip(tagged_post_list, tag_list)
+            post_groups.append(zipped_post)
+            i = i + 1
+    context = {'post_groups': post_groups, 'self_un': request.user}
+    return render(request, 'newsfeed/suggested.html', context)
 
 def search(request):
     tag_name = request.POST['search_input']

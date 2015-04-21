@@ -1,5 +1,5 @@
 from django.contrib import admin
-from newsfeed.models import Post, Tag, Follower, Upvote
+from newsfeed.models import Post, Tag, Follower, Upvote, Preferences
 from django.contrib.auth.models import User
 
 # class TagInline(admin.TabularInline):
@@ -21,4 +21,4 @@ admin.site.register(Post)
 admin.site.register(Tag)
 admin.site.register(Follower)
 admin.site.register(Upvote)
-
+admin.site.register(Preferences)

@@ -46,6 +46,13 @@ class Follower(models.Model):
     def __str__(self):              # __unicode__ on Python 2
         return self.followee_id
 
+class Preferences(models.Model):
+    owner = models.ForeignKey('auth.User')
+    tag = models.CharField(max_length=100)
+    num = models.IntegerField()
+    def __str__(self):
+        return self.tag
+
 class Upvote(models.Model):
     post_id = models.ForeignKey(Post)
     original_poster = models.ForeignKey('auth.User', related_name='op_set')
