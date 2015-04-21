@@ -37,14 +37,14 @@ from django.contrib.auth.hashers import make_password
 
 # @cache_page(60 * 1)
 def index(request):
-    # latest_post_list = Post.objects.order_by('-timestamp')
-    # tag_list = []
-    # for post in latest_post_list:
-    #     tag_group = Tag.objects.filter(post_id=post)
-    #     tag_list.append(tag_group)
-    # zipped_lists = zip(latest_post_list, tag_list)
-    # context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list, 'test_user': request.owner.username}
-    return render(request, 'newsfeed/index.html', {'self_un': request.user})
+    latest_post_list = Post.objects.order_by('-timestamp')
+    tag_list = []
+    for post in latest_post_list:
+        tag_group = Tag.objects.filter(post_id=post)
+        tag_list.append(tag_group)
+    zipped_lists = zip(latest_post_list, tag_list)
+    context = {'zipped_lists': zipped_lists, 'latest_post_list': latest_post_list, 'self_un': request.user}
+    return render(request, 'newsfeed/index.html', context)
 
 def new_post(request):
     return render(request, 'newsfeed/new_post.html')

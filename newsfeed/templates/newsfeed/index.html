@@ -17,7 +17,7 @@
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -26,7 +26,7 @@
 	            <img class="post-image"src="https://placekitten.com/g/400/200">
                 -->
                 {% if post.image_path %}
-                <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+                <img class="post-image" src="https://pintergram-static-media-content.s3.amazonaws.com/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
 	        </a>
 
@@ -51,7 +51,11 @@
                 9,000 upvotes &nbsp;&nbsp;  &nbsp;&nbsp;
             {% if tag_group %}
             
-                tags: {% for tag in tag_group %}&#35;{{ tag.tag }}&nbsp;&nbsp;{% endfor %}
+                tags: {% for tag in tag_group %}&#35;
+                <a href="{% url 'newsfeed:single_tag' tag.id %}" class="post-link">
+                    {{ tag.tag }}
+                </a>
+                &nbsp;&nbsp;{% endfor %}
             
 
 
