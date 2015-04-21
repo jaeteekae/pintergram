@@ -192,6 +192,10 @@
 	margin-right: -60px;
 }
 
+h2.post {
+  background:none !important;
+}
+
 
 </style>
 
@@ -404,6 +408,7 @@ $("#search_input").keypress(function (e) {
 
 $("#current_user").innerText = "{{ self_un.username }}";
 document.getElementById("fullname").innerText = "{{ self_un.first_name }} {{ self_un.last_name }}";
+document.getElementById("current_user").innerText = "{{ self_un.username }}";
 
 </script>
 

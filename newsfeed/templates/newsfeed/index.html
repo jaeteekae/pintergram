@@ -123,7 +123,7 @@ function SubForm (){
 $(function() {
     $('#post_tags').on('submit', function(e) {
         $.post('posts/', $('#post_form').serialize(), function (data) {
-            // console.log("success");
+            console.log($('#post_form').serialize());
             $.ajax({
                 url:'post_tag',
                 type:'post',

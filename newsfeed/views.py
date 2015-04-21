@@ -301,6 +301,18 @@ class PostList(generics.ListCreateAPIView):
         # return HttpResponse('')
         return HttpResponseRedirect('/login')
 
+    def post(self, request, format=None):
+        print 'entered here'
+        print '%' * 10
+        #print request.DATA
+        print request.FILES
+        print '%' * 10
+        if serializer.is_valid():
+            print 'here'
+            serializer.save()
+        return HttpResponseRedirect('/newsfeed')
+
+
 # User GET, PUT, DELETE endpoint
 # Retrieve a post by id
 # Update an existing post
