@@ -3,7 +3,7 @@
 {% block newsfeed-content %}
 
 
-{% if tagged_post_list %}
+{% if zipped_tags %}
 TAGS POSTS:
     {% for post, tag_group in zipped_tags %}
     
@@ -61,7 +61,13 @@ TAGS POSTS:
     
 
     {% endfor %}
+{% else %}
+    <div class="post pn text-align-center monofur-font">
+        <p>No posts have tags that fit this search query.</p>
+    </div>
+{% endif %}
 
+{% if zipped_text %}
 TEXT POSTS:
     {% for post, tag_group in zipped_text %}
     
@@ -119,7 +125,13 @@ TEXT POSTS:
     
 
     {% endfor %}
+{% else %}
+    <div class="post pn text-align-center monofur-font">
+        <p>No posts have text that fit this search query.</p>
+    </div>
+{% endif %}
 
+{% if zipped_title %}
 TITLE POSTS:
     {% for post, tag_group in zipped_title %}
     
@@ -177,14 +189,14 @@ TITLE POSTS:
     
 
     {% endfor %}
-    
+
 {% else %}
     <div class="post pn text-align-center monofur-font">
-        <p>No posts fit this search query.</p>
+        <p>No posts have titles that fit this search query.</p>
     </div>
-    
 {% endif %}
-
+    
+    
 <!-- PUT IT BACK HERE -->
 
 {% endblock %}
