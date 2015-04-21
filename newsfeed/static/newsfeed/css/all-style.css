@@ -8,13 +8,9 @@ Website: http://blacktie.co
 Premium: http://www.gridgum.com
 */
 
-input, textarea {
-  box-shadow: none !important;
-  outline: none !important;
-  outline-style:none !important;
-box-shadow:none !important;
-border-color:transparent !important;
-  
+
+.tags {
+  display: inline-block;
 }
 
 
@@ -180,17 +176,12 @@ input.floating-mod-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 
 
-
-
-
-
-
 .floating-mod {
     width: 100%;
 
     padding: 30px;
     
-    margin-top: 10vh;
+    margin-top: 200px;
     margin-bottom: 10vh;
     background-color: rgba(0, 136, 131, .6);
     /*border: solid 5px #3b8473;*/
