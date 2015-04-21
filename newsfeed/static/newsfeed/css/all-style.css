@@ -8,6 +8,9 @@ Website: http://blacktie.co
 Premium: http://www.gridgum.com
 */
 
+h2.post {
+  background:none !important;
+}
 
 .tags {
   display: inline-block;
