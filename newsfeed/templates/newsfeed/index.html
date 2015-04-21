@@ -186,7 +186,7 @@ function doAjax() {
                     // },
                     // cache: false, dataType: "json"});
 
-                    addPostIndex(post, null);
+                    addPostIndex(post);
                 }
             }
         }
@@ -202,134 +202,154 @@ function doAjax() {
 
 
 
-function addPostIndex(data, tags) {
+function addPostIndex(data) {
     // console.log("in addPostIndex with id = "+data.id);
     if (data) {
-        var stream = document.getElementById("main-content-stream");
-        var recentChild = stream.firstChild;
-
-        var newPost = document.createElement("div");
-        newPost.className = "post pn";
-        newPost.setAttribute("data-postid", '{"id":"'+data.id+'"}');
-//////
-        var credit = document.createElement("div");
-        credit.className = "credit";
-
-
-        var postAvatar = document.createElement("img");
-        postAvatar.src = "{% static 'newsfeed/img/ui-danro.jpg' %}"
-        postAvatar.className = "post-avatar";
-
-        //TODO: CHANGE THIS WHEN USERNAMES ARE ACTUALLY A THING
-        var username = document.createElement("div");
-        //var usernameText = document.createTextNode(data.username);
-        var usernameText = document.createTextNode(data.owner);
-        username.appendChild(usernameText);
-        username.className = "username monofur-font"
-
-        var timestamp = document.createElement("div");
-        var d = new Date(data.timestamp);
-        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var h = d.getHours();
-        var day = d.getDate();
-        var year = d.getFullYear();
-        var mins = d.getMinutes();
-        var a_p = " a.m."
-        if (h > 12) {h = h - 12; a_p = " p.m.";}
-        if (h == 0) {h = 12;}
-        h = h.toString();
-        day = day.toString();
-        year = year.toString();
-        if (mins < 10) {
-            mins = "0" + mins.toString();
-        } else {
-            mins = mins.toString();
-        }
-        var fdate = months[d.getMonth()] + " " + day + ", " + year + ", " + h + ":" + mins + a_p;
-        var timestampText = document.createTextNode(fdate);
-        timestamp.appendChild(timestampText);
-        timestamp.className = "timestamp";
-
-        credit.appendChild(postAvatar);
-        credit.appendChild(username);
-        credit.appendChild(timestamp);
-        newPost.appendChild(credit);
-
-//////
-
-        var link = document.createElement("a");
-        link.className = "post-link";
-        
-        if (data.image_path) {
-            var img = document.createElement("img");
-            img.className = "post-image";
-            img.src = "/media/"+data.image_path;
-            img.style.height = "100";
-            img.style.width = "100";
-            link.appendChild(img);
-
-        }
-        newPost.appendChild(link);
-
-///////
-        var title = document.createElement("div");
-        title.className = "title monofur-font";
-        var titleLink = document.createElement("a");
-        titleLink.className = "post-link";
-        
-        var titleLinkText = document.createTextNode(data.post_title);
-        titleLink.appendChild(titleLinkText);
-        titleLink.href = "post/" + data.id
-        title.appendChild(titleLink);
-        newPost.appendChild(title);
-
-///////
-
-        var caption = document.createElement("div");
-        caption.className = "caption";
-        var captionText = document.createTextNode(data.post_text);
-        caption.appendChild(captionText);
-        newPost.appendChild(caption);
-///////
-        var post_tags = document.createElement("div");
-        post_tags.className = "tags";
-        if (tags) {
-            var tag_string = "";
-            for (i = 0; tags[i]; i++) {
-                tag_string += "#" + tags[i].fields.tag + " ";
+        $.ajax({ url: "tags_of_a_post/" + data.id, success: function(returned_tags) {
+            // console.log(returned_tags);
+            var tags;
+            if (jQuery.isEmptyObject(returned_tags)) {
+                tags = null;
+            } else {
+                tags = returned_tags;
             }
-            // console.log(tag_string);
-        }
-        var tagsText = document.createTextNode("Tags: " + tag_string);
-        if (tags) {
-            post_tags.appendChild(tagsText);
-            newPost.appendChild(post_tags);
-        }
+        
+    
+            var stream = document.getElementById("main-content-stream");
+            var recentChild = stream.firstChild;
 
-/////
-        var divider = document.createElement("div");
-        divider.className = "divider";
-        newPost.appendChild(divider);
+            var newPost = document.createElement("div");
+            newPost.className = "post pn";
+            newPost.setAttribute("data-postid", '{"id":"'+data.id+'"}');
+    //////
+            var credit = document.createElement("div");
+            credit.className = "credit";
 
-//////
-        var upvotes = document.createElement("div");
-        upvotes.className = "upvotes";
-        var upvotesText = document.createTextNode("9,000 upvotes      ");
-        upvotes.appendChild(upvotesText);
 
-        var upvoteButton = document.createElement("div");
-        upvoteButton.className = "upvote-button";
+            var postAvatar = document.createElement("img");
+            postAvatar.src = "{% static 'newsfeed/img/ui-danro.jpg' %}"
+            postAvatar.className = "post-avatar";
 
-        var upvoteButtonText = document.createTextNode("\u2606");
-        upvoteButton.appendChild(upvoteButtonText);
-        upvotes.appendChild(upvoteButton);
-        newPost.appendChild(upvotes);
+            //TODO: CHANGE THIS WHEN USERNAMES ARE ACTUALLY A THING
+            var username = document.createElement("div");
+            //var usernameText = document.createTextNode(data.username);
+            var usernameText = document.createTextNode(data.owner);
+            username.appendChild(usernameText);
+            username.className = "username monofur-font"
 
-        // newPost.insertBefore(recentChild, newPost);
-        // recentChild.insertBefore(newPost, null);
-        // console.log(recentChild);
+            var timestamp = document.createElement("div");
+            var d = new Date(data.timestamp);
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var h = d.getHours();
+            var day = d.getDate();
+            var year = d.getFullYear();
+            var mins = d.getMinutes();
+            var a_p = " a.m."
+            if (h > 12) {h = h - 12; a_p = " p.m.";}
+            if (h == 0) {h = 12;}
+            h = h.toString();
+            day = day.toString();
+            year = year.toString();
+            if (mins < 10) {
+                mins = "0" + mins.toString();
+            } else {
+                mins = mins.toString();
+            }
+            var fdate = months[d.getMonth()] + " " + day + ", " + year + ", " + h + ":" + mins + a_p;
+            var timestampText = document.createTextNode(fdate);
+            timestamp.appendChild(timestampText);
+            timestamp.className = "timestamp";
 
-        stream.insertBefore(newPost, recentChild);
+            credit.appendChild(postAvatar);
+            credit.appendChild(username);
+            credit.appendChild(timestamp);
+            newPost.appendChild(credit);
+
+    //////
+
+            var link = document.createElement("a");
+            link.className = "post-link";
+            
+            if (data.image_path) {
+                var img = document.createElement("img");
+                img.className = "post-image";
+                img.src = "/media/"+data.image_path;
+                img.style.height = "100";
+                img.style.width = "100";
+                link.appendChild(img);
+
+            }
+            newPost.appendChild(link);
+
+    ///////
+            var title = document.createElement("div");
+            title.className = "title monofur-font";
+            var titleLink = document.createElement("a");
+            titleLink.className = "post-link";
+            
+            var titleLinkText = document.createTextNode(data.post_title);
+            titleLink.appendChild(titleLinkText);
+            titleLink.href = "post/" + data.id
+            title.appendChild(titleLink);
+            newPost.appendChild(title);
+
+    ///////
+
+            var caption = document.createElement("div");
+            caption.className = "caption";
+            var captionText = document.createTextNode(data.post_text);
+            caption.appendChild(captionText);
+            newPost.appendChild(caption);
+    ///////
+            var post_tags = document.createElement("div");
+            post_tags.className = "tags";
+            if (tags) {
+                // var tag_string = "";
+                for (i = 0; tags[i]; i++) {
+                    var tagLink = document.createElement("a");
+                    tagLink.className = "tag-link";
+                    var tagLinkText = document.createTextNode(tags[i].fields.tag);
+                    tagLink.appendChild(tagLinkText);
+                    tagLink.href = "tag/" + tags[i].pk;
+                    post_tags.appendChild(tagLink);
+                    // tag_string += "#" + tags[i].fields.tag + " ";
+                }
+                newPost.appendChild(post_tags);
+                // console.log(tag_string);
+            }
+            // var tagsText = document.createTextNode("Tags: " + tag_string);
+            // if (tags) {
+            //     post_tags.appendChild(tagsText);
+            //     newPost.appendChild(post_tags);
+            // }
+
+    /////
+            var divider = document.createElement("div");
+            divider.className = "divider";
+            newPost.appendChild(divider);
+
+    //////
+            var upvotes = document.createElement("div");
+            upvotes.className = "upvotes";
+            var upvotesText = document.createTextNode("9,000 upvotes      ");
+            upvotes.appendChild(upvotesText);
+
+            var upvoteButton = document.createElement("div");
+            upvoteButton.className = "upvote-button";
+
+            var upvoteButtonText = document.createTextNode("\u2606");
+            upvoteButton.appendChild(upvoteButtonText);
+            upvotes.appendChild(upvoteButton);
+            newPost.appendChild(upvotes);
+
+            // newPost.insertBefore(recentChild, newPost);
+            // recentChild.insertBefore(newPost, null);
+            // console.log(recentChild);
+
+            stream.insertBefore(newPost, recentChild);
+
+        },
+        cache: false, dataType: "json"});
 
     }
 
