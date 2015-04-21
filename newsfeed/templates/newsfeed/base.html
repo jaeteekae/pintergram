@@ -240,8 +240,8 @@
 				
 			</div>
 			<div class="lighter-search">
-				<form class="search-form">
-					<span><input type="text" class="search rounded" placeholder="Search..."></span>
+				<form class="search-form" id="search_bar" method="post" action="{% url 'newsfeed:search' %}">{% csrf_token %}
+					<span><input type="text" class="search rounded" id="search_input" name="search_input" placeholder="Search..."></span>
 				</form>
 			</div>
 
@@ -357,7 +357,29 @@ $("#logout-button").on("click", function() {
 
 });
 
-document.getElementById("current_user").innerText = "{{ self_un.username }}";
+$("#search_input").keypress(function (e) {
+  if (e.which == 13) {
+  	// console.log($('#search_bar').serialize());
+  	// alert("working");
+    $("#search_bar").submit();
+
+    // $.ajax({
+    //             url:"{% url 'newsfeed:search' %}",
+    //             type:'post',
+    //             enctype: "multipart/form-data",
+    //             data:$('#search_bar').serialize(),
+    //             success:function(){
+    //                 // alert("worked");
+    //             }
+    //  });
+
+    // console.log($('#search_input').val());
+    // location.href = "search/" + $('#search_input').val();
+    // e.preventDefault();
+  }
+});
+
+$("#current_user").innerText = "{{ self_un.username }}";
 document.getElementById("fullname").innerText = "{{ self_un.first_name }} {{ self_un.last_name }}";
 
 </script>

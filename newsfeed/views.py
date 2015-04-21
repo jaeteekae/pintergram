@@ -171,7 +171,7 @@ def single_tag(request, tag_id):
     tagged_post_list = []
     tag_list = []
     for tag in used_tag_list:
-        tagged_post_list.append(tag.post_id)
+        tagged_post_list.insert(0, tag.post_id)
     for post in tagged_post_list:
         tag_group = Tag.objects.filter(post_id=post)
         tag_list.append(tag_group)
@@ -188,6 +188,20 @@ def tags_of_a_post(request, post_id):
     tags = json_serializer.getvalue()
     # tags = serializers.serializer("json", tag_group)
     return HttpResponse(tags, content_type='application/json')
+
+def search(request):
+    tag_name = request.POST['search_input']
+    used_tag_list = Tag.objects.filter(tag=tag_name)
+    tagged_post_list = []
+    tag_list = []
+    for tag in used_tag_list:
+        tagged_post_list.insert(0, tag.post_id)
+    for post in tagged_post_list:
+        tag_group = Tag.objects.filter(post_id=post)
+        tag_list.append(tag_group)
+    zipped_lists = zip(tagged_post_list, tag_list)
+    context = {'zipped_lists': zipped_lists, 'tagged_post_list': tagged_post_list, 'self_un': request.user}
+    return render(request, 'newsfeed/tag.html', context)
 
 def documentation(request):
     return render(request, 'newsfeed/documentation.html')
