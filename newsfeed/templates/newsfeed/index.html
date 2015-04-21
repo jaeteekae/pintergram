@@ -286,8 +286,8 @@ function addPostIndex(data) {
             if (data.image_path) {
                 var img = document.createElement("img");
                 img.className = "post-image";
-                img.src = "/media/"+data.image_path;
-                img.style.height = "100";
+                img.src = data.image_path;
+                img.style.height = "200";
                 img.style.width = "100";
                 link.appendChild(img);
 
