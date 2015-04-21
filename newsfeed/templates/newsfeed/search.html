@@ -5,6 +5,11 @@
 <h2 class="monofur-font post">#tags</h2>
 {% if zipped_tags %}
 
+<<<<<<< HEAD
+=======
+{% if zipped_tags %}
+TAGS POSTS:
+>>>>>>> origin/master
     {% for post, tag_group in zipped_tags %}
         
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
@@ -69,11 +74,12 @@
 
 
 
+
    
 <br>
 <h2 class="monofur-font post">text</h2>
 {% if zipped_text %}
-    
+
     {% for post, tag_group in zipped_text %}
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
              
@@ -135,11 +141,17 @@
         <p>No posts have text that fit this search query.</p>
     </div>
 {% endif %}
+<<<<<<< HEAD
 
 <br>
 <h2 class="monofur-font post">title</h2>
 {% if zipped_title %}
 
+=======
+
+{% if zipped_title %}
+TITLE POSTS:
+>>>>>>> origin/master
     {% for post, tag_group in zipped_title %}
     
 
