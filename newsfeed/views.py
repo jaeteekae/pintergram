@@ -108,6 +108,8 @@ def create_post(request):
         image = request.POST['post-image']
     except MultiValueDictKeyError:
         image = request.FILES['post-image']
+    except MultiValueDictKeyError:  
+        image = None
 
     if not request.POST['post_title']:
         return HttpResponseRedirect('/newsfeed')
