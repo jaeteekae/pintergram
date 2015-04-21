@@ -197,6 +197,17 @@ h2.post {
 }
 
 
+.post-image-index {
+	width: 100%;
+	height: auto;
+
+
+}
+
+#suggested-button {
+	margin-right: -10px;
+	color: #fff;
+}
 </style>
 
 
@@ -248,6 +259,14 @@ h2.post {
 				
 				
 			</div>
+			<a href="{% url 'newsfeed:suggested' %}" style="text-decoration:none;">
+			<div class="create-icon" id="suggested-button">
+				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/suggested-icon.png' %}">
+				<p class="monofur-font" id="create-icon-txt">suggested for you</p>
+				
+				
+			</div>
+			</a>
 			
 			<div class="create-icon" id="logout-button">
 				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/logout-icon.png' %}">
@@ -378,6 +397,19 @@ $("#new-post-button").on("click", function() {
 
 
 });
+
+$("#main-content-stream").on("click", function() {
+
+  // State changes
+  if ($("body").hasClass("createIsOpen")) {
+  	$("body").toggleClass("createIsOpen");
+  }
+	
+
+
+
+});
+
 
 $("#logout-button").on("click", function() {
 	location.href = "{% url 'newsfeed:logout' %}";

@@ -2,9 +2,8 @@
 {% load staticfiles %}
 {% block newsfeed-content %}
 
-<h2 class="monofur-font post">#tags</h2>
+<h2 class="monofur-font post">#tags for "{{ query }}"</h2>
 {% if zipped_tags %}
-
     {% for post, tag_group in zipped_tags %}
         
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
@@ -72,13 +71,13 @@
 
    
 <br>
-<h2 class="monofur-font post">text</h2>
+<h2 class="monofur-font post">text for "{{ query }}"</h2>
 {% if zipped_text %}
 
     {% for post, tag_group in zipped_text %}
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
              
-            <h2 class="monofur-font post">posts</h2>
+            
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
@@ -133,12 +132,13 @@
     {% endfor %}
 {% else %}
     <div class="post pn text-align-center monofur-font">
+        <br>
         <p>No posts have text that fit this search query.</p>
     </div>
 {% endif %}
 
 <br>
-<h2 class="monofur-font post">title</h2>
+<h2 class="monofur-font post">titles for "{{ query }}"</h2>
 {% if zipped_title %}
 
     {% for post, tag_group in zipped_title %}
@@ -200,7 +200,9 @@
     {% endfor %}
 
 {% else %}
+
     <div class="post pn text-align-center monofur-font">
+        <br>
         <p>No posts have titles that fit this search query.</p>
     </div>
 {% endif %}

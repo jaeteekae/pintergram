@@ -263,7 +263,7 @@ def search(request):
     zipped_text = zip(used_posttext_list, text_tag_list)
     zipped_title = zip(used_posttitle_list, title_tag_list)
 
-    context = {'zipped_tags': zipped_tags, 'zipped_text': zipped_text, 'zipped_title': zipped_title, 'tagged_post_list': tagged_post_list, 'self_un': request.user}
+    context = {'query': tag_name, 'zipped_tags': zipped_tags, 'zipped_text': zipped_text, 'zipped_title': zipped_title, 'tagged_post_list': tagged_post_list, 'self_un': request.user}
 
     return render(request, 'newsfeed/search.html', context)
 
