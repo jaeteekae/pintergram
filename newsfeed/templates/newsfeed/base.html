@@ -155,6 +155,32 @@
 	border-bottom: solid 2px #fff;
 }
 
+
+.search-form{
+/*	width:500px;*/
+	/*margin:0 auto;*/
+}
+.search { 
+	padding:6px 15px 6px 30px;
+	margin:10px; 
+	background: url('./images/search.png') no-repeat 8px 6px; 
+	border-radius:15px; 
+	-moz-border-radius:15px; 
+	-webkit-border-radius:15px; 
+	margin-right: 0;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.8);
+	border: none;
+}
+.lighter-search {
+	/*width:95%;*/
+	/*height:50px;*/
+	display: inline-block;
+	float: right;
+	/*padding:40px 25px;*/
+}
+
+
 </style>
 
 
@@ -199,6 +225,7 @@
 
 		
 			<!-- <div class="create-icon" id="create-button" onclick="open_create()"> -->
+
 			<div class="create-icon" id="create-button">
 				<img class="nav-logo" id="create-icon-img" src="{% static 'newsfeed/img/create-icon.png' %}">
 				<p class="monofur-font" id="create-icon-txt">create somthing</p>
@@ -212,6 +239,12 @@
 				
 				
 			</div>
+			<div class="lighter-search">
+				<form class="search-form">
+					<span><input type="text" class="search rounded" placeholder="Search..."></span>
+				</form>
+			</div>
+
 			
 
 	
@@ -262,6 +295,17 @@
 								<div class="curr-user-username text-align-center">
 									<h4 id="current_user"></h4>
 								</div>
+								<br>
+								<div class="sidebar-stats">
+									<h4 class="text-align-center monofur-font">Upvotes | 999</h4>
+								</div>
+								<div class="sidebar-stats">
+									<h4 class="text-align-center monofur-font">Followers | 47</h4>
+								</div>
+								<div class="sidebar-stats">
+									<h4 class="text-align-center monofur-font">Following | 82</h4>
+								</div>
+
 							</div>
 
 
@@ -314,7 +358,8 @@ $("#logout-button").on("click", function() {
 });
 
 document.getElementById("current_user").innerText = "{{ self_un.username }}";
-document.getElementById("fullname").innerText = "{{ self_un.first_name }}";
+document.getElementById("fullname").innerText = "{{ self_un.first_name }} {{ self_un.last_name }}";
+
 </script>
 
 {% endblock %}
