@@ -194,13 +194,26 @@ def suggested(request):
     for top_tag in top_tags:
         if (i < 5):
             used_tags = Tag.objects.filter(tag=top_tag)
+            used_text = Post.objects.filter(post_text__contains=top_tag)
+            used_title = Post.objects.filter(post_title__contains=top_tag)
             tagged_post_list = []
             tag_list = []
             for tag in used_tags:
                 tagged_post_list.insert(0, tag.post_id)
             for post in tagged_post_list:
                 tag_group = Tag.objects.filter(post_id=post)
-                tag_list.append(tag_group)
+                tag_list.insert(0, tag_group)
+
+            for post in used_text:
+                tagged_post_list.insert(0, post)
+                tag_group = Tag.objects.filter(post_id=post)
+                tag_list.insert(0, tag_group)
+
+            for post in used_title:
+                tagged_post_list.insert(0, post)
+                tag_group = Tag.objects.filter(post_id=post)
+                tag_list.insert(0, tag_group)
+
             zipped_post = zip(tagged_post_list, tag_list)
             post_groups.append(zipped_post)
             i = i + 1
