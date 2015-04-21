@@ -369,7 +369,13 @@ function addPostIndex(data) {
             // recentChild.insertBefore(newPost, null);
             // console.log(recentChild);
 
-            stream.insertBefore(newPost, recentChild);
+            var currentId = -1;
+            if ($("#main-content-stream div").first().data("postid")) {
+                currentId = $("#main-content-stream div").first().data("postid").id
+            }
+            if (data.id > currentId) {
+                stream.insertBefore(newPost, recentChild);
+            }
 
         },
         cache: false, dataType: "json"});
