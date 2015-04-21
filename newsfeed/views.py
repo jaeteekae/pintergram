@@ -318,17 +318,6 @@ class PostList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
         # return HttpResponse('')
-        return HttpResponseRedirect('/login')
-
-    def post(self, request, format=None):
-        print 'entered here'
-        print '%' * 10
-        #print request.DATA
-        print request.FILES
-        print '%' * 10
-        if serializer.is_valid():
-            print 'here'
-            serializer.save()
         return HttpResponseRedirect('/newsfeed')
 
 
