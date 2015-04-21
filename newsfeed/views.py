@@ -187,7 +187,7 @@ def tags_of_a_post(request, post_id):
     return HttpResponse(tags, content_type='application/json')
 
 def suggested(request):
-    top_tags = Preferences.objects.filter(owner=request.user).order_by('num')
+    top_tags = Preferences.objects.filter(owner=request.user).order_by('-num')
     post_groups = []
 
     i = 0
@@ -204,8 +204,14 @@ def suggested(request):
             zipped_post = zip(tagged_post_list, tag_list)
             post_groups.append(zipped_post)
             i = i + 1
-    context = {'post_groups': post_groups, 'self_un': request.user}
+    zipped_groups = zip(post_groups, top_tags)
+    context = {'zipped_groups': zipped_groups, 'self_un': request.user}
     return render(request, 'newsfeed/suggested.html', context)
+    # JSONSerializer = serializers.get_serializer("json")
+    # json_serializer = JSONSerializer()
+    # json_serializer.serialize(post_groups)
+    # json = json_serializer.getvalue()
+    # return HttpResponse(top_tags, content_type='text')
 
 def search(request):
     tag_name = request.POST['search_input']

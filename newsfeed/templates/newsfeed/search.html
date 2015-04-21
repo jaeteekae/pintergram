@@ -5,11 +5,7 @@
 <h2 class="monofur-font post">#tags</h2>
 {% if zipped_tags %}
 
-<<<<<<< HEAD
-=======
-{% if zipped_tags %}
-TAGS POSTS:
->>>>>>> origin/master
+TAGS POSTS:=
     {% for post, tag_group in zipped_tags %}
         
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
@@ -17,7 +13,7 @@ TAGS POSTS:
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -87,7 +83,7 @@ TAGS POSTS:
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -141,17 +137,11 @@ TAGS POSTS:
         <p>No posts have text that fit this search query.</p>
     </div>
 {% endif %}
-<<<<<<< HEAD
 
 <br>
 <h2 class="monofur-font post">title</h2>
 {% if zipped_title %}
 
-=======
-
-{% if zipped_title %}
-TITLE POSTS:
->>>>>>> origin/master
     {% for post, tag_group in zipped_title %}
     
 
@@ -160,7 +150,7 @@ TITLE POSTS:
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
