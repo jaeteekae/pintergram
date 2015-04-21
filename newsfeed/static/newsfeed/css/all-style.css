@@ -8,6 +8,16 @@ Website: http://blacktie.co
 Premium: http://www.gridgum.com
 */
 
+input, textarea {
+  box-shadow: none !important;
+  outline: none !important;
+  outline-style:none !important;
+box-shadow:none !important;
+border-color:transparent !important;
+  
+}
+
+
 .bg-light-mint {
   background-color: #7bd9c6 !important;
 }
