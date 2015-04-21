@@ -14,7 +14,7 @@
 	        </div>
 	        <!--<img class="post-image"src="https://placekitten.com/g/400/200">-->
 	        {% if post.image_path %}
-	        <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+	        <img class="post-image"src="https://pintergram-static-media-content.s3.amazonaws.com/media/{{ post.image_path }}" width="200" height="100"/>
 	        {% endif %}
 	        <div class="title">
 	        	{{ post.post_title }}
@@ -22,6 +22,7 @@
 	        
 	        <div class="caption">
 	        	{{ post.post_text }}
+	        	{{ post.image_path }}
 	        </div>
 	        {% if tags %}
 	        <div class="caption">
