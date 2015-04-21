@@ -88,7 +88,7 @@
 
 
 <!-- <div class="new-post pn"> -->
-	<form enctype="multipart/form-data" id="post_form"> <!-- action="create_post"> -->
+	<form enctype="multipart/form-data" id="post_form" method="post" action="create_post">
 	
 <!-- 	
 		<div class="quarter" >
@@ -100,12 +100,14 @@
         <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
 	    <input type="text" name="post_title" id="post_title" onfocus="if(this.value == 'Title your creation') { this.value = ''; }" value="Title your creation" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
 	    <input type="text" name="post_text"  id="post_text"onfocus="if(this.value == 'Caption') { this.value = ''; }" value="Caption"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
-    </form>
-    <form enctype="multipart/form-data" id="post_tags"> <!-- action="post_tag" method="post"> -->
-        {% csrf_token %}
-		<input type="text" name="tags"       id="tags"    onfocus="if(this.value == 'Tags (separate by commas)') { this.value = ''; }" value="Tags (separate by commas)"     placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
         <!-- <input type="submit" value="create post" class="new-post-button"/> -->
-        <button onclick="SubForm()" class="new-post-button" id="new-post-button">create post</button>
+        <!-- <input type="submit" value="create post" class="new-post-button"/> -->
+    <!-- </form> -->
+    <!-- <form enctype="multipart/form-data" id="post_tags" action="post_tag" method="post"> -->
+        {% csrf_token %}
+		<input type="text" name="tags"       id="tags"    onfocus="if(this.value == 'Tags (separate by commas)') { this.value = ''; }" placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
+        <input type="submit" value="create post" class="new-post-button"/>
+        <!-- <button onclick="SubForm()" class="new-post-button" id="new-post-button">create post</button> -->
         
 
 		
@@ -122,15 +124,22 @@
 function SubForm (){
 $(function() {
     $('#post_tags').on('submit', function(e) {
-        $.post('posts/', $('#post_form').serialize(), function (data) {
-            // console.log("success");
+        $.post('create_post', $('#post_form').serialize(), function (data) {
+            // console.log($('#post_form').serialize());
             $.ajax({
                 url:'post_tag',
                 type:'post',
                 enctype: "multipart/form-data",
                 data:$('#post_tags').serialize(),
                 success:function(){
-                    // alert("worked");
+                    // alert
+                    // $('#post_form').trigger("reset");
+                    // $('#post_tags').trigger("reset");
+                    setTimeout(
+                      function() 
+                      {
+                         location.reload();
+                      }, 0001);
                 }
             });
             // This is executed when the call to mail.php was succesful.
@@ -208,6 +217,7 @@ function doAjax() {
 function addPostIndex(data) {
     // console.log("in addPostIndex with id = "+data.id);
     if (data) {
+        // var tags = null;
         $.ajax({ url: "tags_of_a_post/" + data.id, success: function(returned_tags) {
             // console.log(returned_tags);
             var tags;
@@ -276,8 +286,8 @@ function addPostIndex(data) {
             if (data.image_path) {
                 var img = document.createElement("img");
                 img.className = "post-image";
-                img.src = "/media/"+data.image_path;
-                img.style.height = "100";
+                img.src = data.image_path;
+                img.style.height = "200";
                 img.style.width = "100";
                 link.appendChild(img);
 

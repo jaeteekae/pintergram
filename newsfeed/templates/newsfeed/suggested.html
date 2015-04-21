@@ -2,16 +2,21 @@
 {% load staticfiles %}
 {% block newsfeed-content %}
 
+<h2 class="monofur-font post">suggested</h2>
+{% if zipped_groups %}
+{% for group, tag in zipped_groups %}
 
-{% if tagged_post_list %}
-    {% for post, tag_group in zipped_lists %}
-    
+{% if group %}
+TAG: {{ tag }}
+
+    {% for post, tag_group in group %}
+        
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
             
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -60,15 +65,13 @@
     
 
     {% endfor %}
-    
+{% endif %}
+{% endfor %}
 {% else %}
     <div class="post pn text-align-center monofur-font">
-        <p>No more posts are available.</p>
+        <p>No posts have tags that fit this search query.</p>
     </div>
-    
 {% endif %}
-
-<!-- PUT IT BACK HERE -->
 
 {% endblock %}
 

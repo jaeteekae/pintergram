@@ -4,6 +4,11 @@
 
 <h2 class="monofur-font post">#tags for "{{ query }}"</h2>
 {% if zipped_tags %}
+<<<<<<< HEAD
+=======
+
+TAGS POSTS:=
+>>>>>>> origin/master
     {% for post, tag_group in zipped_tags %}
         
         <div class="post pn" data-postid='{"id":"{{ post.id }}"}'>
@@ -11,7 +16,7 @@
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -20,7 +25,7 @@
                 <img class="post-image"src="https://placekitten.com/g/400/200">
                 -->
                 {% if post.image_path %}
-                <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+                <img class="post-image"src="https://pintergram-static-media-content.s3.amazonaws.com/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
             </a>
 
@@ -81,7 +86,7 @@
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -90,7 +95,7 @@
                 <img class="post-image"src="https://placekitten.com/g/400/200">
                 -->
                 {% if post.image_path %}
-                <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+                <img class="post-image"src="https://pintergram-static-media-content.s3.amazonaws.com/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
             </a>
 
@@ -137,11 +142,9 @@
     </div>
 {% endif %}
 
-
 <br>
 <h2 class="monofur-font post">titles for "{{ query }}"</h2>
 {% if zipped_title %}
-
 
     {% for post, tag_group in zipped_title %}
     
@@ -151,7 +154,7 @@
             <div class="credit" >
                 
                 <img class="post-avatar" src="{% static 'newsfeed/img/ui-danro.jpg' %}">
-                <div class="username monofur-font">{{ post.user_id }}</div>
+                <div class="username monofur-font">{{ post.owner }}</div>
                 <div class="timestamp">{{ post.timestamp }}</div>
             </div>
 
@@ -160,7 +163,7 @@
                 <img class="post-image"src="https://placekitten.com/g/400/200">
                 -->
                 {% if post.image_path %}
-                <img class="post-image"src="/media/{{ post.image_path }}" width="200" height="100"/>
+                <img class="post-image"src="https://pintergram-static-media-content.s3.amazonaws.com/media/{{ post.image_path }}" width="200" height="100"/>
                 {% endif %}
             </a>
 
