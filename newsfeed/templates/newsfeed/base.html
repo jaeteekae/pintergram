@@ -379,6 +379,19 @@ $("#new-post-button").on("click", function() {
 
 });
 
+$("#main-content-stream").on("click", function() {
+
+  // State changes
+  if ($("body").hasClass("createIsOpen")) {
+  	$("body").toggleClass("createIsOpen");
+  }
+	
+
+
+
+});
+
+
 $("#logout-button").on("click", function() {
 	location.href = "{% url 'newsfeed:logout' %}";
   	
