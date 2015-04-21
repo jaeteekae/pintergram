@@ -262,7 +262,8 @@ function addPostIndex(data) {
             var year = d.getFullYear();
             var mins = d.getMinutes();
             var a_p = " a.m."
-            if (h > 12) {h = h - 12; a_p = " p.m.";}
+            if (h >= 12) {a_p = " p.m.";}
+            if (h > 12) {h = h - 12;}
             if (h == 0) {h = 12;}
             h = h.toString();
             day = day.toString();
