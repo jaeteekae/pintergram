@@ -88,7 +88,7 @@
 
 
 <!-- <div class="new-post pn"> -->
-	<form action="create_post" enctype="multipart/form-data" id="post_form" method="post"> <!-- action="posts/"> -->
+	<form enctype="multipart/form-data" id="post_form" method="post" action="create_post">
 	
 <!-- 	
 		<div class="quarter" >
@@ -100,14 +100,14 @@
         <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
 	    <input type="text" name="post_title" id="post_title" onfocus="if(this.value == 'Title your creation') { this.value = ''; }" value="Title your creation" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
 	    <input type="text" name="post_text"  id="post_text"onfocus="if(this.value == 'Caption') { this.value = ''; }" value="Caption"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
-        <input type="submit" value="create post" class="new-post-button"/>
         <!-- <input type="submit" value="create post" class="new-post-button"/> -->
-    </form>
-    <form enctype="multipart/form-data" id="post_tags"> <!-- action="post_tag" method="post"> -->
+        <!-- <input type="submit" value="create post" class="new-post-button"/> -->
+    <!-- </form> -->
+    <!-- <form enctype="multipart/form-data" id="post_tags" action="post_tag" method="post"> -->
         {% csrf_token %}
 		<input type="text" name="tags"       id="tags"    onfocus="if(this.value == 'Tags (separate by commas)') { this.value = ''; }" placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
-        <!-- <input type="submit" value="create post" class="new-post-button"/> -->
-        <button onclick="SubForm()" class="new-post-button" id="new-post-button">create post</button>
+        <input type="submit" value="create post" class="new-post-button"/>
+        <!-- <button onclick="SubForm()" class="new-post-button" id="new-post-button">create post</button> -->
         
 
 		
@@ -124,8 +124,8 @@
 function SubForm (){
 $(function() {
     $('#post_tags').on('submit', function(e) {
-        $.post('posts/', $('#post_form').serialize(), function (data) {
-            console.log($('#post_form').serialize());
+        $.post('create_post', $('#post_form').serialize(), function (data) {
+            // console.log($('#post_form').serialize());
             $.ajax({
                 url:'post_tag',
                 type:'post',

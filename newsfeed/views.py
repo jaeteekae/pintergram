@@ -123,7 +123,22 @@ def create_post(request):
         if image:
             new_post.image_path = request.FILES['post-image']
         new_post.save()
+        tag_string = request.POST['tags']
+        if tag_string:
+            tag_list = [x.strip() for x in tag_string.split(',')]
+            # tag_list = tag_string.split(',')
+            for x in tag_list:
+                new_tag = Tag(tag=x, post_id=new_post)
+                new_tag.save()
+                old_pref = Preferences.objects.filter(owner=request.user).filter(tag=x)
+                if old_pref:
+                    old_pref.num = old_pref.num + 1
+                    old_pref.save()
+                else:
+                    new_pref = Preferences(owner=request.user, tag=x, num=1)
+                    new_pref.save()
         return HttpResponseRedirect('/newsfeed')
+        # return HttpResponse('')
 
 # @cache_page(60 * 10)
 def single_post(request, post_id):
