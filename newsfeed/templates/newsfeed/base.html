@@ -161,15 +161,16 @@
 	/*margin:0 auto;*/
 }
 .search { 
-	padding:6px 15px 6px 30px;
+	padding:6px 15px 6px 50px;
 	margin:10px; 
-	background: url('./images/search.png') no-repeat 8px 6px; 
+	repeat 8px 6px; 
 	border-radius:15px; 
 	-moz-border-radius:15px; 
 	-webkit-border-radius:15px; 
 	margin-right: 0;
 	height: 40px;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.6);
+	background-image: url("{% static 'newsfeed/img/search-icon.png' %}") no-repeat 8px 6px;
 	border: none;
 }
 .lighter-search {
@@ -177,7 +178,22 @@
 	/*height:50px;*/
 	display: inline-block;
 	float: right;
-	/*padding:40px 25px;*/
+	background: url("{% static 'newsfeed/img/search-icon.png' %}") no-repeat 8px 6px;
+	
+	color:#797979;
+}
+
+.tags a {
+	color: #3b8473;
+}
+
+.search-icon {
+	height: 40px;
+	margin-right: -60px;
+}
+
+h2.post {
+  background:none !important;
 }
 
 
@@ -240,8 +256,12 @@
 				
 			</div>
 			<div class="lighter-search">
-				<form class="search-form">
-					<span><input type="text" class="search rounded" placeholder="Search..."></span>
+
+				<form class="search-form" id="search_bar" method="post" action="{% url 'newsfeed:search' %}">{% csrf_token %}
+					<span>
+						<img class="search-icon" src="{% static 'newsfeed/img/search-icon.png' %}">
+						<input type="text" class="search rounded" id="search_input" name="search_input" placeholder="Search..."></span>
+
 				</form>
 			</div>
 
@@ -350,15 +370,45 @@ $("#create-button").on("click", function() {
 
 });
 
-$("#logout-button").on("click", function() {
-	location.href = "{% url 'newsfeed:logout' %}";
-  	
-  
+$("#new-post-button").on("click", function() {
+
+  // State changes
+	$("body").toggleClass("createIsOpen");
+
+
 
 });
 
-document.getElementById("current_user").innerText = "{{ self_un.username }}";
+$("#logout-button").on("click", function() {
+	location.href = "{% url 'newsfeed:logout' %}";
+  	
+});
+
+$("#search_input").keypress(function (e) {
+  if (e.which == 13) {
+  	// console.log($('#search_bar').serialize());
+  	// alert("working");
+    $("#search_bar").submit();
+
+    // $.ajax({
+    //             url:"{% url 'newsfeed:search' %}",
+    //             type:'post',
+    //             enctype: "multipart/form-data",
+    //             data:$('#search_bar').serialize(),
+    //             success:function(){
+    //                 // alert("worked");
+    //             }
+    //  });
+
+    // console.log($('#search_input').val());
+    // location.href = "search/" + $('#search_input').val();
+    // e.preventDefault();
+  }
+});
+
+$("#current_user").innerText = "{{ self_un.username }}";
 document.getElementById("fullname").innerText = "{{ self_un.first_name }} {{ self_un.last_name }}";
+document.getElementById("current_user").innerText = "{{ self_un.username }}";
 
 </script>
 
