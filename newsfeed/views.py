@@ -107,14 +107,12 @@ def create_post(request):
     try:
         image = request.POST['post-image']
     except MultiValueDictKeyError:
-        image = None
+        image = request.FILES['post-image']
 
     if not request.POST['post_title']:
         return HttpResponseRedirect('/newsfeed')
-        # return HttpResponseRedirect('new_post')
     elif not request.POST['post_text'] and not image:
         return HttpResponseRedirect('/newsfeed')
-        # return HttpResponseRedirect('new_post')
     else:
         new_post = Post(post_text=request.POST['post_text'], 
                         post_title=request.POST['post_title'], 
@@ -122,16 +120,7 @@ def create_post(request):
                         owner=request.user)
         if image:
             new_post.image_path = request.FILES['post-image']
-        else:
-            new_post.image_path = image
         new_post.save()
-        tag_string = request.POST['tags']
-        if tag_string:
-            tag_list = [x.strip() for x in tag_string.split(',')]
-            # tag_list = tag_string.split(',')
-            for x in tag_list:
-                new_tag = Tag(tag=x, post_id=new_post)
-                new_tag.save()
         return HttpResponseRedirect('/newsfeed')
 
 # @cache_page(60 * 10)
