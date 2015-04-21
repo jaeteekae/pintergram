@@ -3,6 +3,9 @@
 {% block newsfeed-content %}
 
 
+
+
+
 {% if latest_post_list %}
     {% for post, tag_group in zipped_lists %}
     
@@ -95,14 +98,14 @@
 		{% csrf_token %}
 
         <input type="file" name="post-image" id="post-image" accept="image/*" class="floating-mod-input">
-	    <input type="text" name="post_title" id="post_title" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
-	    <input type="text" name="post_text"  id="post_text"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
+	    <input type="text" name="post_title" id="post_title" onfocus="if(this.value == 'Title your creation') { this.value = ''; }" value="Title your creation" placeholder="Title your creation" class="new-post-input title floating-mod-input"/>
+	    <input type="text" name="post_text"  id="post_text"onfocus="if(this.value == 'Caption') { this.value = ''; }" value="Caption"  placeholder="Caption" class="new-post-input text floating-mod-input"/>
     </form>
     <form enctype="multipart/form-data" id="post_tags"> <!-- action="post_tag" method="post"> -->
         {% csrf_token %}
-		<input type="text" name="tags"       id="tags"       placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
+		<input type="text" name="tags"       id="tags"    onfocus="if(this.value == 'Tags (separate by commas)') { this.value = ''; }" value="Tags (separate by commas)"     placeholder="Tags (separate by commas)" class="new-post-input text floating-mod-input"/> <!-- tags separated by commas -->
         <!-- <input type="submit" value="create post" class="new-post-button"/> -->
-        <button onclick="SubForm()" class="new-post-button">create post</button>
+        <button onclick="SubForm()" class="new-post-button" id="new-post-button">create post</button>
         
 
 		
@@ -301,22 +304,7 @@ function addPostIndex(data) {
             caption.appendChild(captionText);
             newPost.appendChild(caption);
     ///////
-            var post_tags = document.createElement("div");
-            post_tags.className = "tags";
-            if (tags) {
-                // var tag_string = "";
-                for (i = 0; tags[i]; i++) {
-                    var tagLink = document.createElement("a");
-                    tagLink.className = "tag-link";
-                    var tagLinkText = document.createTextNode(tags[i].fields.tag);
-                    tagLink.appendChild(tagLinkText);
-                    tagLink.href = "tag/" + tags[i].pk;
-                    post_tags.appendChild(tagLink);
-                    // tag_string += "#" + tags[i].fields.tag + " ";
-                }
-                newPost.appendChild(post_tags);
-                // console.log(tag_string);
-            }
+
             // var tagsText = document.createTextNode("Tags: " + tag_string);
             // if (tags) {
             //     post_tags.appendChild(tagsText);
@@ -333,6 +321,31 @@ function addPostIndex(data) {
             upvotes.className = "upvotes";
             var upvotesText = document.createTextNode("9,000 upvotes      ");
             upvotes.appendChild(upvotesText);
+
+            var post_tags = document.createElement("div");
+            post_tags.className = "tags";
+            if (tags) {
+                // var tag_string = "";
+                var tagIntroText = document.createTextNode(" | tags : ");
+                post_tags.appendChild(tagIntroText);
+                for (i = 0; tags[i]; i++) {
+                    var tagLink = document.createElement("a");
+                    tagLink.className = "tag-link";
+                    var tagLinkText = document.createTextNode(tags[i].fields.tag); 
+                    if (tags[i+1]) {
+                        var tagLinkText = document.createTextNode(tags[i].fields.tag+", ");
+                    }
+                    
+                    
+                    tagLink.appendChild(tagLinkText);
+                    tagLink.href = "tag/" + tags[i].pk;
+                    post_tags.appendChild(tagLink);
+                    // tag_string += "#" + tags[i].fields.tag + " ";
+                }
+                upvotes.appendChild(post_tags);
+                // console.log(tag_string);
+            }
+
 
             var upvoteButton = document.createElement("div");
             upvoteButton.className = "upvote-button";
