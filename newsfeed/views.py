@@ -132,8 +132,8 @@ def create_post(request):
                 new_tag.save()
                 old_pref = Preferences.objects.filter(owner=request.user).filter(tag=x)
                 if old_pref:
-                    old_pref.num = old_pref.num + 1
-                    old_pref.save()
+                    old_pref[0].num = old_pref[0].num + 1
+                    old_pref[0].save()
                 else:
                     new_pref = Preferences(owner=request.user, tag=x, num=1)
                     new_pref.save()
