@@ -5,7 +5,7 @@ https://pintergram.herokuapp.com/
 
 NOTE: auth README.md can be found in Assignments/Auth
 
-No Python packages were used.
+No Python packages were used
 
 Dependencies:
 * Django==1.7.4
